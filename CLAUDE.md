@@ -2,7 +2,7 @@
 
 ## What is Flxify?
 
-Flxify (flxify.dev) is a web-based developer text utility tool. It provides a syntax-highlighted code editor with 80 executable scripts accessible via a command palette (Cmd/Ctrl+B). Users paste text, run a script, and get transformed output. Think "Swiss Army knife for text transformations" — JSON formatting, Base64 encoding, hashing, case conversion, sorting, and more.
+Flxify (flxify.dev) is a web-based developer text utility tool. It provides a syntax-highlighted code editor with 107 executable scripts accessible via a command palette (Cmd/Ctrl+B). Users paste text, run a script, and get transformed output. Think "Swiss Army knife for text transformations" — JSON formatting, Base64 encoding, hashing, case conversion, sorting, and more.
 
 ## Key Architecture Decisions
 
@@ -10,22 +10,22 @@ Flxify (flxify.dev) is a web-based developer text utility tool. It provides a sy
 The app is pure HTML/CSS/JS. CodeMirror 6 is the only external dependency, loaded from esm.sh CDN. A Node.js build script (`build_app.js`) bundles all scripts and lib modules into a single self-contained `app.js`. This ensures the app works offline, from `file://` URLs, and with no web server required (except for CodeMirror CDN on first load).
 
 ### All scripts and modules are inlined in app.js
-- **80 scripts total** are embedded inline in `app.js` inside the `SCRIPT_SOURCES[]` array as template literal strings. This includes 72 original scripts + 8 Flxify-added scripts.
-- **7 lib modules** are inlined via `registerModule()` calls at the top of `app.js`.
-- The source-of-truth for the 8 Flxify scripts lives in `web-scripts/*.js` and for lib modules in `web-scripts/lib/`. After editing these files, run `node build_app.js` to regenerate `app.js`.
+- **107 scripts** are auto-discovered from `scripts/*.js` and inlined as pre-compiled functions in `app.js`.
+- **7 lib modules** are auto-discovered from `scripts/lib/*.js` and inlined as direct executable code in `app.js`.
+- The source-of-truth for all scripts lives in `scripts/` and for lib modules in `scripts/lib/`. After editing these files, run `node build_app.js` to regenerate `app.js`.
 
 ### Module system mimics CommonJS
-Scripts can `require('@flxify/moduleName')` to import bundled libraries. The shim wraps each module in a CommonJS sandbox (`module.exports`). The 7 lib modules are third-party JS files whose source lives in `web-scripts/lib/` but are inlined into `app.js` at build time.
+Scripts can `require('@flxify/moduleName')` to import bundled libraries. The shim wraps each module in a CommonJS sandbox (`module.exports`). The 7 lib modules are third-party JS files whose source lives in `scripts/lib/` but are inlined into `app.js` at build time.
 
 ### BoopState is the script API
 Every script's `main(state)` function receives a `BoopState` instance. The key insight is the smart `state.text` property: it reads/writes `state.selection` if text is selected, otherwise `state.fullText`. This lets most scripts be one-liners (`state.text = transform(state.text)`) that automatically handle both selection and full-document modes.
 
-### Script execution uses `new Function()`
-Scripts are executed via `new Function('require', 'state', scriptSource + '\nif (typeof main === "function") main(state);')`. This provides scoped execution with `require` injected. Results are read back from the BoopState instance and applied to the CodeMirror editor via `dispatch()`.
+### Scripts are pre-compiled at build time (CSP-compatible)
+Scripts are inlined as real JavaScript functions at build time — no `new Function()` or `eval()` in the runtime. Each script becomes a `scripts.push({ ..., execute: function(require, state) { ... } })` call. This makes the app compatible with strict Content Security Policy headers that disallow `unsafe-eval`.
 
 ## How to Add a New Script
 
-1. Create a `.js` file in `web-scripts/` following this format:
+1. Create a `.js` file in `scripts/` following this format:
 ```javascript
 /**
   {
@@ -43,26 +43,24 @@ function main(state) {
 }
 ```
 
-2. Add the filename to the `webScriptFiles` array in `build_app.js`
-3. Run `node build_app.js` to regenerate `app.js`
-4. The script will be available in the command palette on next page load
+2. Run `node build_app.js` to regenerate `app.js` (scripts are auto-discovered, no need to edit build_app.js)
+3. The script will be available in the command palette on next page load
 
 ## How to Add a New Library Module
 
-1. Place the CommonJS-compatible `.js` file in `web-scripts/lib/`
-2. Add the module entry (`{ file: 'name.js', name: 'name' }`) to the `libFiles` array in `build_app.js`
-3. Run `node build_app.js` to regenerate `app.js`
-4. Scripts can then use `require('@flxify/moduleName')`
+1. Place the CommonJS-compatible `.js` file in `scripts/lib/`
+2. Run `node build_app.js` to regenerate `app.js` (lib modules are auto-discovered, no need to edit build_app.js)
+3. Scripts can then use `require('@flxify/moduleName')`
 
 ## Critical Files — Do Not Break
 
 | File | Why it matters |
 |------|----------------|
-| `app.js` (generated) | Self-contained bundle — module system, all 80 scripts, BoopState, executor. **Do not edit directly; edit sources and run `node build_app.js`** |
+| `app.js` (generated) | Self-contained bundle — module system, all 107 scripts, BoopState, executor. **Do not edit directly; edit sources and run `node build_app.js`** |
 | `build_app.js` | Generates app.js. If broken, can't rebuild. Contains the app's runtime code (BoopState, executor, palette, etc.) as a template |
 | `index.html` module script | CodeMirror 6 setup. Exposes `window.cmEditor` which app.js depends on |
-| `web-scripts/*.js` | Source of truth for the 8 Flxify scripts |
-| `web-scripts/lib/` | Source of truth for the 7 library modules. All scripts using `require()` depend on these |
+| `scripts/*.js` | Source of truth for all 107 scripts |
+| `scripts/lib/` | Source of truth for the 7 library modules. All scripts using `require()` depend on these |
 
 ## Common Patterns
 
@@ -103,11 +101,11 @@ function main(state) {
 
 1. **NEVER use `fetch()` for loading scripts/modules at runtime.** Browsers block `fetch()` on `file://` URLs due to CORS policy. The app was originally designed to fetch web-scripts and lib modules at runtime, but this completely broke when opening `index.html` directly from the filesystem. The fix was to inline everything into `app.js` at build time via `build_app.js`. Always bundle — never rely on runtime `fetch()` for core functionality.
 
-2. **`app.js` is a generated file — do not edit directly.** The build script `build_app.js` generates `app.js` by reading sources from `web-scripts/` and `web-scripts/lib/`, then embedding them as template literals. Edit the source files, then run `node build_app.js`. If you edit `app.js` directly, changes will be lost on next build. The build script also contains the app's runtime code (BoopState, executor, palette, etc.) as a template string.
+2. **`app.js` is a generated file — do not edit directly.** The build script `build_app.js` generates `app.js` by reading sources from `scripts/` and `scripts/lib/`, then inlining them as real JavaScript code. Edit the source files, then run `node build_app.js`. If you edit `app.js` directly, changes will be lost on next build. The build script also contains the app's runtime code (BoopState, executor, palette, etc.) as a template string.
 
-3. **Lib modules must be registered before scripts are parsed.** In the generated `app.js`, `registerModule()` calls come before `SCRIPT_SOURCES[]`. The `parseScripts()` function is synchronous. Changing this order will break scripts that use `require()`.
+3. **Lib modules are inlined before scripts in the generated output.** In `app.js`, lib module IIFEs come before `scripts.push()` calls. This ensures modules are available when scripts that use `require()` are loaded.
 
-4. **Embedded scripts use escaped characters.** Scripts inside `SCRIPT_SOURCES[]` template literals have `\\n`, `\\t`, `\\/` etc. External scripts in `web-scripts/` use normal unescaped characters. The `build_app.js` escaper handles this conversion (`escapeForTemplateLiteral()`). Never copy-paste between them without adjusting escaping.
+4. **Scripts are inlined as plain JavaScript — no escaping needed.** Script source files in `scripts/` are normal `.js` files. The build script reads them and inserts them directly into `app.js` as function bodies. No template literal escaping or `new Function()` is involved.
 
 5. **`lodash.boop` module name has a dot.** The filename is `lodash.boop.js` and scripts reference it as `require('@flxify/lodash.boop')`. The require shim strips `@flxify/` and `.js` to get the key name `lodash.boop`.
 
@@ -115,20 +113,22 @@ function main(state) {
 
 7. **CodeMirror is exposed globally.** The CM6 editor is set up in a `<script type="module">` block in index.html and exposed as `window.cmEditor`. The app.js file (loaded as a regular `defer` script) accesses it through this global. Module scripts with CDN imports may load after `defer` scripts — CodeMirror fires a `cm-ready` event to signal readiness.
 
-8. **`<script type="module">` vs `<script defer>` timing.** Module scripts are deferred by spec but their execution is delayed by network imports (esm.sh CDN). A `defer` script may execute before the module finishes loading. The app handles this by having CodeMirror set `window.cmReady = true` and dispatch a `cm-ready` event. However, `app.js` currently doesn't wait for this event — it works because `parseScripts()` is synchronous and the palette is only opened by user interaction (which happens after both scripts have loaded).
+8. **`<script type="module">` vs `<script defer>` timing.** Module scripts are deferred by spec but their execution is delayed by network imports (esm.sh CDN). A `defer` script may execute before the module finishes loading. The app handles this by having CodeMirror set `window.cmReady = true` and dispatch a `cm-ready` event. However, `app.js` currently doesn't wait for this event — it works because script registration is synchronous and the palette is only opened by user interaction (which happens after both scripts have loaded).
 
 9. **Fuzzy search weights.** The command palette search scores: name (0.9), tags (0.6), description (0.2). This means good `tags` metadata is important for discoverability.
 
-10. **The `Scripts/` folder is not auto-loaded.** There are 27 community scripts in the `Scripts/` directory, but they are not referenced by the app. They could be integrated by adding them to `webScriptFiles` in `build_app.js`.
+10. **Scripts run in non-strict mode.** The generated `app.js` IIFE does not use `'use strict'` because some scripts use implicit globals (e.g., `buf = ""` without `var`). Do not add `'use strict'` to the IIFE or scripts may break.
 
 11. **CodeMirror needs internet on first load.** CM6 is loaded from esm.sh CDN. The app works offline after the browser caches the modules, but the first load requires internet. If full offline support is needed, the CM6 modules would need to be vendored locally.
+
+12. **Scripts and lib modules are auto-discovered.** The build script reads all `.js` files from `scripts/` and `scripts/lib/` automatically. No hardcoded file lists — just drop a file in the right directory and rebuild.
 
 ## Development Workflow
 
 - **To modify app runtime code:** Edit the template string inside `build_app.js`, then run `node build_app.js`
 - **To modify the editor/UI:** Edit `index.html` or `style.css` directly
-- **To add/edit scripts:** Edit files in `web-scripts/`, add filename to `webScriptFiles` in `build_app.js`, then run `node build_app.js`
-- **To add/edit lib modules:** Edit files in `web-scripts/lib/`, add entry to `libFiles` in `build_app.js`, then run `node build_app.js`
+- **To add/edit scripts:** Add or edit `.js` files in `scripts/`, then run `node build_app.js` (auto-discovered)
+- **To add/edit lib modules:** Add or edit `.js` files in `scripts/lib/`, then run `node build_app.js` (auto-discovered)
 - **To test:** Open `index.html` directly in a browser (works with `file://`)
 - **To validate JS syntax:** `node --check app.js`
 - **To rebuild app.js:** `node build_app.js` (reads all sources, generates self-contained bundle)
