@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flxify</title>
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div id="top-bar">
+    <img src="logo.png" alt="Flxify" class="app-logo">
+    <span class="app-title">Flxify</span>
+  </div>
+
+  <div id="editor-wrapper">
+    <div id="editor"></div>
+    <div id="editor-hint">Press <kbd id="hint-shortcut-key">Cmd+B</kbd> to open the command palette</div>
+  </div>
+
+  <div id="command-palette" class="hidden">
+    <div id="palette-container">
+      <input id="search" type="text" placeholder="Type a command..." autocomplete="off" spellcheck="false">
+      <ul id="results"></ul>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <div id="status-bar">
+    <span id="credit">
+      Crafted with <span class="heart">&hearts;</span> in Berlin by Ahmed El Taweel
+      <a href="https://x.com/iAhmedeltaweel" target="_blank" rel="noopener" class="credit-link" title="Twitter/X">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+      </a>
+      <a href="https://linkedin.com/in/ahmedeltaweel" target="_blank" rel="noopener" class="credit-link" title="LinkedIn">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+      </a>
+    </span>
+    <span id="shortcut-hint"></span>
+  </div>
+
+  <script type="module">
+    import { EditorView, keymap } from 'https://esm.sh/@codemirror/view@6';
+    import { EditorState, Compartment } from 'https://esm.sh/@codemirror/state@6';
+    import { defaultKeymap, history, historyKeymap } from 'https://esm.sh/@codemirror/commands@6';
+    import { syntaxHighlighting, defaultHighlightStyle, bracketMatching } from 'https://esm.sh/@codemirror/language@6';
+    import { oneDark } from 'https://esm.sh/@codemirror/theme-one-dark@6';
+    import { json } from 'https://esm.sh/@codemirror/lang-json@6';
+    import { javascript } from 'https://esm.sh/@codemirror/lang-javascript@6';
+    import { html } from 'https://esm.sh/@codemirror/lang-html@6';
+    import { css } from 'https://esm.sh/@codemirror/lang-css@6';
+    import { xml } from 'https://esm.sh/@codemirror/lang-xml@6';
+    import { sql } from 'https://esm.sh/@codemirror/lang-sql@6';
+
+    // Platform detection for shortcut hints
+    const isMac = navigator.platform.includes('Mac');
+    const modKey = isMac ? 'Cmd' : 'Ctrl';
+
+    // Set hint text
+    document.getElementById('hint-shortcut-key').textContent = modKey + '+B';
+    document.getElementById('shortcut-hint').textContent = modKey + '+B  \u00B7  Command Palette';
+
+    // Language compartment for dynamic switching
+    const languageConf = new Compartment();
+
+    // Language detection
+    function detectLanguage(text) {
+      if (!text || text.trim().length === 0) return null;
+
+      const trimmed = text.trim();
+
+      // JSON detection
+      if ((trimmed.startsWith('{') || trimmed.startsWith('[')) && (trimmed.endsWith('}') || trimmed.endsWith(']'))) {
+        try { JSON.parse(trimmed); return json(); } catch(e) { /* not valid JSON, continue */ }
+      }
+
+      // HTML/XML detection
+      if (trimmed.startsWith('<!') || trimmed.startsWith('<?xml') || /<\w+[\s>]/.test(trimmed.substring(0, 200))) {
+        if (trimmed.startsWith('<?xml') || (/<\w+[^>]*\/>/.test(trimmed) && !/<(html|div|span|p|a|body|head|script|style)\b/i.test(trimmed))) {
+          return xml();
+        }
+        return html();
+      }
+
+      // SQL detection
+      if (/^\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|WITH)\b/i.test(trimmed)) {
+        return sql();
+      }
+
+      // CSS detection
+      if (/^[\s\S]*\{[\s\S]*[\w-]+\s*:\s*[^;]+;/m.test(trimmed) && /^(@media|@import|@keyframes|[.#\w\[\*:][\w\-\s,.#>\+~\[\]='"*:()]*\{)/m.test(trimmed)) {
+        return css();
+      }
+
+      // JavaScript detection
+      if (/(^|\n)\s*(function\s+\w+|const\s+\w+|let\s+\w+|var\s+\w+|import\s+|export\s+|class\s+\w+|=>\s*\{)/.test(trimmed)) {
+        return javascript();
+      }
+
+      // YAML detection
+      if (/^[\w-]+\s*:(\s+\S|$)/m.test(trimmed) && !trimmed.startsWith('{')) {
+        return [];  // No YAML lang package imported, return empty extensions
+      }
+
+      return null;
+    }
+
+    // Debounce helper
+    let detectTimeout = null;
+    let currentLang = null;
+
+    function updateLanguage(view) {
+      clearTimeout(detectTimeout);
+      detectTimeout = setTimeout(() => {
+        const text = view.state.doc.toString();
+        const detected = detectLanguage(text);
+        const detectedStr = detected ? detected.toString() : 'none';
+        if (detectedStr !== currentLang) {
+          currentLang = detectedStr;
+          view.dispatch({
+            effects: languageConf.reconfigure(detected || [])
+          });
+        }
+      }, 500);
+    }
+
+    // Hint visibility
+    const hintEl = document.getElementById('editor-hint');
+
+    function updateHintVisibility(doc) {
+      if (doc.length === 0) {
+        hintEl.classList.remove('hidden');
+      } else {
+        hintEl.classList.add('hidden');
+      }
+    }
+
+    // Create the editor
+    const editorParent = document.getElementById('editor');
+
+    const startState = EditorState.create({
+      doc: '',
+      extensions: [
+        history(),
+        bracketMatching(),
+        syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+        oneDark,
+        languageConf.of([]),
+        keymap.of([...defaultKeymap, ...historyKeymap]),
+        EditorView.updateListener.of((update) => {
+          if (update.docChanged) {
+            updateLanguage(update.view);
+            updateHintVisibility(update.state.doc);
+          }
+        }),
+        EditorView.theme({
+          '&': {
+            height: '100%',
+            backgroundColor: '#1e1e1e'
+          },
+          '.cm-scroller': {
+            fontFamily: "'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Menlo', monospace",
+            fontSize: '14px',
+            lineHeight: '1.6',
+            padding: '16px 0',
+            overflow: 'auto'
+          },
+          '.cm-content': {
+            padding: '0 24px',
+            caretColor: '#d4d4d4'
+          },
+          '.cm-gutters': {
+            backgroundColor: '#1e1e1e',
+            border: 'none'
+          },
+          '&.cm-focused': {
+            outline: 'none'
+          },
+          '.cm-activeLine': {
+            backgroundColor: 'rgba(255, 255, 255, 0.03)'
+          },
+          '.cm-selectionBackground': {
+            backgroundColor: 'rgba(9, 71, 113, 0.5) !important'
+          },
+          '&.cm-focused .cm-selectionBackground': {
+            backgroundColor: 'rgba(9, 71, 113, 0.8) !important'
+          }
+        }),
+        EditorView.lineWrapping,
+      ]
+    });
+
+    const cmEditor = new EditorView({
+      state: startState,
+      parent: editorParent,
+    });
+
+    // Expose to global scope for app.js
+    window.cmEditor = cmEditor;
+
+    // Focus the editor on load
+    cmEditor.focus();
+
+    // Signal that CodeMirror is ready
+    window.cmReady = true;
+    window.dispatchEvent(new Event('cm-ready'));
+  </script>
+  <script defer src="app.js"></script>
+</body>
+</html>
