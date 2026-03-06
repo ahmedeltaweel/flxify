@@ -4,11 +4,14 @@
 
 ```
 flxify/
-├── index.html                 # Entry point - CodeMirror 6 editor, command palette, top bar, status bar
-├── style.css                  # Dark theme (VS Code-like), layout, animations
-├── app.js                     # Generated bundle: module system, 107 pre-compiled scripts, BoopState, executor, palette
+├── index.html                 # Entry point - CodeMirror 6 editor, command palette, top bar, status bar, SEO metadata
+├── style.css                  # Dark theme (VS Code-like), layout, animations, tool page & directory styles
+├── app.js                     # Generated bundle: module system, 107 scripts, BoopState, executor, palette, auto-script detection
 ├── logo.png                   # Flxify brand logo (used in header + favicon)
-├── build_app.js               # Node.js build script - reads scripts/ and generates app.js (CSP-compatible)
+├── build_app.js               # Node.js build script - generates app.js + SEO pages + sitemap + robots.txt
+├── seo-data.json              # SEO metadata: category mappings + custom meta for high-value tools
+├── sitemap.xml                # Generated: XML sitemap with 109 URLs (homepage + directory + 107 tools)
+├── robots.txt                 # Generated: crawl directives + sitemap reference
 ├── scripts/                   # ALL scripts (107 total, auto-discovered by build)
 │   ├── ASCIIToHex.js
 │   ├── AddLineNumbers.js
@@ -24,14 +27,22 @@ flxify/
 │       ├── lodash.boop.js     # Lodash subset (camelCase, kebabCase, snakeCase, etc.)
 │       ├── papaparse.js       # CSV parsing
 │       └── vkBeautify.js      # XML/SQL/CSS formatting
+├── tools/                     # Generated: SEO tool pages (do not edit directly)
+│   ├── index.html             # Tool directory page (categorized listing with search)
+│   ├── format-json/index.html # Individual tool page (x107)
+│   ├── base64-encode/index.html
+│   ├── uuid-generator/index.html
+│   ├── jwt-decode/index.html
+│   └── ... (107 tool subdirectories)
 ├── .claude/                   # Claude Code configuration
 │   ├── settings.local.json    # Permissions
 │   └── agents/                # Custom agent definitions
-│       ├── plan-developer.md
+│       ├── plan-developer.md  # Full-stack + SEO developer agent
 │       ├── project-orchestrator.md
 │       └── qa-plan-validator.md
 ├── instructions.md            # Original requirements
 ├── plan.md                    # Implementation plan (3 phases, all complete)
+├── SEO.md                     # SEO implementation plan (programmatic SEO, static page generation)
 ├── structure.md               # This file
 ├── DOING.md                   # Development roadmap
 ├── LICENSE                    # License file
@@ -52,7 +63,27 @@ app.js (IIFE, self-contained bundle, CSP-compatible)
 ├── 6. Script Executor        # executeScript() - calls script.execute(require, state) directly
 ├── 7. Command Palette        # Show/hide, fuzzy search (name 0.9, tags 0.6, desc 0.2), keyboard nav
 ├── 8. Event Listeners        # Cmd/Ctrl+B toggle, search input, arrow keys, Enter, Escape
-└── 9. Initialize             # console.log with script count
+└── 9. Initialize             # Script count log, auto-script detection, FAQ toggle, directory search
+```
+
+## Build Pipeline (build_app.js)
+
+`node build_app.js` runs two phases:
+
+```
+Phase 1: App Bundle
+├── Read scripts/lib/*.js     → Inline as IIFEs in app.js
+├── Read scripts/*.js         → Inline as pre-compiled functions in app.js
+└── Write app.js              → Self-contained bundle (431 KB)
+
+Phase 2: SEO Pages
+├── Read seo-data.json        → Category mappings + custom metadata
+├── Read script metadata      → Auto-generate slug, title, description, FAQs
+├── Read index.html           → Extract CodeMirror module script for tool pages
+├── Generate tools/[slug]/    → 107 individual tool pages with full SEO
+├── Generate tools/index.html → Directory page with categories + search
+├── Generate sitemap.xml      → 109 URLs (homepage + directory + 107 tools)
+└── Generate robots.txt       → Crawl directives
 ```
 
 ## Script API (BoopState)
@@ -95,25 +126,31 @@ Modules are wrapped in a CommonJS sandbox and cached in `flxifyModules`.
 
 ## Build & Loading
 
-**Build step:** `node build_app.js` auto-discovers all `.js` files from `scripts/` and `scripts/lib/`, parses metadata at build time, and generates a self-contained `app.js` with everything inlined as real JavaScript functions. No `new Function()` in the runtime — CSP-compatible. No runtime `fetch()` calls — works with `file://` URLs.
+**Build step:** `node build_app.js` auto-discovers all `.js` files from `scripts/` and `scripts/lib/`, parses metadata at build time, and generates a self-contained `app.js` with everything inlined as real JavaScript functions. No `new Function()` in the runtime — CSP-compatible. No runtime `fetch()` calls — works with `file://` URLs. Also generates 107 SEO tool pages, a directory page, sitemap.xml, and robots.txt.
 
 **Runtime structure (in generated app.js):**
 1. Lib module IIFEs inline all 7 modules and populate `flxifyModules` (synchronous)
 2. `scripts.push({...})` calls register all 107 scripts with pre-compiled `execute` functions
 3. Scripts sorted alphabetically by name
 4. Command palette reads from the `scripts[]` array on user interaction
+5. Auto-script detection checks `window.flxifyAutoScript` for tool page pre-selection
+6. FAQ toggle and directory search filter for SEO pages
 
 **Source of truth for edits:**
 - `scripts/*.js` — all 107 scripts (auto-discovered)
 - `scripts/lib/*.js` — 7 library modules (auto-discovered)
-- `build_app.js` — app runtime code template + build logic
+- `build_app.js` — app runtime code template + build logic + SEO page generation
+- `seo-data.json` — category mappings + custom SEO metadata
+- `index.html` — homepage structure + CodeMirror setup (copied to tool pages by build)
 
 ## Tech Stack
 
 - **Editor:** CodeMirror 6 via esm.sh CDN (one-dark theme, auto language detection)
 - **Languages:** JSON, JavaScript, HTML, CSS, XML, SQL (auto-detected on content change, debounced 500ms)
 - **Styling:** Custom CSS, no framework, flexbox layout
-- **Build:** `node build_app.js` generates self-contained app.js (CSP-compatible, no `new Function`)
+- **Build:** `node build_app.js` generates app.js + SEO pages (CSP-compatible, no `new Function`)
+- **SEO:** Programmatic SEO with static pre-rendered pages, JSON-LD structured data, OG/Twitter meta
+- **Persistence:** localStorage saves editor content (debounced 300ms)
 - **Works offline** from `file://` URLs (except CodeMirror CDN on first load)
 
 ## Script Counts
@@ -121,3 +158,20 @@ Modules are wrapped in a CommonJS sandbox and cached in `flxifyModules`.
 - 107 scripts in scripts/ (auto-discovered by build)
 - 7 library modules in scripts/lib/ (auto-discovered by build)
 - **107 total active scripts**
+- 107 generated tool pages in tools/
+- 1 directory page (tools/index.html)
+- 109 URLs in sitemap.xml
+
+## SEO Structure
+
+Each tool page includes:
+- Unique title (max 60 chars) + brand suffix
+- Meta description (max 155 chars) with high-intent keywords
+- Canonical URL (`https://flxify.dev/tools/[slug]/`)
+- Open Graph + Twitter Card meta tags
+- 3x JSON-LD structured data (WebApplication, FAQPage, HowTo)
+- Privacy badge ("100% Client-Side")
+- Related tools (internal linking)
+- How-to steps, use case content, FAQs (below the fold)
+
+Categories: Formatting, Minification, Encoding, Hashing, Conversion, Text Case, Text Manipulation, Generation, Extraction, Developer Utilities

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kebab Case Converter - Convert to kebab-case | Flxify</title>
+  <meta name="description" content="Convert text to kebab-case format online for free. Transform text for CSS classes and URL slugs. Client-side processing.">
+  <meta name="keywords" content="kebab case converter, convert to kebab-case, kebab case online, text to kebab-case">
+  <link rel="canonical" href="https://flxify.dev/tools/kebab-case/">
+  <link rel="icon" type="image/png" href="../../logo.png">
+  <link rel="preconnect" href="https://esm.sh">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Kebab Case Converter - Convert to kebab-case">
+  <meta property="og:description" content="Convert text to kebab-case format online for free. Transform text for CSS classes and URL slugs. Client-side processing.">
+  <meta property="og:url" content="https://flxify.dev/tools/kebab-case/">
+  <meta property="og:site_name" content="Flxify">
+  <meta property="og:image" content="https://flxify.dev/logo.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Kebab Case Converter - Convert to kebab-case">
+  <meta name="twitter:description" content="Convert text to kebab-case format online for free. Transform text for CSS classes and URL slugs. Client-side processing.">
+  <meta name="twitter:image" content="https://flxify.dev/logo.png">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Kebab Case - Flxify","url":"https://flxify.dev/tools/kebab-case/","description":"Convert text to kebab-case format online for free. Transform text for CSS classes and URL slugs. Client-side processing.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Kebab Case tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes, Kebab Case on Flxify is completely free to use with no limits or sign-up required."}},{"@type":"Question","name":"Is my data safe when using Kebab Case?","acceptedAnswer":{"@type":"Answer","text":"All processing happens in your browser. Your data never leaves your device and is never sent to any server."}},{"@type":"Question","name":"Can I use Kebab Case offline?","acceptedAnswer":{"@type":"Answer","text":"After the initial page load, the tool works offline. All processing is done client-side with no server dependency."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to use Kebab Case","step":[{"@type":"HowToStep","position":1,"text":"Open the Kebab Case tool on Flxify"},{"@type":"HowToStep","position":2,"text":"Paste or type your text into the editor"},{"@type":"HowToStep","position":3,"text":"Press Cmd+B (or Ctrl+B) and select \"Kebab Case\" from the command palette"},{"@type":"HowToStep","position":4,"text":"View the transformed result in the editor"},{"@type":"HowToStep","position":5,"text":"Copy the output for your use"}]}</script>
+
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body class="tool-page">
+  <div id="top-bar">
+    <a href="../../" class="top-bar-home">
+      <img src="../../logo.png" alt="Flxify" class="app-logo">
+      <span class="app-title">Flxify</span>
+    </a>
+    <nav class="top-bar-nav">
+      <a href="../" class="nav-link">All Tools</a>
+    </nav>
+  </div>
+
+  <div id="tool-header">
+    <h1>Kebab Case</h1>
+    <p class="tool-subtitle">converts-your-text-to-kebab-case. &mdash; Free Online Developer Utility</p>
+    <span class="privacy-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      100% Client-Side &middot; Your data never leaves your browser
+    </span>
+  </div>
+
+  <div id="editor-wrapper">
+    <div id="editor"></div>
+    <div id="editor-hint">Press <kbd id="hint-shortcut-key">Cmd+B</kbd> to open the command palette</div>
+  </div>
+
+  <div id="command-palette" class="hidden">
+    <div id="palette-container">
+      <input id="search" type="text" placeholder="Type a command..." autocomplete="off" spellcheck="false">
+      <ul id="results"></ul>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <div id="seo-content">
+    <h2>How to Use Kebab Case</h2>
+    <section class="how-to-section">
+      <ol>
+        <li>Open the Kebab Case tool on Flxify</li>
+        <li>Paste or type your text into the editor</li>
+        <li>Press Cmd+B (or Ctrl+B) and select &quot;Kebab Case&quot; from the command palette</li>
+        <li>View the transformed result in the editor</li>
+        <li>Copy the output for your use</li>
+      </ol>
+    </section>
+
+    <h2>Why Use Kebab Case?</h2>
+    <section class="use-case-section">
+      <p>converts-your-text-to-kebab-case. This tool helps developers quickly transform text data without leaving their browser. All processing happens client-side, ensuring your data remains private and secure.</p>
+    </section>
+
+    <h2>Related Tools</h2>
+    <section class="related-tools-section">
+      <div class="related-grid">
+        <a href="../upcase/" class="related-card">Upcase</a>
+        <a href="../downcase/" class="related-card">Downcase</a>
+        <a href="../camel-case/" class="related-card">Camel Case</a>
+        <a href="../snake-case/" class="related-card">Snake Case</a>
+      </div>
+    </section>
+
+    <h2>Frequently Asked Questions</h2>
+    <section class="faq-section">
+      <div class="faq-item">
+        <div class="faq-question">Is the Kebab Case tool free?</div>
+        <div class="faq-answer">Yes, Kebab Case on Flxify is completely free to use with no limits or sign-up required.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is my data safe when using Kebab Case?</div>
+        <div class="faq-answer">All processing happens in your browser. Your data never leaves your device and is never sent to any server.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I use Kebab Case offline?</div>
+        <div class="faq-answer">After the initial page load, the tool works offline. All processing is done client-side with no server dependency.</div>
+      </div>
+    </section>
+
+    <a href="../" class="all-tools-cta">Browse All 107 Developer Tools</a>
+  </div>
+
+  <div id="status-bar">
+    <span id="credit">
+      Crafted with <span class="heart">&hearts;</span> in Berlin by Ahmed El Taweel
+    </span>
+    <span id="shortcut-hint"></span>
+  </div>
+
+  <script>window.flxifyAutoScript = "Kebab Case";</script>
+  <script type="module">
+    import { EditorView, keymap } from 'https://esm.sh/@codemirror/view@6';
+    import { EditorState, Compartment } from 'https://esm.sh/@codemirror/state@6';
+    import { defaultKeymap, history, historyKeymap } from 'https://esm.sh/@codemirror/commands@6';
+    import { syntaxHighlighting, defaultHighlightStyle, bracketMatching } from 'https://esm.sh/@codemirror/language@6';
+    import { oneDark } from 'https://esm.sh/@codemirror/theme-one-dark@6';
+    import { json } from 'https://esm.sh/@codemirror/lang-json@6';
+    import { javascript } from 'https://esm.sh/@codemirror/lang-javascript@6';
+    import { html } from 'https://esm.sh/@codemirror/lang-html@6';
+    import { css } from 'https://esm.sh/@codemirror/lang-css@6';
+    import { xml } from 'https://esm.sh/@codemirror/lang-xml@6';
+    import { sql } from 'https://esm.sh/@codemirror/lang-sql@6';
+
+    // Platform detection for shortcut hints
+    const isMac = navigator.platform.includes('Mac');
+    const modKey = isMac ? 'Cmd' : 'Ctrl';
+
+    // Set hint text
+    document.getElementById('hint-shortcut-key').textContent = modKey + '+B';
+    document.getElementById('shortcut-hint').textContent = modKey + '+B  \u00B7  Command Palette';
+
+    // Language compartment for dynamic switching
+    const languageConf = new Compartment();
+
+    // Language detection
+    function detectLanguage(text) {
+      if (!text || text.trim().length === 0) return null;
+
+      const trimmed = text.trim();
+
+      // JSON detection
+      if ((trimmed.startsWith('{') || trimmed.startsWith('[')) && (trimmed.endsWith('}') || trimmed.endsWith(']'))) {
+        try { JSON.parse(trimmed); return json(); } catch(e) { /* not valid JSON, continue */ }
+      }
+
+      // HTML/XML detection
+      if (trimmed.startsWith('<!') || trimmed.startsWith('<?xml') || /<\w+[\s>]/.test(trimmed.substring(0, 200))) {
+        if (trimmed.startsWith('<?xml') || (/<\w+[^>]*\/>/.test(trimmed) && !/<(html|div|span|p|a|body|head|script|style)\b/i.test(trimmed))) {
+          return xml();
+        }
+        return html();
+      }
+
+      // SQL detection
+      if (/^\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|WITH)\b/i.test(trimmed)) {
+        return sql();
+      }
+
+      // CSS detection
+      if (/^[\s\S]*\{[\s\S]*[\w-]+\s*:\s*[^;]+;/m.test(trimmed) && /^(@media|@import|@keyframes|[.#\w\[\*:][\w\-\s,.#>\+~\[\]='"*:()]*\{)/m.test(trimmed)) {
+        return css();
+      }
+
+      // JavaScript detection
+      if (/(^|\n)\s*(function\s+\w+|const\s+\w+|let\s+\w+|var\s+\w+|import\s+|export\s+|class\s+\w+|=>\s*\{)/.test(trimmed)) {
+        return javascript();
+      }
+
+      // YAML detection
+      if (/^[\w-]+\s*:(\s+\S|$)/m.test(trimmed) && !trimmed.startsWith('{')) {
+        return [];  // No YAML lang package imported, return empty extensions
+      }
+
+      return null;
+    }
+
+    // Debounce helper
+    let detectTimeout = null;
+    let currentLang = null;
+
+    function updateLanguage(view) {
+      clearTimeout(detectTimeout);
+      detectTimeout = setTimeout(() => {
+        const text = view.state.doc.toString();
+        const detected = detectLanguage(text);
+        const detectedStr = detected ? detected.toString() : 'none';
+        if (detectedStr !== currentLang) {
+          currentLang = detectedStr;
+          view.dispatch({
+            effects: languageConf.reconfigure(detected || [])
+          });
+        }
+      }, 500);
+    }
+
+    // Hint visibility
+    const hintEl = document.getElementById('editor-hint');
+
+    function updateHintVisibility(doc) {
+      if (doc.length === 0) {
+        hintEl.classList.remove('hidden');
+      } else {
+        hintEl.classList.add('hidden');
+      }
+    }
+
+    // localStorage persistence
+    const STORAGE_KEY = 'flxify-editor-content';
+
+    function loadSavedContent() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return (typeof saved === 'string') ? saved : '';
+      } catch (e) {
+        console.warn('Could not read from localStorage:', e);
+        return '';
+      }
+    }
+
+    let saveTimeout = null;
+
+    function saveContent(text) {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        try {
+          localStorage.setItem(STORAGE_KEY, text);
+        } catch (e) {
+          console.warn('Could not save to localStorage:', e);
+        }
+      }, 300);
+    }
+
+    const savedContent = loadSavedContent();
+
+    // Create the editor
+    const editorParent = document.getElementById('editor');
+
+    const startState = EditorState.create({
+      doc: savedContent,
+      extensions: [
+        history(),
+        bracketMatching(),
+        syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+        oneDark,
+        languageConf.of([]),
+        keymap.of([...defaultKeymap, ...historyKeymap]),
+        EditorView.updateListener.of((update) => {
+          if (update.docChanged) {
+            updateLanguage(update.view);
+            updateHintVisibility(update.state.doc);
+            saveContent(update.state.doc.toString());
+          }
+        }),
+        EditorView.theme({
+          '&': {
+            height: '100%',
+            backgroundColor: '#1e1e1e'
+          },
+          '.cm-scroller': {
+            fontFamily: "'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Menlo', monospace",
+            fontSize: '14px',
+            lineHeight: '1.6',
+            padding: '16px 0',
+            overflow: 'auto'
+          },
+          '.cm-content': {
+            padding: '0 24px',
+            caretColor: '#d4d4d4'
+          },
+          '.cm-gutters': {
+            backgroundColor: '#1e1e1e',
+            border: 'none'
+          },
+          '&.cm-focused': {
+            outline: 'none'
+          },
+          '.cm-activeLine': {
+            backgroundColor: 'rgba(255, 255, 255, 0.03)'
+          },
+          '.cm-selectionBackground': {
+            backgroundColor: 'rgba(9, 71, 113, 0.5) !important'
+          },
+          '&.cm-focused .cm-selectionBackground': {
+            backgroundColor: 'rgba(9, 71, 113, 0.8) !important'
+          }
+        }),
+        EditorView.lineWrapping,
+      ]
+    });
+
+    const cmEditor = new EditorView({
+      state: startState,
+      parent: editorParent,
+    });
+
+    // Expose to global scope for app.js
+    window.cmEditor = cmEditor;
+
+    // Initialize state for restored content
+    if (savedContent.length > 0) {
+      updateHintVisibility(cmEditor.state.doc);
+      updateLanguage(cmEditor);
+    }
+
+    // Focus the editor on load
+    cmEditor.focus();
+
+    // Signal that CodeMirror is ready
+    window.cmReady = true;
+    window.dispatchEvent(new Event('cm-ready'));
+  </script>
+  <script defer src="../../app.js"></script>
+</body>
+</html>

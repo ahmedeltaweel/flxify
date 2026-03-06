@@ -383,8 +383,458 @@ palette.addEventListener('click', function(e) {
 
 console.log('Flxify loaded: ' + scripts.length + ' scripts available.');
 
+// Auto-script detection for tool pages
+if (window.flxifyAutoScript) {
+  var targetScript = scripts.find(function(s) {
+    return s.name === window.flxifyAutoScript;
+  });
+  if (targetScript) {
+    console.log('Auto-selected script: ' + targetScript.name);
+  }
+}
+
+// FAQ toggle for tool pages
+document.querySelectorAll('.faq-question').forEach(function(q) {
+  q.addEventListener('click', function() {
+    this.parentElement.classList.toggle('open');
+  });
+});
+
+// Directory search filter
+var dirSearch = document.getElementById('directory-search');
+if (dirSearch) {
+  dirSearch.addEventListener('input', function() {
+    var query = this.value.toLowerCase();
+    document.querySelectorAll('.tool-card').forEach(function(card) {
+      var name = card.querySelector('.tool-card-name').textContent.toLowerCase();
+      var desc = card.querySelector('.tool-card-desc').textContent.toLowerCase();
+      card.style.display = (name.includes(query) || desc.includes(query)) ? '' : 'none';
+    });
+    document.querySelectorAll('.category-section').forEach(function(section) {
+      var visible = section.querySelectorAll('.tool-card[style=""], .tool-card:not([style])');
+      section.style.display = visible.length > 0 ? '' : 'none';
+    });
+  });
+}
+
 })();
 `;
 
 fs.writeFileSync(OUTPUT, output, 'utf-8');
 console.log(`Generated app.js (${(output.length / 1024).toFixed(1)} KB)`);
+
+// ============================================================
+// SEO Page Generation
+// ============================================================
+
+const TOOLS_DIR = path.join(__dirname, 'tools');
+const SEO_DATA_FILE = path.join(__dirname, 'seo-data.json');
+const SITE_URL = 'https://flxify.dev';
+
+// ---- Load SEO data ----
+let seoData = { _categories: {}, _customMeta: {} };
+if (fs.existsSync(SEO_DATA_FILE)) {
+  seoData = JSON.parse(fs.readFileSync(SEO_DATA_FILE, 'utf-8'));
+}
+
+// ---- Helper: generate slug from script name ----
+function nameToSlug(name) {
+  return name.toLowerCase()
+    .replace(/[^a-z0-9\s-]/g, '')
+    .replace(/\s+/g, '-')
+    .replace(/-+/g, '-')
+    .replace(/^-|-$/g, '');
+}
+
+// ---- Helper: find category for a script ----
+function findCategory(fileKey) {
+  for (const [cat, files] of Object.entries(seoData._categories || {})) {
+    if (files.includes(fileKey)) return cat;
+  }
+  return 'Developer Utilities';
+}
+
+// ---- Helper: auto-generate SEO title from script name ----
+function autoTitle(name) {
+  const t = `${name} - Free Online Developer Tool`;
+  return t.length > 65 ? `${name} - Free Online Tool` : t;
+}
+
+// ---- Helper: auto-generate meta description ----
+function autoMetaDesc(name, description) {
+  const d = `${description} Free online ${name.toLowerCase()} tool. 100% client-side, your data never leaves your browser.`;
+  return d.length > 160 ? d.substring(0, 155) + '...' : d;
+}
+
+// ---- Helper: auto-generate how-to steps ----
+function autoHowToSteps(name) {
+  return [
+    `Open the ${name} tool on Flxify`,
+    'Paste or type your text into the editor',
+    `Press Cmd+B (or Ctrl+B) and select "${name}" from the command palette`,
+    'View the transformed result in the editor',
+    'Copy the output for your use'
+  ];
+}
+
+// ---- Helper: auto-generate use case content ----
+function autoUseCaseContent(name, description) {
+  return `${description} This tool helps developers quickly transform text data without leaving their browser. All processing happens client-side, ensuring your data remains private and secure.`;
+}
+
+// ---- Helper: auto-generate FAQs ----
+function autoFaqs(name) {
+  return [
+    { question: `Is the ${name} tool free?`, answer: `Yes, ${name} on Flxify is completely free to use with no limits or sign-up required.` },
+    { question: `Is my data safe when using ${name}?`, answer: 'All processing happens in your browser. Your data never leaves your device and is never sent to any server.' },
+    { question: `Can I use ${name} offline?`, answer: 'After the initial page load, the tool works offline. All processing is done client-side with no server dependency.' }
+  ];
+}
+
+// ---- Helper: find related tools ----
+function findRelatedTools(fileKey, allEntries) {
+  const cat = findCategory(fileKey);
+  const catMembers = (seoData._categories[cat] || []).filter(f => f !== fileKey);
+  return catMembers.slice(0, 4);
+}
+
+// ---- Helper: escape HTML ----
+function escHtml(str) {
+  return String(str).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+}
+
+// ---- Read CodeMirror module script from index.html ----
+const indexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf-8');
+const cmScriptMatch = indexHtml.match(/<script type="module">([\s\S]*?)<\/script>/);
+const cmModuleScript = cmScriptMatch ? cmScriptMatch[1] : '';
+
+// ---- Build script SEO entries ----
+const seoEntries = [];
+for (const entry of scriptEntries) {
+  const fileKey = entry.file.replace(/\.js$/, '');
+  const m = entry.metadata;
+  const custom = (seoData._customMeta || {})[fileKey] || {};
+  const slug = nameToSlug(m.name || fileKey);
+  const category = findCategory(fileKey);
+  const related = findRelatedTools(fileKey, scriptEntries);
+
+  seoEntries.push({
+    fileKey,
+    slug,
+    name: m.name || 'Unnamed',
+    description: m.description || '',
+    tags: m.tags || '',
+    category,
+    title: custom.title || autoTitle(m.name || fileKey),
+    metaDescription: custom.metaDescription || autoMetaDesc(m.name || fileKey, m.description || ''),
+    keywords: custom.keywords || (m.tags || '').split(',').map(t => t.trim()).filter(Boolean),
+    howToSteps: autoHowToSteps(m.name || fileKey),
+    useCaseContent: autoUseCaseContent(m.name || fileKey, m.description || ''),
+    faqs: autoFaqs(m.name || fileKey),
+    relatedTools: related
+  });
+}
+
+console.log(`Generating SEO pages for ${seoEntries.length} scripts...`);
+
+// ---- Ensure tools directory exists ----
+if (!fs.existsSync(TOOLS_DIR)) fs.mkdirSync(TOOLS_DIR, { recursive: true });
+
+// ---- Generate each tool page ----
+for (const entry of seoEntries) {
+  const toolDir = path.join(TOOLS_DIR, entry.slug);
+  if (!fs.existsSync(toolDir)) fs.mkdirSync(toolDir, { recursive: true });
+
+  const relatedHtml = entry.relatedTools.map(rk => {
+    const re = seoEntries.find(e => e.fileKey === rk);
+    if (!re) return '';
+    return `        <a href="../${re.slug}/" class="related-card">${escHtml(re.name)}</a>`;
+  }).filter(Boolean).join('\n');
+
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: entry.faqs.map(f => ({
+      '@type': 'Question',
+      name: f.question,
+      acceptedAnswer: { '@type': 'Answer', text: f.answer }
+    }))
+  };
+
+  const howToJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: `How to use ${entry.name}`,
+    step: entry.howToSteps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      text: s
+    }))
+  };
+
+  const webAppJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: `${entry.name} - Flxify`,
+    url: `${SITE_URL}/tools/${entry.slug}/`,
+    description: entry.metaDescription,
+    applicationCategory: 'DeveloperApplication',
+    operatingSystem: 'Any',
+    offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' }
+  };
+
+  // Adjust CodeMirror script paths for tool pages (../../ instead of ./)
+  let toolCmScript = cmModuleScript
+    .replace(/from 'https:\/\/esm\.sh\//g, "from 'https://esm.sh/");
+
+  const toolPageHtml = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>${escHtml(entry.title)} | Flxify</title>
+  <meta name="description" content="${escHtml(entry.metaDescription)}">
+  <meta name="keywords" content="${escHtml(entry.keywords.join(', '))}">
+  <link rel="canonical" href="${SITE_URL}/tools/${entry.slug}/">
+  <link rel="icon" type="image/png" href="../../logo.png">
+  <link rel="preconnect" href="https://esm.sh">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="${escHtml(entry.title)}">
+  <meta property="og:description" content="${escHtml(entry.metaDescription)}">
+  <meta property="og:url" content="${SITE_URL}/tools/${entry.slug}/">
+  <meta property="og:site_name" content="Flxify">
+  <meta property="og:image" content="${SITE_URL}/logo.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="${escHtml(entry.title)}">
+  <meta name="twitter:description" content="${escHtml(entry.metaDescription)}">
+  <meta name="twitter:image" content="${SITE_URL}/logo.png">
+
+  <script type="application/ld+json">${JSON.stringify(webAppJsonLd)}</script>
+  <script type="application/ld+json">${JSON.stringify(faqJsonLd)}</script>
+  <script type="application/ld+json">${JSON.stringify(howToJsonLd)}</script>
+
+  <link rel="stylesheet" href="../../style.css">
+</head>
+<body class="tool-page">
+  <div id="top-bar">
+    <a href="../../" class="top-bar-home">
+      <img src="../../logo.png" alt="Flxify" class="app-logo">
+      <span class="app-title">Flxify</span>
+    </a>
+    <nav class="top-bar-nav">
+      <a href="../" class="nav-link">All Tools</a>
+    </nav>
+  </div>
+
+  <div id="tool-header">
+    <h1>${escHtml(entry.name)}</h1>
+    <p class="tool-subtitle">${escHtml(entry.description)} &mdash; Free Online Developer Utility</p>
+    <span class="privacy-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      100% Client-Side &middot; Your data never leaves your browser
+    </span>
+  </div>
+
+  <div id="editor-wrapper">
+    <div id="editor"></div>
+    <div id="editor-hint">Press <kbd id="hint-shortcut-key">Cmd+B</kbd> to open the command palette</div>
+  </div>
+
+  <div id="command-palette" class="hidden">
+    <div id="palette-container">
+      <input id="search" type="text" placeholder="Type a command..." autocomplete="off" spellcheck="false">
+      <ul id="results"></ul>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <div id="seo-content">
+    <h2>How to Use ${escHtml(entry.name)}</h2>
+    <section class="how-to-section">
+      <ol>
+${entry.howToSteps.map(s => `        <li>${escHtml(s)}</li>`).join('\n')}
+      </ol>
+    </section>
+
+    <h2>Why Use ${escHtml(entry.name)}?</h2>
+    <section class="use-case-section">
+      <p>${escHtml(entry.useCaseContent)}</p>
+    </section>
+
+${relatedHtml ? `    <h2>Related Tools</h2>
+    <section class="related-tools-section">
+      <div class="related-grid">
+${relatedHtml}
+      </div>
+    </section>
+` : ''}
+    <h2>Frequently Asked Questions</h2>
+    <section class="faq-section">
+${entry.faqs.map(f => `      <div class="faq-item">
+        <div class="faq-question">${escHtml(f.question)}</div>
+        <div class="faq-answer">${escHtml(f.answer)}</div>
+      </div>`).join('\n')}
+    </section>
+
+    <a href="../" class="all-tools-cta">Browse All ${seoEntries.length} Developer Tools</a>
+  </div>
+
+  <div id="status-bar">
+    <span id="credit">
+      Crafted with <span class="heart">&hearts;</span> in Berlin by Ahmed El Taweel
+    </span>
+    <span id="shortcut-hint"></span>
+  </div>
+
+  <script>window.flxifyAutoScript = ${JSON.stringify(entry.name)};</script>
+  <script type="module">${toolCmScript}</script>
+  <script defer src="../../app.js"></script>
+</body>
+</html>`;
+
+  fs.writeFileSync(path.join(toolDir, 'index.html'), toolPageHtml, 'utf-8');
+}
+
+console.log(`  Generated ${seoEntries.length} tool pages in tools/`);
+
+// ---- Generate directory page ----
+const categorized = {};
+for (const entry of seoEntries) {
+  if (!categorized[entry.category]) categorized[entry.category] = [];
+  categorized[entry.category].push(entry);
+}
+
+// Sort categories to match seo-data.json order
+const categoryOrder = Object.keys(seoData._categories || {});
+const sortedCategories = categoryOrder.filter(c => categorized[c]);
+// Add any categories not in the order
+for (const c of Object.keys(categorized)) {
+  if (!sortedCategories.includes(c)) sortedCategories.push(c);
+}
+
+let directorySections = '';
+for (const cat of sortedCategories) {
+  const entries = categorized[cat] || [];
+  entries.sort((a, b) => a.name.localeCompare(b.name));
+  directorySections += `    <section class="category-section">
+      <h2>${escHtml(cat)}</h2>
+      <div class="tool-grid">
+${entries.map(e => `        <a href="${e.slug}/" class="tool-card">
+          <div class="tool-card-name">${escHtml(e.name)}</div>
+          <div class="tool-card-desc">${escHtml(e.description)}</div>
+        </a>`).join('\n')}
+      </div>
+    </section>
+`;
+}
+
+const directoryJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Flxify Developer Tools',
+  description: `${seoEntries.length} free online developer text utilities`,
+  numberOfItems: seoEntries.length,
+  itemListElement: seoEntries.map((e, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: e.name,
+    url: `${SITE_URL}/tools/${e.slug}/`
+  }))
+};
+
+const directoryPage = `<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>All Developer Tools - Free Online Utilities | Flxify</title>
+  <meta name="description" content="Browse ${seoEntries.length}+ free online developer text utilities: JSON formatters, encoders, hash generators, converters, and more. 100% client-side.">
+  <link rel="canonical" href="${SITE_URL}/tools/">
+  <link rel="icon" type="image/png" href="../logo.png">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="All Developer Tools - Free Online Utilities | Flxify">
+  <meta property="og:description" content="${seoEntries.length}+ free text transformation tools for developers.">
+  <meta property="og:url" content="${SITE_URL}/tools/">
+  <meta property="og:site_name" content="Flxify">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="All Developer Tools | Flxify">
+  <meta name="twitter:description" content="${seoEntries.length}+ free text transformation tools for developers.">
+
+  <script type="application/ld+json">${JSON.stringify(directoryJsonLd)}</script>
+
+  <link rel="stylesheet" href="../style.css">
+</head>
+<body class="directory-page">
+  <div id="top-bar">
+    <a href="../" class="top-bar-home">
+      <img src="../logo.png" alt="Flxify" class="app-logo">
+      <span class="app-title">Flxify</span>
+    </a>
+  </div>
+
+  <div class="tool-directory">
+    <h1>All Developer Tools</h1>
+    <p class="directory-subtitle">${seoEntries.length} free online text transformation utilities for developers</p>
+    <input type="text" id="directory-search" class="directory-search" placeholder="Search tools..." autocomplete="off">
+
+${directorySections}
+  </div>
+
+  <div id="status-bar">
+    <span id="credit">
+      Crafted with <span class="heart">&hearts;</span> in Berlin by Ahmed El Taweel
+    </span>
+  </div>
+
+  <div id="toast"></div>
+  <script defer src="../app.js"></script>
+</body>
+</html>`;
+
+fs.writeFileSync(path.join(TOOLS_DIR, 'index.html'), directoryPage, 'utf-8');
+console.log('  Generated tools/index.html (directory page)');
+
+// ---- Generate sitemap.xml ----
+const today = new Date().toISOString().split('T')[0];
+let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>${SITE_URL}/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/tools/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+`;
+for (const entry of seoEntries) {
+  sitemap += `  <url>
+    <loc>${SITE_URL}/tools/${entry.slug}/</loc>
+    <lastmod>${today}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+`;
+}
+sitemap += '</urlset>\n';
+fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap, 'utf-8');
+console.log('  Generated sitemap.xml');
+
+// ---- Generate robots.txt ----
+const robotsTxt = `User-agent: *
+Allow: /
+Sitemap: ${SITE_URL}/sitemap.xml
+`;
+fs.writeFileSync(path.join(__dirname, 'robots.txt'), robotsTxt, 'utf-8');
+console.log('  Generated robots.txt');
+
+console.log('SEO generation complete.');

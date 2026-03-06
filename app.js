@@ -11611,4 +11611,38 @@ palette.addEventListener('click', function(e) {
 
 console.log('Flxify loaded: ' + scripts.length + ' scripts available.');
 
+// Auto-script detection for tool pages
+if (window.flxifyAutoScript) {
+  var targetScript = scripts.find(function(s) {
+    return s.name === window.flxifyAutoScript;
+  });
+  if (targetScript) {
+    console.log('Auto-selected script: ' + targetScript.name);
+  }
+}
+
+// FAQ toggle for tool pages
+document.querySelectorAll('.faq-question').forEach(function(q) {
+  q.addEventListener('click', function() {
+    this.parentElement.classList.toggle('open');
+  });
+});
+
+// Directory search filter
+var dirSearch = document.getElementById('directory-search');
+if (dirSearch) {
+  dirSearch.addEventListener('input', function() {
+    var query = this.value.toLowerCase();
+    document.querySelectorAll('.tool-card').forEach(function(card) {
+      var name = card.querySelector('.tool-card-name').textContent.toLowerCase();
+      var desc = card.querySelector('.tool-card-desc').textContent.toLowerCase();
+      card.style.display = (name.includes(query) || desc.includes(query)) ? '' : 'none';
+    });
+    document.querySelectorAll('.category-section').forEach(function(section) {
+      var visible = section.querySelectorAll('.tool-card[style=""], .tool-card:not([style])');
+      section.style.display = visible.length > 0 ? '' : 'none';
+    });
+  });
+}
+
 })();

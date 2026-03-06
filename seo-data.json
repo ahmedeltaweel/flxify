@@ -1,0 +1,146 @@
+{
+  "_categories": {
+    "Formatting": ["FormatJSON", "FormatXML", "FormatCSS", "FormatSQL", "FormatCSV"],
+    "Minification": ["MinifyJSON", "MinifyXML", "MinifyCSS", "MinifySQL"],
+    "Encoding": ["Base64Encode", "Base64Decode", "URLEncode", "URLDecode", "HTMLEncode", "HTMLDecode", "HTMLEncodeAllCharacters", "URLEntityEncode", "URLEntitiesDecode", "toUnicode", "FromUnicode"],
+    "Hashing": ["MD5Checksum", "SHA1Hash", "SHA256Hash", "SHA512Hash"],
+    "Conversion": ["JSONToYAML", "YAMLToJSON", "JSONToCSV", "CSVToJSON", "CSVtoJSONheaderless", "JSONToQueryString", "QueryStringToJSON", "HexToRGB", "rgb2hex", "HexToDec", "HexToASCII", "ASCIIToHex", "DecimalToBinary", "BinaryToDecimal", "DecimalToHex", "WkbToWkt", "WktToWkb", "jsToPhp", "tsvToJson", "JsObjectToJSON", "convertToMarkdownTable", "IOSLocalizablesToAndroidStrings", "AndroidStringsToIOSLocalizables", "DIGI2ASCII", "FishPATHHexConverter"],
+    "Text Case": ["Upcase", "Downcase", "CamelCase", "KebabCase", "SnakeCase", "StartCase", "SpongeCase", "toggleCamelHyphen", "Deburr"],
+    "Text Manipulation": ["SortLines", "NaturalSortLines", "ReverseLines", "ReverseString", "ShuffleLines", "ShuffleCharacters", "RemoveDuplicateLines", "JoinLines", "JoinLinesWithComma", "JoinLinesWithSpace", "CollapseLines", "Trim", "TrimStart", "TrimEnd", "AddSlashes", "RemoveSlashes", "ReplaceSmartQuotes", "MarkdownQuote", "Rot13", "AddLineNumbers", "RemoveLineNumbers", "SpacesToTabs", "TabsToSpaces", "SortJSON", "LineComparer", "listToHTMLList", "Wadsworth", "Defang", "Refang", "PHPUnserialize"],
+    "Generation": ["UUIDGenerator", "LoremIpsum", "NewBoopScript", "generateHashtag", "contrastingColor", "CreateProjectGlossaryMarkdown"],
+    "Extraction": ["ExtractURLs", "ExtractEmails", "CountCharacters", "CountWords", "CountLines", "SumAll", "CalculateSize"],
+    "Developer Utilities": ["JWTDecode", "RegexEscape", "EvalJavascript", "DateToTimestamp", "DateToUTC", "TimeToSecond", "TestScript"]
+  },
+  "_customMeta": {
+    "FormatJSON": {
+      "title": "JSON Formatter & Beautifier - Free Online Tool",
+      "metaDescription": "Format and beautify JSON data online for free. Pretty-print JSON with proper indentation. 100% client-side, your data never leaves your browser.",
+      "keywords": ["json formatter", "json beautifier", "json pretty print", "format json online", "json viewer"]
+    },
+    "MinifyJSON": {
+      "title": "JSON Minifier - Compress JSON Online Free",
+      "metaDescription": "Minify and compress JSON data online for free. Remove whitespace and reduce file size. 100% client-side processing.",
+      "keywords": ["json minifier", "compress json", "minify json online", "json compressor"]
+    },
+    "Base64Encode": {
+      "title": "Base64 Encoder - Encode Text to Base64 Online",
+      "metaDescription": "Encode text to Base64 online for free. Fast, secure Base64 encoding tool. 100% client-side, your data never leaves your browser.",
+      "keywords": ["base64 encode", "base64 encoder", "text to base64", "encode base64 online"]
+    },
+    "Base64Decode": {
+      "title": "Base64 Decoder - Decode Base64 to Text Online",
+      "metaDescription": "Decode Base64 encoded text online for free. Fast Base64 decoding tool. 100% client-side, your data never leaves your browser.",
+      "keywords": ["base64 decode", "base64 decoder", "base64 to text", "decode base64 online"]
+    },
+    "UUIDGenerator": {
+      "title": "UUID Generator - Generate Random UUIDs Online",
+      "metaDescription": "Generate random v4 UUIDs online for free. Create single or bulk UUIDs instantly. 100% client-side generation.",
+      "keywords": ["uuid generator", "guid generator", "random uuid", "uuid v4", "generate uuid online"]
+    },
+    "JWTDecode": {
+      "title": "JWT Decoder - Decode JSON Web Tokens Online",
+      "metaDescription": "Decode and inspect JWT tokens online for free. View header, payload, and signature. 100% client-side, tokens stay private.",
+      "keywords": ["jwt decoder", "jwt token decoder", "decode jwt", "json web token decoder"]
+    },
+    "MD5Checksum": {
+      "title": "MD5 Hash Generator - Calculate MD5 Checksum Online",
+      "metaDescription": "Generate MD5 hash checksums online for free. Calculate MD5 digest of any text instantly. 100% client-side processing.",
+      "keywords": ["md5 hash", "md5 generator", "md5 checksum", "calculate md5 online"]
+    },
+    "SHA256Hash": {
+      "title": "SHA256 Hash Generator - Calculate SHA-256 Online",
+      "metaDescription": "Generate SHA-256 hash online for free. Calculate secure hash digest of any text. 100% client-side processing.",
+      "keywords": ["sha256 hash", "sha256 generator", "sha-256 online", "calculate sha256"]
+    },
+    "URLEncode": {
+      "title": "URL Encoder - Encode URLs Online Free",
+      "metaDescription": "URL encode text online for free. Percent-encode special characters for safe URLs. 100% client-side processing.",
+      "keywords": ["url encoder", "url encode online", "percent encoding", "encode url"]
+    },
+    "URLDecode": {
+      "title": "URL Decoder - Decode URLs Online Free",
+      "metaDescription": "URL decode percent-encoded text online for free. Decode URL-encoded strings instantly. 100% client-side processing.",
+      "keywords": ["url decoder", "url decode online", "percent decode", "decode url"]
+    },
+    "HTMLEncode": {
+      "title": "HTML Encoder - Encode HTML Entities Online",
+      "metaDescription": "Encode HTML special characters to entities online for free. Escape HTML for safe display. 100% client-side.",
+      "keywords": ["html encoder", "html entities", "encode html", "escape html online"]
+    },
+    "HTMLDecode": {
+      "title": "HTML Decoder - Decode HTML Entities Online",
+      "metaDescription": "Decode HTML entities to characters online for free. Unescape HTML encoded text instantly. 100% client-side.",
+      "keywords": ["html decoder", "decode html entities", "unescape html", "html entity decoder"]
+    },
+    "JSONToYAML": {
+      "title": "JSON to YAML Converter - Convert Online Free",
+      "metaDescription": "Convert JSON to YAML format online for free. Transform JSON data to YAML for Kubernetes, Docker, and config files. Client-side processing.",
+      "keywords": ["json to yaml", "convert json yaml", "json yaml converter", "json to yml"]
+    },
+    "YAMLToJSON": {
+      "title": "YAML to JSON Converter - Convert Online Free",
+      "metaDescription": "Convert YAML to JSON format online for free. Transform YAML config files to JSON data. 100% client-side processing.",
+      "keywords": ["yaml to json", "convert yaml json", "yaml json converter", "yml to json"]
+    },
+    "CSVToJSON": {
+      "title": "CSV to JSON Converter - Convert Online Free",
+      "metaDescription": "Convert CSV data to JSON format online for free. Transform spreadsheet data to JSON arrays. 100% client-side processing.",
+      "keywords": ["csv to json", "convert csv json", "csv json converter", "csv parser online"]
+    },
+    "FormatXML": {
+      "title": "XML Formatter & Beautifier - Free Online Tool",
+      "metaDescription": "Format and beautify XML data online for free. Pretty-print XML with proper indentation. 100% client-side processing.",
+      "keywords": ["xml formatter", "xml beautifier", "format xml online", "xml pretty print"]
+    },
+    "FormatCSS": {
+      "title": "CSS Formatter & Beautifier - Free Online Tool",
+      "metaDescription": "Format and beautify CSS code online for free. Pretty-print CSS with proper indentation. 100% client-side processing.",
+      "keywords": ["css formatter", "css beautifier", "format css online", "css pretty print"]
+    },
+    "FormatSQL": {
+      "title": "SQL Formatter & Beautifier - Free Online Tool",
+      "metaDescription": "Format and beautify SQL queries online for free. Pretty-print SQL with proper indentation. 100% client-side processing.",
+      "keywords": ["sql formatter", "sql beautifier", "format sql online", "sql pretty print"]
+    },
+    "RegexEscape": {
+      "title": "Regex Escape Tool - Escape Special Characters Online",
+      "metaDescription": "Escape regex special characters online for free. Prepare strings for safe use in regular expressions. 100% client-side.",
+      "keywords": ["regex escape", "escape regex characters", "regex special characters", "regexp escape online"]
+    },
+    "EvalJavascript": {
+      "title": "JavaScript Evaluator - Run JS Code Online",
+      "metaDescription": "Evaluate JavaScript code online for free. Run JS expressions and see results instantly. 100% client-side execution.",
+      "keywords": ["javascript evaluator", "run javascript online", "js eval", "javascript runner"]
+    },
+    "LoremIpsum": {
+      "title": "Lorem Ipsum Generator - Generate Placeholder Text",
+      "metaDescription": "Generate Lorem Ipsum placeholder text online for free. Create dummy text for designs and layouts. 100% client-side.",
+      "keywords": ["lorem ipsum generator", "placeholder text", "dummy text generator", "lorem ipsum online"]
+    },
+    "SortLines": {
+      "title": "Sort Lines Tool - Sort Text Lines Online Free",
+      "metaDescription": "Sort text lines alphabetically online for free. Order lines ascending or descending instantly. 100% client-side processing.",
+      "keywords": ["sort lines", "sort text online", "alphabetical sort", "line sorter"]
+    },
+    "RemoveDuplicateLines": {
+      "title": "Remove Duplicate Lines - Deduplicate Text Online",
+      "metaDescription": "Remove duplicate lines from text online for free. Deduplicate and clean up text data instantly. 100% client-side.",
+      "keywords": ["remove duplicates", "deduplicate lines", "remove duplicate lines", "unique lines"]
+    },
+    "CamelCase": {
+      "title": "CamelCase Converter - Convert Text to camelCase",
+      "metaDescription": "Convert text to camelCase format online for free. Transform variable names and identifiers. 100% client-side processing.",
+      "keywords": ["camelcase converter", "convert to camelcase", "camelcase online", "text to camelcase"]
+    },
+    "SnakeCase": {
+      "title": "Snake Case Converter - Convert to snake_case",
+      "metaDescription": "Convert text to snake_case format online for free. Transform variable names for Python, Ruby, and more. Client-side.",
+      "keywords": ["snake case converter", "convert to snake_case", "snake case online", "text to snake_case"]
+    },
+    "KebabCase": {
+      "title": "Kebab Case Converter - Convert to kebab-case",
+      "metaDescription": "Convert text to kebab-case format online for free. Transform text for CSS classes and URL slugs. Client-side processing.",
+      "keywords": ["kebab case converter", "convert to kebab-case", "kebab case online", "text to kebab-case"]
+    }
+  }
+}
