@@ -152,3 +152,7 @@ Alternative (skip login): `npx @vscode/vsce publish --pat <YOUR_PAT>`
 | 0.3.0 | Added 2 new scripts (Escape/Unescape Line Feeds), total 109 scripts |
 | 0.4.0 | Added ULID Generator script, total 110 scripts |
 | 0.5.0 | Added Extract Phone Numbers script, total 111 scripts |
+
+## Web-Only Features (NOT in Extension)
+
+- **6-theme system** (Standard Light/Dark, Cyber Neon, Nordic Frost, Monokai Pro, OLED Stealth) — web app only. The VS Code extension uses VS Code's built-in theming system. Do NOT attempt to implement CSS themes in the extension.

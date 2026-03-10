@@ -11822,32 +11822,87 @@ if (mobileBtn) mobileBtn.addEventListener('click', togglePalette);
 var paletteCloseBtn = document.getElementById('palette-close');
 if (paletteCloseBtn) paletteCloseBtn.addEventListener('click', hidePalette);
 
-// Theme toggle (CSS class + localStorage + optional CM theme switch)
-var themeBtn = document.getElementById('theme-toggle');
-if (themeBtn) {
-  // Apply saved theme on load
-  try {
-    if (localStorage.getItem('flxify-theme') === 'light') {
-      document.body.classList.add('light-mode');
-    }
-  } catch(e) {}
+// Theme system
+var cmThemeMap = {
+  'standard-light': function() { return window.flxifyLightTheme; },
+  'standard-dark': function() { return window.flxifyDarkTheme; },
+  'cyber-neon': function() { return window.flxifyCyberNeonTheme; },
+  'nordic-frost': function() { return window.flxifyNordicFrostTheme; },
+  'monokai-pro': function() { return window.flxifyMonokaiProTheme; },
+  'oled-stealth': function() { return window.flxifyOledStealthTheme; }
+};
 
-  themeBtn.addEventListener('click', function() {
-    var goLight = !document.body.classList.contains('light-mode');
-    document.body.classList.toggle('light-mode', goLight);
-    try { localStorage.setItem('flxify-theme', goLight ? 'light' : 'dark'); } catch(e) {}
-    // Switch CodeMirror theme if available
-    var cm = window.cmEditor;
-    var conf = window.flxifyThemeConf;
-    if (cm && conf) {
-      var theme = goLight ? window.flxifyLightTheme : window.flxifyDarkTheme;
-      if (theme) cm.dispatch({ effects: conf.reconfigure([theme]) });
+function applyTheme(themeKey) {
+  document.documentElement.setAttribute('data-theme', themeKey);
+  try { localStorage.setItem('flxify-theme', themeKey); } catch(e) {}
+
+  // Update CM6 editor theme
+  var getTheme = cmThemeMap[themeKey];
+  if (getTheme && window.cmEditor && window.flxifyThemeConf) {
+    var cmTheme = getTheme();
+    if (cmTheme) {
+      window.cmEditor.dispatch({
+        effects: window.flxifyThemeConf.reconfigure(cmTheme)
+      });
     }
-    // Update theme-color meta tag
-    var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute('content', goLight ? '#f5f5f5' : '#252526');
+  }
+
+  // Update dropdown button label and dot
+  var label = document.querySelector('.theme-label');
+  var dot = document.querySelector('#theme-toggle .theme-dot');
+  var activeOption = document.querySelector('.theme-option[data-theme="' + themeKey + '"]');
+  if (label && activeOption) {
+    label.textContent = activeOption.getAttribute('data-label');
+  }
+  if (dot && activeOption) {
+    dot.style.background = activeOption.getAttribute('data-dot');
+  }
+
+  // Update active state in dropdown
+  document.querySelectorAll('.theme-option').forEach(function(opt) {
+    opt.classList.toggle('active', opt.getAttribute('data-theme') === themeKey);
   });
 }
+
+// Theme dropdown toggle
+var themeToggle = document.getElementById('theme-toggle');
+var themeDropdown = document.getElementById('theme-dropdown');
+
+if (themeToggle && themeDropdown) {
+  themeToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    themeDropdown.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.theme-option').forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      applyTheme(this.getAttribute('data-theme'));
+      themeDropdown.classList.remove('open');
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function() {
+    themeDropdown.classList.remove('open');
+  });
+}
+
+// Load saved theme on init
+var savedTheme = 'standard-dark';
+try { savedTheme = localStorage.getItem('flxify-theme') || 'standard-dark'; } catch(e) {}
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+// Apply CM6 theme when editor is ready
+function applyCMThemeOnReady() {
+  if (window.cmEditor && window.flxifyThemeConf) {
+    applyTheme(savedTheme);
+  } else {
+    document.addEventListener('cm-ready', function() {
+      applyTheme(savedTheme);
+    });
+  }
+}
+applyCMThemeOnReady();
 
 // Directory search filter
 var dirSearch = document.getElementById('directory-search');

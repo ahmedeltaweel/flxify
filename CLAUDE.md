@@ -262,6 +262,14 @@ Flxify also ships as a VS Code extension at `vscode-extension/`. It's a self-con
 
 32. **`vscode-extension/bin/` and `vscode-extension/pkg/` must not be in git.** Go toolchain binaries in `bin/` (~56MB) and Go module cache in `pkg/` (~349MB, 21,449 files) can be tracked by git. Remove with `git rm --cached -r` before going public. Already added to `.gitignore`.
 
+33. **CSS `[data-theme]` selector collision.** Theme CSS variables use `html[data-theme="..."]` selectors, NOT bare `[data-theme="..."]`. The theme dropdown buttons also have `data-theme` attributes (for JS logic). A bare `[data-theme]` selector matches those buttons too, causing each button to inherit its own theme's text color — making text invisible against the dropdown background. Always prefix with `html` to scope to the root element only.
+
+34. **Anti-FOUC must use `document.documentElement`, not `document.body`.** The anti-FOUC inline script in `<head>` runs before `<body>` exists. It MUST set `data-theme` on `document.documentElement` (html). The `applyTheme()` function in app.js must also use `document.documentElement` for consistency, since CSS targets `html[data-theme="..."]`.
+
+35. **CM6 custom themes need both `EditorView.theme()` and `HighlightStyle.define()`.** A CM6 theme without `HighlightStyle` only styles the editor chrome (background, gutter, cursor) but NOT syntax colors. Both must be bundled as an array and passed to `themeConf.reconfigure()`.
+
+36. **Themes are web-only.** The VS Code extension uses VS Code's built-in theming. The 6 Flxify themes (CSS variables + CM6 themes) only apply to the web app and generated tool pages.
+
 ## Syntax Highlighting Architecture
 
 The editor in `index.html` uses CodeMirror 6 with automatic language detection and dynamic switching via Compartments.
@@ -296,17 +304,37 @@ When markdown is detected, `markdown({ codeLanguages: languages })` enables per-
 ### Dynamic Switching
 A `languageConf` Compartment allows reconfiguring the active language extension without recreating the editor. Detection is debounced at 500ms after document changes via `updateLanguage(view)`.
 
-### Theme Switching
-A `themeConf` Compartment manages light/dark editor themes. Light mode uses a custom `lightEditorTheme`; dark mode uses `oneDark`. Both are exposed globally (`window.flxifyThemeConf`, `window.flxifyLightTheme`, `window.flxifyDarkTheme`) for `app.js` to toggle. Syntax highlighting in light mode uses `defaultHighlightStyle` (via `syntaxHighlighting(defaultHighlightStyle, { fallback: true })`).
+### Theme System (6 Themes)
+The app supports 6 themes via `html[data-theme="..."]` CSS attribute selectors: `standard-light`, `standard-dark`, `cyber-neon`, `nordic-frost`, `monokai-pro`, `oled-stealth`. Each theme defines 65 CSS variables (both new standardized names and legacy variable names for backward compatibility).
+
+**Architecture:**
+- CSS variables defined in `style.css` under `html[data-theme="..."]` selectors (MUST use `html` prefix — bare `[data-theme]` causes selector collision with dropdown buttons that also have `data-theme` attributes)
+- `:root` fallback block mirrors `standard-dark` values for pre-JS rendering
+- Anti-FOUC inline `<script>` in `<head>` sets `data-theme` on `document.documentElement` before CSS loads
+- `applyTheme(themeKey)` in app runtime sets attribute on `document.documentElement`, saves to `localStorage('flxify-theme')`, and reconfigures CM6 editor theme
+- Theme selector dropdown in top-right replaces old light/dark toggle
+
+**CodeMirror Integration:**
+- A `themeConf` Compartment manages editor themes. 6 CM6 themes map to the 6 CSS themes via `cmThemeMap` in app.js.
+- Standard Light uses existing `lightEditorTheme` + `defaultHighlightStyle`
+- Standard Dark uses existing `oneDark`
+- Cyber Neon, Nordic Frost, Monokai Pro, OLED Stealth each have custom `EditorView.theme()` + `HighlightStyle.define()` defined in the `<script type="module">` block in `index.html`
+- All 6 are exposed as `window.flxify*Theme` globals for app.js to access
+- Additional CM6 imports needed: `HighlightStyle` from `@codemirror/language@6`, `tags` from `@lezer/highlight@1`
+
+**Persistence:** `localStorage.getItem/setItem('flxify-theme')`, defaults to `'standard-dark'`.
 
 ## Agent Workflow
 
-This project uses three custom Claude Code agents:
-- **project-orchestrator** — Plans work, delegates to dev and QA agents, tracks progress. Reads plan.md, SEO.md, and PLAN.MD (VS Code extension) for requirements.
+This project uses four custom Claude Code agents:
+- **project-orchestrator** — Plans work, delegates to dev, QA, and theme agents, tracks progress. Reads plan.md, SEO.md, and PLAN.MD (VS Code extension) for requirements.
 - **plan-developer** — Implements features according to plan specifications. Has SEO expertise, full-stack development skills, and VS Code extension development knowledge.
 - **qa-plan-validator** — Validates deliverables against plan requirements. Checks SEO compliance, structured data validity, meta tag completeness, and VS Code extension functionality.
+- **flxify-theme-architect** — Designs visual themes, color palettes, and CSS variable specifications. Outputs WCAG-compliant theme specs with CM6 integration notes. Use BEFORE developer agent for any theme/visual work.
 
-Workflow: orchestrator reads plans -> delegates to plan-developer -> validates with qa-plan-validator -> reports status.
+Workflow: orchestrator reads plans -> (optional: theme-architect for visual specs) -> delegates to plan-developer -> validates with qa-plan-validator -> reports status.
+
+**Multi-phase pattern for visual features:** Plan → Theme Architect (creative spec) → User go/no-go → Developer (implementation) → QA (validation).
 
 ## Open Source Infrastructure
 

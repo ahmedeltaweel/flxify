@@ -428,32 +428,87 @@ if (mobileBtn) mobileBtn.addEventListener('click', togglePalette);
 var paletteCloseBtn = document.getElementById('palette-close');
 if (paletteCloseBtn) paletteCloseBtn.addEventListener('click', hidePalette);
 
-// Theme toggle (CSS class + localStorage + optional CM theme switch)
-var themeBtn = document.getElementById('theme-toggle');
-if (themeBtn) {
-  // Apply saved theme on load
-  try {
-    if (localStorage.getItem('flxify-theme') === 'light') {
-      document.body.classList.add('light-mode');
-    }
-  } catch(e) {}
+// Theme system
+var cmThemeMap = {
+  'standard-light': function() { return window.flxifyLightTheme; },
+  'standard-dark': function() { return window.flxifyDarkTheme; },
+  'cyber-neon': function() { return window.flxifyCyberNeonTheme; },
+  'nordic-frost': function() { return window.flxifyNordicFrostTheme; },
+  'monokai-pro': function() { return window.flxifyMonokaiProTheme; },
+  'oled-stealth': function() { return window.flxifyOledStealthTheme; }
+};
 
-  themeBtn.addEventListener('click', function() {
-    var goLight = !document.body.classList.contains('light-mode');
-    document.body.classList.toggle('light-mode', goLight);
-    try { localStorage.setItem('flxify-theme', goLight ? 'light' : 'dark'); } catch(e) {}
-    // Switch CodeMirror theme if available
-    var cm = window.cmEditor;
-    var conf = window.flxifyThemeConf;
-    if (cm && conf) {
-      var theme = goLight ? window.flxifyLightTheme : window.flxifyDarkTheme;
-      if (theme) cm.dispatch({ effects: conf.reconfigure([theme]) });
+function applyTheme(themeKey) {
+  document.documentElement.setAttribute('data-theme', themeKey);
+  try { localStorage.setItem('flxify-theme', themeKey); } catch(e) {}
+
+  // Update CM6 editor theme
+  var getTheme = cmThemeMap[themeKey];
+  if (getTheme && window.cmEditor && window.flxifyThemeConf) {
+    var cmTheme = getTheme();
+    if (cmTheme) {
+      window.cmEditor.dispatch({
+        effects: window.flxifyThemeConf.reconfigure(cmTheme)
+      });
     }
-    // Update theme-color meta tag
-    var tc = document.querySelector('meta[name="theme-color"]');
-    if (tc) tc.setAttribute('content', goLight ? '#f5f5f5' : '#252526');
+  }
+
+  // Update dropdown button label and dot
+  var label = document.querySelector('.theme-label');
+  var dot = document.querySelector('#theme-toggle .theme-dot');
+  var activeOption = document.querySelector('.theme-option[data-theme="' + themeKey + '"]');
+  if (label && activeOption) {
+    label.textContent = activeOption.getAttribute('data-label');
+  }
+  if (dot && activeOption) {
+    dot.style.background = activeOption.getAttribute('data-dot');
+  }
+
+  // Update active state in dropdown
+  document.querySelectorAll('.theme-option').forEach(function(opt) {
+    opt.classList.toggle('active', opt.getAttribute('data-theme') === themeKey);
   });
 }
+
+// Theme dropdown toggle
+var themeToggle = document.getElementById('theme-toggle');
+var themeDropdown = document.getElementById('theme-dropdown');
+
+if (themeToggle && themeDropdown) {
+  themeToggle.addEventListener('click', function(e) {
+    e.stopPropagation();
+    themeDropdown.classList.toggle('open');
+  });
+
+  document.querySelectorAll('.theme-option').forEach(function(opt) {
+    opt.addEventListener('click', function() {
+      applyTheme(this.getAttribute('data-theme'));
+      themeDropdown.classList.remove('open');
+    });
+  });
+
+  // Close dropdown when clicking outside
+  document.addEventListener('click', function() {
+    themeDropdown.classList.remove('open');
+  });
+}
+
+// Load saved theme on init
+var savedTheme = 'standard-dark';
+try { savedTheme = localStorage.getItem('flxify-theme') || 'standard-dark'; } catch(e) {}
+document.documentElement.setAttribute('data-theme', savedTheme);
+
+// Apply CM6 theme when editor is ready
+function applyCMThemeOnReady() {
+  if (window.cmEditor && window.flxifyThemeConf) {
+    applyTheme(savedTheme);
+  } else {
+    document.addEventListener('cm-ready', function() {
+      applyTheme(savedTheme);
+    });
+  }
+}
+applyCMThemeOnReady();
 
 // Directory search filter
 var dirSearch = document.getElementById('directory-search');
@@ -679,6 +734,7 @@ for (const entry of seoEntries) {
   <script type="application/ld+json">${JSON.stringify(howToJsonLd)}</script>
 
   <link rel="stylesheet" href="../../style.css">
+  <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body class="tool-page">
   <div id="top-bar">
@@ -695,10 +751,33 @@ for (const entry of seoEntries) {
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.583.063a1.5 1.5 0 0 1 1.342.825l4.5 9.75a1.5 1.5 0 0 1 0 1.272l-4.5 9.75a1.5 1.5 0 0 1-1.342.84H6.417a1.5 1.5 0 0 1-1.342-.825l-4.5-9.75a1.5 1.5 0 0 1 0-1.272l4.5-9.75A1.5 1.5 0 0 1 6.417.038h11.166zM12 6.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5z"/></svg>
         <span>VS Code</span>
       </a>
-      <button id="theme-toggle" class="theme-toggle" title="Toggle light/dark mode">
-        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
+      <div id="theme-selector" class="theme-selector">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Change theme" title="Change theme">
+          <span class="theme-dot"></span>
+          <span class="theme-label">Standard Dark</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="theme-dropdown" class="theme-dropdown">
+          <button class="theme-option" data-theme="standard-light" data-label="Standard Light" data-dot="#0066cc">
+            <span class="theme-dot" style="background:#0066cc"></span> Standard Light
+          </button>
+          <button class="theme-option" data-theme="standard-dark" data-label="Standard Dark" data-dot="#094771">
+            <span class="theme-dot" style="background:#094771"></span> Standard Dark
+          </button>
+          <button class="theme-option" data-theme="cyber-neon" data-label="Cyber Neon" data-dot="#00f5ff">
+            <span class="theme-dot" style="background:#00f5ff"></span> Cyber Neon
+          </button>
+          <button class="theme-option" data-theme="nordic-frost" data-label="Nordic Frost" data-dot="#81a1c1">
+            <span class="theme-dot" style="background:#81a1c1"></span> Nordic Frost
+          </button>
+          <button class="theme-option" data-theme="monokai-pro" data-label="Monokai Pro" data-dot="#ab9df2">
+            <span class="theme-dot" style="background:#ab9df2"></span> Monokai Pro
+          </button>
+          <button class="theme-option" data-theme="oled-stealth" data-label="OLED Stealth" data-dot="#0066ff">
+            <span class="theme-dot" style="background:#0066ff"></span> OLED Stealth
+          </button>
+        </div>
+      </div>
     </nav>
   </div>
 
@@ -848,6 +927,7 @@ const directoryPage = `<!DOCTYPE html>
   <script type="application/ld+json">${JSON.stringify(directoryJsonLd)}</script>
 
   <link rel="stylesheet" href="../style.css">
+  <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body class="directory-page">
   <div id="top-bar">
@@ -860,10 +940,33 @@ const directoryPage = `<!DOCTYPE html>
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.583.063a1.5 1.5 0 0 1 1.342.825l4.5 9.75a1.5 1.5 0 0 1 0 1.272l-4.5 9.75a1.5 1.5 0 0 1-1.342.84H6.417a1.5 1.5 0 0 1-1.342-.825l-4.5-9.75a1.5 1.5 0 0 1 0-1.272l4.5-9.75A1.5 1.5 0 0 1 6.417.038h11.166zM12 6.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5z"/></svg>
         <span>VS Code Extension</span>
       </a>
-      <button id="theme-toggle" class="theme-toggle" title="Toggle light/dark mode">
-        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
+      <div id="theme-selector" class="theme-selector">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Change theme" title="Change theme">
+          <span class="theme-dot"></span>
+          <span class="theme-label">Standard Dark</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="theme-dropdown" class="theme-dropdown">
+          <button class="theme-option" data-theme="standard-light" data-label="Standard Light" data-dot="#0066cc">
+            <span class="theme-dot" style="background:#0066cc"></span> Standard Light
+          </button>
+          <button class="theme-option" data-theme="standard-dark" data-label="Standard Dark" data-dot="#094771">
+            <span class="theme-dot" style="background:#094771"></span> Standard Dark
+          </button>
+          <button class="theme-option" data-theme="cyber-neon" data-label="Cyber Neon" data-dot="#00f5ff">
+            <span class="theme-dot" style="background:#00f5ff"></span> Cyber Neon
+          </button>
+          <button class="theme-option" data-theme="nordic-frost" data-label="Nordic Frost" data-dot="#81a1c1">
+            <span class="theme-dot" style="background:#81a1c1"></span> Nordic Frost
+          </button>
+          <button class="theme-option" data-theme="monokai-pro" data-label="Monokai Pro" data-dot="#ab9df2">
+            <span class="theme-dot" style="background:#ab9df2"></span> Monokai Pro
+          </button>
+          <button class="theme-option" data-theme="oled-stealth" data-label="OLED Stealth" data-dot="#0066ff">
+            <span class="theme-dot" style="background:#0066ff"></span> OLED Stealth
+          </button>
+        </div>
+      </div>
     </nav>
   </div>
 

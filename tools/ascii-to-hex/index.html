@@ -30,6 +30,7 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to use ASCII To Hex","step":[{"@type":"HowToStep","position":1,"text":"Open the ASCII To Hex tool on Flxify"},{"@type":"HowToStep","position":2,"text":"Paste or type your text into the editor"},{"@type":"HowToStep","position":3,"text":"Press Cmd+B (or Ctrl+B) and select \"ASCII To Hex\" from the command palette"},{"@type":"HowToStep","position":4,"text":"View the transformed result in the editor"},{"@type":"HowToStep","position":5,"text":"Copy the output for your use"}]}</script>
 
   <link rel="stylesheet" href="../../style.css">
+  <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
 </head>
 <body class="tool-page">
   <div id="top-bar">
@@ -46,10 +47,33 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.583.063a1.5 1.5 0 0 1 1.342.825l4.5 9.75a1.5 1.5 0 0 1 0 1.272l-4.5 9.75a1.5 1.5 0 0 1-1.342.84H6.417a1.5 1.5 0 0 1-1.342-.825l-4.5-9.75a1.5 1.5 0 0 1 0-1.272l4.5-9.75A1.5 1.5 0 0 1 6.417.038h11.166zM12 6.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5z"/></svg>
         <span>VS Code</span>
       </a>
-      <button id="theme-toggle" class="theme-toggle" title="Toggle light/dark mode">
-        <svg class="icon-sun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        <svg class="icon-moon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-      </button>
+      <div id="theme-selector" class="theme-selector">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Change theme" title="Change theme">
+          <span class="theme-dot"></span>
+          <span class="theme-label">Standard Dark</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="theme-dropdown" class="theme-dropdown">
+          <button class="theme-option" data-theme="standard-light" data-label="Standard Light" data-dot="#0066cc">
+            <span class="theme-dot" style="background:#0066cc"></span> Standard Light
+          </button>
+          <button class="theme-option" data-theme="standard-dark" data-label="Standard Dark" data-dot="#094771">
+            <span class="theme-dot" style="background:#094771"></span> Standard Dark
+          </button>
+          <button class="theme-option" data-theme="cyber-neon" data-label="Cyber Neon" data-dot="#00f5ff">
+            <span class="theme-dot" style="background:#00f5ff"></span> Cyber Neon
+          </button>
+          <button class="theme-option" data-theme="nordic-frost" data-label="Nordic Frost" data-dot="#81a1c1">
+            <span class="theme-dot" style="background:#81a1c1"></span> Nordic Frost
+          </button>
+          <button class="theme-option" data-theme="monokai-pro" data-label="Monokai Pro" data-dot="#ab9df2">
+            <span class="theme-dot" style="background:#ab9df2"></span> Monokai Pro
+          </button>
+          <button class="theme-option" data-theme="oled-stealth" data-label="OLED Stealth" data-dot="#0066ff">
+            <span class="theme-dot" style="background:#0066ff"></span> OLED Stealth
+          </button>
+        </div>
+      </div>
     </nav>
   </div>
 
@@ -137,7 +161,8 @@
     import { EditorView, keymap, lineNumbers } from 'https://esm.sh/@codemirror/view@6';
     import { EditorState, Compartment } from 'https://esm.sh/@codemirror/state@6';
     import { defaultKeymap, history, historyKeymap } from 'https://esm.sh/@codemirror/commands@6';
-    import { syntaxHighlighting, defaultHighlightStyle, bracketMatching } from 'https://esm.sh/@codemirror/language@6';
+    import { syntaxHighlighting, defaultHighlightStyle, bracketMatching, HighlightStyle } from 'https://esm.sh/@codemirror/language@6';
+    import { tags } from 'https://esm.sh/@lezer/highlight@1';
     import { oneDark } from 'https://esm.sh/@codemirror/theme-one-dark@6';
     import { json } from 'https://esm.sh/@codemirror/lang-json@6';
     import { javascript } from 'https://esm.sh/@codemirror/lang-javascript@6';
@@ -176,12 +201,146 @@
     // Dark editor theme (oneDark + overrides)
     const darkEditorTheme = oneDark;
 
+    // ── Cyber Neon CM6 Theme ──
+    const cyberNeonEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#0a0a14', color: '#e8e8ff' },
+      '.cm-gutters': { backgroundColor: '#0d0d1a', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#2a2a4a' },
+      '.cm-activeLine': { backgroundColor: 'rgba(0, 245, 255, 0.04)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(0, 245, 255, 0.15) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(0, 245, 255, 0.30) !important' },
+      '.cm-content': { caretColor: '#00f5ff' },
+      '.cm-cursor': { borderLeftColor: '#00f5ff' }
+    }, { dark: true });
+    const cyberNeonHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#ff2d95' },
+      { tag: tags.string, color: '#39ff14' },
+      { tag: tags.number, color: '#ffcc00' },
+      { tag: tags.comment, color: '#3a3a6a', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#00f5ff' },
+      { tag: tags.variableName, color: '#e8e8ff' },
+      { tag: tags.function(tags.variableName), color: '#00f5ff' },
+      { tag: tags.definition(tags.variableName), color: '#e8e8ff' },
+      { tag: tags.typeName, color: '#ff2d95' },
+      { tag: tags.operator, color: '#ff2d95' },
+      { tag: tags.punctuation, color: '#8888cc' },
+      { tag: tags.tagName, color: '#ff2d95' },
+      { tag: tags.attributeName, color: '#00f5ff' },
+      { tag: tags.attributeValue, color: '#39ff14' },
+      { tag: tags.bool, color: '#ffcc00' },
+      { tag: tags.null, color: '#4a4a7a' },
+      { tag: tags.regexp, color: '#39ff14' },
+      { tag: tags.heading, color: '#00f5ff', fontWeight: 'bold' },
+      { tag: tags.link, color: '#39ff14', textDecoration: 'underline' },
+    ]);
+    window.flxifyCyberNeonTheme = [cyberNeonEditorTheme, syntaxHighlighting(cyberNeonHighlight)];
+
+    // ── Nordic Frost CM6 Theme ──
+    const nordicFrostEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#2e3440', color: '#eceff4' },
+      '.cm-gutters': { backgroundColor: '#2e3440', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#4c566a' },
+      '.cm-activeLine': { backgroundColor: 'rgba(255, 255, 255, 0.03)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(136, 192, 208, 0.20) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(136, 192, 208, 0.35) !important' },
+      '.cm-content': { caretColor: '#d8dee9' },
+      '.cm-cursor': { borderLeftColor: '#d8dee9' }
+    }, { dark: true });
+    const nordicFrostHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#81a1c1' },
+      { tag: tags.string, color: '#a3be8c' },
+      { tag: tags.number, color: '#b48ead' },
+      { tag: tags.comment, color: '#4c566a', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#88c0d0' },
+      { tag: tags.variableName, color: '#d8dee9' },
+      { tag: tags.function(tags.variableName), color: '#88c0d0' },
+      { tag: tags.definition(tags.variableName), color: '#8fbcbb' },
+      { tag: tags.typeName, color: '#8fbcbb' },
+      { tag: tags.operator, color: '#81a1c1' },
+      { tag: tags.punctuation, color: '#eceff4' },
+      { tag: tags.tagName, color: '#81a1c1' },
+      { tag: tags.attributeName, color: '#8fbcbb' },
+      { tag: tags.attributeValue, color: '#a3be8c' },
+      { tag: tags.bool, color: '#b48ead' },
+      { tag: tags.null, color: '#4c566a' },
+      { tag: tags.regexp, color: '#ebcb8b' },
+      { tag: tags.heading, color: '#88c0d0', fontWeight: 'bold' },
+      { tag: tags.link, color: '#a3be8c', textDecoration: 'underline' },
+    ]);
+    window.flxifyNordicFrostTheme = [nordicFrostEditorTheme, syntaxHighlighting(nordicFrostHighlight)];
+
+    // ── Monokai Pro CM6 Theme ──
+    const monokaiProEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#2d2a2e', color: '#fcfcfa' },
+      '.cm-gutters': { backgroundColor: '#2d2a2e', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#5b595c' },
+      '.cm-activeLine': { backgroundColor: 'rgba(255, 255, 255, 0.04)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(171, 157, 242, 0.25) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(171, 157, 242, 0.45) !important' },
+      '.cm-content': { caretColor: '#fcfcfa' },
+      '.cm-cursor': { borderLeftColor: '#fcfcfa' }
+    }, { dark: true });
+    const monokaiProHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#ff6188' },
+      { tag: tags.string, color: '#ffd866' },
+      { tag: tags.number, color: '#ab9df2' },
+      { tag: tags.comment, color: '#727072', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#78dce8' },
+      { tag: tags.variableName, color: '#fcfcfa' },
+      { tag: tags.function(tags.variableName), color: '#a9dc76' },
+      { tag: tags.definition(tags.variableName), color: '#fcfcfa' },
+      { tag: tags.typeName, color: '#78dce8' },
+      { tag: tags.operator, color: '#ff6188' },
+      { tag: tags.punctuation, color: '#939293' },
+      { tag: tags.tagName, color: '#ff6188' },
+      { tag: tags.attributeName, color: '#78dce8' },
+      { tag: tags.attributeValue, color: '#ffd866' },
+      { tag: tags.bool, color: '#ab9df2' },
+      { tag: tags.null, color: '#727072' },
+      { tag: tags.regexp, color: '#ff6188' },
+      { tag: tags.heading, color: '#ffd866', fontWeight: 'bold' },
+      { tag: tags.link, color: '#78dce8', textDecoration: 'underline' },
+    ]);
+    window.flxifyMonokaiProTheme = [monokaiProEditorTheme, syntaxHighlighting(monokaiProHighlight)];
+
+    // ── OLED Stealth CM6 Theme ──
+    const oledStealthEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#000000', color: '#e8e8e8' },
+      '.cm-gutters': { backgroundColor: '#0a0a0a', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#222222' },
+      '.cm-activeLine': { backgroundColor: 'rgba(255, 255, 255, 0.02)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(0, 102, 255, 0.20) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(0, 102, 255, 0.40) !important' },
+      '.cm-content': { caretColor: '#0066ff' },
+      '.cm-cursor': { borderLeftColor: '#0066ff' }
+    }, { dark: true });
+    const oledStealthHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#0066ff' },
+      { tag: tags.string, color: '#aaaaaa' },
+      { tag: tags.number, color: '#888888' },
+      { tag: tags.comment, color: '#333333', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#cccccc' },
+      { tag: tags.variableName, color: '#e8e8e8' },
+      { tag: tags.function(tags.variableName), color: '#4488ff' },
+      { tag: tags.definition(tags.variableName), color: '#e8e8e8' },
+      { tag: tags.typeName, color: '#5599ff' },
+      { tag: tags.operator, color: '#666666' },
+      { tag: tags.punctuation, color: '#555555' },
+      { tag: tags.tagName, color: '#0066ff' },
+      { tag: tags.attributeName, color: '#aaaaaa' },
+      { tag: tags.attributeValue, color: '#888888' },
+      { tag: tags.bool, color: '#0066ff' },
+      { tag: tags.null, color: '#333333' },
+      { tag: tags.regexp, color: '#4488ff' },
+      { tag: tags.heading, color: '#ffffff', fontWeight: 'bold' },
+      { tag: tags.link, color: '#0066ff', textDecoration: 'underline' },
+    ]);
+    window.flxifyOledStealthTheme = [oledStealthEditorTheme, syntaxHighlighting(oledStealthHighlight)];
+
     // Read saved theme preference
     const savedTheme = (() => {
-      try { return localStorage.getItem('flxify-theme'); } catch(e) { return null; }
+      try { return localStorage.getItem('flxify-theme') || 'standard-dark'; } catch(e) { return 'standard-dark'; }
     })();
-    const isLight = savedTheme === 'light';
-    if (isLight) document.body.classList.add('light-mode');
 
     // Language compartment for dynamic switching
     const languageConf = new Compartment();
@@ -328,7 +487,7 @@
         history(),
         bracketMatching(),
         syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
-        themeConf.of(isLight ? [lightEditorTheme] : [darkEditorTheme]),
+        themeConf.of([darkEditorTheme]),
         lineNumbers(),
         languageConf.of([]),
         keymap.of([...defaultKeymap, ...historyKeymap]),
@@ -383,10 +542,10 @@
     // Focus the editor on load
     cmEditor.focus();
 
-    // Expose theme compartment and themes for app.js theme toggle
+    // Expose theme compartment and all themes for app.js theme switcher
     window.flxifyThemeConf = themeConf;
-    window.flxifyLightTheme = lightEditorTheme;
-    window.flxifyDarkTheme = darkEditorTheme;
+    window.flxifyLightTheme = [lightEditorTheme, syntaxHighlighting(defaultHighlightStyle)];
+    window.flxifyDarkTheme = [darkEditorTheme];
 
     // Update hint text for mobile
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
