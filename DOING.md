@@ -18,3 +18,4 @@ The ability to change font, and more importantly font-size.
 ### multi editor spaces Settings
 
 The ability to have multiple files as space and switch between them.
+

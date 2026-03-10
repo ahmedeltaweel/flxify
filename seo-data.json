@@ -8,7 +8,7 @@
     "Text Case": ["Upcase", "Downcase", "CamelCase", "KebabCase", "SnakeCase", "StartCase", "SpongeCase", "toggleCamelHyphen", "Deburr"],
     "Text Manipulation": ["SortLines", "NaturalSortLines", "ReverseLines", "ReverseString", "ShuffleLines", "ShuffleCharacters", "RemoveDuplicateLines", "JoinLines", "JoinLinesWithComma", "JoinLinesWithSpace", "CollapseLines", "Trim", "TrimStart", "TrimEnd", "AddSlashes", "RemoveSlashes", "ReplaceSmartQuotes", "MarkdownQuote", "Rot13", "AddLineNumbers", "RemoveLineNumbers", "SpacesToTabs", "TabsToSpaces", "SortJSON", "LineComparer", "listToHTMLList", "Wadsworth", "Defang", "Refang", "PHPUnserialize", "EscapeLineFeeds", "UnescapeLineFeeds"],
     "Generation": ["UUIDGenerator", "ULIDGenerator", "LoremIpsum", "NewBoopScript", "generateHashtag", "contrastingColor", "CreateProjectGlossaryMarkdown"],
-    "Extraction": ["ExtractURLs", "ExtractEmails", "CountCharacters", "CountWords", "CountLines", "SumAll", "CalculateSize"],
+    "Extraction": ["ExtractURLs", "ExtractEmails", "ExtractPhoneNumbers", "CountCharacters", "CountWords", "CountLines", "SumAll", "CalculateSize"],
     "Developer Utilities": ["JWTDecode", "RegexEscape", "EvalJavascript", "DateToTimestamp", "DateToUTC", "TimeToSecond", "TestScript"]
   },
   "_customMeta": {
@@ -156,6 +156,11 @@
       "title": "Unescape Line Feeds - Convert \\n to Newlines Online",
       "metaDescription": "Convert literal \\n and \\r\\n escape sequences to actual newlines online for free. Turn single-line strings into multi-line text. 100% client-side.",
       "keywords": ["unescape newlines", "\\n to newline", "convert \\n", "line feed unescape", "unescape line breaks"]
+    },
+    "ExtractPhoneNumbers": {
+      "title": "Extract Phone Numbers from Text Online | Flxify",
+      "metaDescription": "Extract and list all phone numbers from any text. Supports US, UK, EU, and international formats. Free, private, runs in your browser.",
+      "keywords": ["extract phone numbers", "find phone numbers in text", "phone number extractor", "scrape phone numbers", "US phone number regex", "international phone format"]
     }
   }
 }

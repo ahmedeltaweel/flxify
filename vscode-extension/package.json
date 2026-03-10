@@ -1,8 +1,8 @@
 {
   "name": "flxify",
   "displayName": "Flxify",
-  "description": "110+ text transformation scripts for developers. Format JSON, encode Base64, hash text, convert cases, and more — right in your editor.",
-  "version": "0.4.0",
+  "description": "111+ text transformation scripts for developers. Format JSON, encode Base64, hash text, convert cases, and more — right in your editor.",
+  "version": "0.5.0",
   "publisher": "flxify",
   "author": {
     "name": "Ahmed El Taweel"
@@ -40,7 +40,8 @@
     "uuid",
     "developer tools",
     "boop",
-    "swiss army knife"
+    "swiss army knife",
+    "phone"
   ],
   "activationEvents": [],
   "main": "./out/extension.js",

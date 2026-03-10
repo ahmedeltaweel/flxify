@@ -1,5 +1,11 @@
 # Changelog
 
+## [0.5.0] - 2026-03-10
+
+### Added
+- Extract Phone Numbers script — extracts unique US and EU/international phone numbers from text
+- Total scripts now at 111
+
 ## [0.4.0] - 2026-03-09
 
 ### Added

@@ -1,6 +1,6 @@
 # Flxify
 
-> **107+ text transformation scripts for developers.** Format JSON, encode Base64, generate UUIDs, hash text, convert cases, sort lines, and more — without leaving your editor.
+> **111+ text transformation scripts for developers.** Format JSON, encode Base64, generate UUIDs, hash text, convert cases, sort lines, and more — without leaving your editor.
 
 Flxify is the Swiss Army knife for text transformations in VS Code. Select text, pick a script, done.
 
@@ -19,7 +19,7 @@ You can also open the Command Palette (`Cmd+Shift+P`) and type **"Flxify: Run Sc
 
 ## Features
 
-### 107+ Built-in Scripts
+### 111+ Built-in Scripts
 
 | Category | Examples |
 |----------|---------|
@@ -31,7 +31,7 @@ You can also open the Command Palette (`Cmd+Shift+P`) and type **"Flxify: Run Sc
 | **Text Case** | camelCase, snake_case, kebab-case, UPPER CASE, lower case, Start Case, Sponge Case |
 | **Text Manipulation** | Sort Lines, Reverse Lines, Remove Duplicates, Join Lines, Trim, Collapse Whitespace |
 | **Generation** | UUID Generator, Lorem Ipsum |
-| **Extraction** | Extract Emails, Extract URLs |
+| **Extraction** | Extract Emails, Extract URLs, Extract Phone Numbers |
 | **Developer Utilities** | Regex Escape, ROT13, Timestamp Conversions, Markdown Quote, Line Numbers |
 
 ### Multi-Cursor Support
@@ -118,6 +118,19 @@ cherry
 apple
 banana
 cherry
+```
+
+### Extract Phone Numbers
+**Before:**
+```
+Contact us at (555) 123-4567 or +44 20 7946 0958.
+Email: info@example.com, call +1-800-555-0199.
+```
+**After:**
+```
+(555) 123-4567
++44 20 7946 0958
++1-800-555-0199
 ```
 
 ---
