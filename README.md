@@ -3,6 +3,7 @@
 [![CI](https://github.com/ahmedeltaweel/flxify/actions/workflows/ci.yml/badge.svg)](https://github.com/ahmedeltaweel/flxify/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/flxify.flxify)](https://marketplace.visualstudio.com/items?itemName=flxify.flxify)
+[![npm](https://img.shields.io/npm/v/@flxify/cli)](https://www.npmjs.com/package/@flxify/cli)
 
 A developer text utility tool with **111 executable scripts** accessible via a command palette. Available as a **web app**, **VS Code extension**, and **terminal CLI**. Paste text, run a script, get transformed output. Think "Swiss Army knife for text transformations."
 
