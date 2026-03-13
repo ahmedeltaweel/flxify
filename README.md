@@ -5,13 +5,13 @@
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/flxify.flxify)](https://marketplace.visualstudio.com/items?itemName=flxify.flxify)
 [![npm](https://img.shields.io/npm/v/@flxify/cli)](https://www.npmjs.com/package/@flxify/cli)
 
-A developer text utility tool with **111 executable scripts** accessible via a command palette. Available as a **web app**, **VS Code extension**, and **terminal CLI**. Paste text, run a script, get transformed output. Think "Swiss Army knife for text transformations."
+A developer text utility tool with **112 executable scripts** accessible via a command palette. Available as a **web app**, **VS Code extension**, and **terminal CLI**. Paste text, run a script, get transformed output. Think "Swiss Army knife for text transformations."
 
 **Try it:** [flxify.dev](https://flxify.dev) | **Install CLI:** `npm i -g @flxify/cli`
 
 ## Features
 
-- **111 scripts** for JSON formatting, Base64 encoding, hashing, case conversion, sorting, and more
+- **112 scripts** for JSON formatting, Base64 encoding, hashing, case conversion, sorting, and more
 - **Command palette** (Cmd/Ctrl+B) with fuzzy search
 - **Syntax highlighting** with automatic language detection (JSON, HTML, CSS, Python, YAML, SQL, etc.)
 - **6 themes** — Standard Dark/Light, Cyber Neon, Nordic Frost, Monokai Pro, OLED Stealth
