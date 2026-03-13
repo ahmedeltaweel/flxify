@@ -1,6 +1,6 @@
 # @flxify/cli
 
-A terminal-based text utility with **111 transformation scripts**, **Vim keybindings**, and a **command palette** — the same power as [flxify.dev](https://flxify.dev), right in your terminal.
+A terminal-based text utility with **112 transformation scripts**, **Vim keybindings**, and a **command palette** — the same power as [flxify.dev](https://flxify.dev), right in your terminal.
 
 [![npm version](https://img.shields.io/npm/v/@flxify/cli)](https://www.npmjs.com/package/@flxify/cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../LICENSE)
