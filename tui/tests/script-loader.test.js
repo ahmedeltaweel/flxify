@@ -41,9 +41,9 @@ describe('script-loader — loadScripts()', function () {
     expect(scripts.length).toBeGreaterThanOrEqual(108);
   });
 
-  it('loads exactly 111 scripts', function () {
+  it('loads exactly 112 scripts', function () {
     // The canonical count. If this fails, a script's metadata may be broken.
-    expect(scripts.length).toBe(111);
+    expect(scripts.length).toBe(112);
   });
 });
 
