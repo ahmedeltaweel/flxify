@@ -114,7 +114,7 @@ function main(state) {
 
 ## Available Scripts
 
-See [SCRIPTS.md](SCRIPTS.md) for a complete reference of all 111 scripts organized by category.
+See [SCRIPTS.md](SCRIPTS.md) for a complete reference of all 112 scripts organized by category.
 
 ## Contributing
 

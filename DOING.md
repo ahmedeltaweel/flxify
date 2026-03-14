@@ -4,7 +4,7 @@
 
 ### Terminal CLI (@flxify/cli)
 
-Full TUI text editor with Vim keybindings, command palette (111 scripts), 6 themes, file open/save, search, undo/redo. Published on npm as `@flxify/cli`.
+Full TUI text editor with Vim keybindings, command palette (112 scripts), 6 themes, file open/save, search, undo/redo. Published on npm as `@flxify/cli`.
 
 ## In Progress
 
