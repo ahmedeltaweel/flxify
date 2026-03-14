@@ -1081,14 +1081,23 @@ const countReplacements = [
   ['DOING.md', /command palette \(\d+ scripts\)/g, `command palette (${SCRIPT_COUNT} scripts)`],
 ];
 
-let countUpdated = 0;
+// Group replacements by file — read once, apply all patterns, write once
+const replacementsByFile = {};
 for (const [relPath, pattern, replacement] of countReplacements) {
+  if (!replacementsByFile[relPath]) replacementsByFile[relPath] = [];
+  replacementsByFile[relPath].push({ pattern, replacement });
+}
+
+let countUpdated = 0;
+for (const [relPath, replacements] of Object.entries(replacementsByFile)) {
   const filePath = path.join(__dirname, relPath);
-  if (!fs.existsSync(filePath)) continue;
-  const content = fs.readFileSync(filePath, 'utf-8');
-  const updated = content.replace(pattern, replacement);
-  if (updated !== content) {
-    fs.writeFileSync(filePath, updated, 'utf-8');
+  let content = fs.readFileSync(filePath, 'utf-8');
+  const original = content;
+  for (const { pattern, replacement } of replacements) {
+    content = content.replace(pattern, replacement);
+  }
+  if (content !== original) {
+    fs.writeFileSync(filePath, content, 'utf-8');
     countUpdated++;
     console.log(`  Updated ${relPath}`);
   }
