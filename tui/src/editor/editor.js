@@ -67,6 +67,9 @@ function createEditor(screen, opts) {
   // How many lines have scrolled off the top
   var scrollTop = 0;
 
+  // Word wrap — when true, long lines are wrapped at viewport width instead of truncated
+  var wrapMode = false;
+
   // Cursor color for the current theme (set via applyTheme).
   // Written as an OSC 12 escape after each render so the terminal block cursor
   // is always visible, regardless of the terminal's own default cursor color.
@@ -144,9 +147,22 @@ function createEditor(screen, opts) {
   }
 
   /**
+   * Returns the number of visual (screen) rows a logical line occupies when wrapped.
+   * @param {string} text  - logical line text
+   * @param {number} vpw   - viewport width in columns
+   * @returns {number} >= 1
+   */
+  function visualRowsForLine(text, vpw) {
+    return text.length === 0 ? 1 : Math.ceil(text.length / vpw);
+  }
+
+  /**
    * Build the visible text and write it into the blessed box.
    * Handles visual-mode highlighting by wrapping selected chars in inverse tags.
    * Then repositions the terminal hardware cursor.
+   *
+   * When wrapMode is true, long lines are split into multiple visual rows.
+   * When wrapMode is false (default), long lines are truncated at viewport width.
    */
   function render() {
     var cur = buffer.getCursor();
@@ -158,31 +174,89 @@ function createEditor(screen, opts) {
     var inVisual = (vim.mode === 'visual' || vim.mode === 'visual-line');
     var selRange = inVisual ? vim.selection.getRange(buffer) : null;
 
-    for (var i = 0; i < vph; i++) {
-      var lineIdx = scrollTop + i;
-      if (lineIdx < totalLines) {
-        var lineText = buffer.getLine(lineIdx);
-        // Truncate to viewport width to prevent blessed from wrapping
-        if (lineText.length > vpw) {
-          lineText = lineText.slice(0, vpw);
+    var screenRow, screenCol;
+
+    if (wrapMode) {
+      // --- Wrap mode: emit visual rows by slicing logical lines at vpw chars ---
+      var visualRow = 0;
+      var cursorScreenRow = 1;
+      var cursorScreenCol = gutterLeft;
+      var logicalLine = scrollTop;
+
+      while (visualRow < vph && logicalLine < totalLines) {
+        var lineText = buffer.getLine(logicalLine);
+        var rowsThisLine = visualRowsForLine(lineText, vpw);
+
+        // Compute cursor position for this logical line if it's the cursor line
+        if (logicalLine === cur.line) {
+          var cursorRowInLine = Math.floor(cur.col / vpw);
+          var cursorColInRow  = cur.col % vpw;
+          cursorScreenRow = 1 + visualRow + cursorRowInLine;
+          cursorScreenCol = gutterLeft + cursorColInRow;
         }
 
-        if (inVisual && selRange && lineIdx >= selRange.startLine && lineIdx <= selRange.endLine) {
-          // This line is (partially) selected — apply highlight
-          contentLines.push(renderSelectedLine(lineText, lineIdx, selRange, vim.selection.isLine));
-        } else {
-          contentLines.push(escapeTags(lineText));
+        // Emit each visual row for this logical line
+        for (var seg = 0; seg < rowsThisLine && visualRow < vph; seg++) {
+          var slice = lineText.slice(seg * vpw, (seg + 1) * vpw);
+          if (inVisual && selRange && logicalLine >= selRange.startLine && logicalLine <= selRange.endLine) {
+            // Determine selection columns within this visual segment
+            var segStart = seg * vpw;
+            var segEnd   = segStart + vpw;
+            var sc = vim.selection.isLine ? 0 : (logicalLine === selRange.startLine ? selRange.startCol : 0);
+            var ec = vim.selection.isLine ? lineText.length : (logicalLine === selRange.endLine ? selRange.endCol + 1 : lineText.length);
+            // Clamp to this segment
+            var localSc = Math.max(0, sc - segStart);
+            var localEc = Math.min(vpw, ec - segStart);
+            if (localEc > localSc) {
+              var before   = escapeTags(slice.slice(0, localSc));
+              var selected = escapeTags(slice.slice(localSc, localEc));
+              var after    = escapeTags(slice.slice(localEc));
+              if (!selected) selected = ' ';
+              contentLines.push(before + '{inverse}' + selected + '{/inverse}' + after);
+            } else {
+              contentLines.push(escapeTags(slice));
+            }
+          } else {
+            contentLines.push(escapeTags(slice));
+          }
+          visualRow++;
         }
-      } else {
-        contentLines.push('');
+        logicalLine++;
       }
+
+      // Pad remaining rows
+      while (contentLines.length < vph) contentLines.push('');
+
+      screenRow = cursorScreenRow;
+      screenCol = cursorScreenCol;
+
+    } else {
+      // --- No-wrap mode (default): truncate long lines ---
+      for (var i = 0; i < vph; i++) {
+        var lineIdx = scrollTop + i;
+        if (lineIdx < totalLines) {
+          var lineText = buffer.getLine(lineIdx);
+          // Truncate to viewport width to prevent blessed from wrapping
+          if (lineText.length > vpw) {
+            lineText = lineText.slice(0, vpw);
+          }
+
+          if (inVisual && selRange && lineIdx >= selRange.startLine && lineIdx <= selRange.endLine) {
+            // This line is (partially) selected — apply highlight
+            contentLines.push(renderSelectedLine(lineText, lineIdx, selRange, vim.selection.isLine));
+          } else {
+            contentLines.push(escapeTags(lineText));
+          }
+        } else {
+          contentLines.push('');
+        }
+      }
+
+      screenRow = 1 + (cur.line - scrollTop);
+      screenCol = gutterLeft + cur.col;
     }
 
     box.setContent(contentLines.join('\n'));
-
-    // Position the hardware cursor
-    var screenRow = 1 + (cur.line - scrollTop);
-    var screenCol = gutterLeft + cur.col;
 
     // Clamp to prevent cursor going off screen
     if (screenRow < 1) screenRow = 1;
@@ -240,6 +314,10 @@ function createEditor(screen, opts) {
     var before = escapeTags(lineText.slice(0, sc));
     var selected = escapeTags(lineText.slice(sc, ec));
     var after = escapeTags(lineText.slice(ec));
+
+    // If selected is empty (e.g., an empty line in visual-line mode), add a
+    // space so that the {inverse} tag renders a visible highlight cell.
+    if (!selected) selected = ' ';
 
     return before + '{inverse}' + selected + '{/inverse}' + after;
   }
@@ -428,6 +506,29 @@ function createEditor(screen, opts) {
   }
 
   /**
+   * Enable or disable word-wrap rendering.
+   * When enabled, lines longer than the viewport width wrap to multiple visual rows.
+   * When disabled (default), long lines are truncated at the viewport edge.
+   * @param {boolean} enabled
+   */
+  function setWrapMode(enabled) {
+    wrapMode = !!enabled;
+    render();
+  }
+
+  /**
+   * Replace the editor content with an undo-preserving setText.
+   * The prior content is pushed onto the undo stack, so `u` can restore it.
+   * Used by applyResult() after running a script.
+   * @param {string} text
+   */
+  function setTextUndoable(text) {
+    buffer.setTextUndoable(text);
+    scrollTop = 0;
+    render();
+  }
+
+  /**
    * Pause key handling (e.g., when command palette is open).
    * Hides the terminal cursor while the editor is inactive.
    */
@@ -487,6 +588,8 @@ function createEditor(screen, opts) {
     // Content API
     getText: getText,
     setText: setText,
+    setTextUndoable: setTextUndoable,
+    setWrapMode: setWrapMode,
 
     // Control
     pause: pause,

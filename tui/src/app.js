@@ -183,10 +183,17 @@ function launch(options) {
       // Loading a file is not a modification — buffer starts clean
       clearModified();
     } catch (err) {
-      editor.setText(
-        'Error: Could not open file: ' + file + '\n\n' + err.message
-      );
-      clearModified();
+      if (err.code === 'ENOENT') {
+        // File does not exist yet — start with empty buffer, keep file path
+        // so that :w / Ctrl+S saves to the given path.
+        setImmediate(function () {
+          toast.showInfo(screen, 'New file: ' + path.basename(file), themeEngine.getCurrentTheme());
+        });
+        clearModified();
+      } else {
+        editor.setText('Error: Could not open file: ' + file + '\n\n' + err.message);
+        clearModified();
+      }
     }
   }
 
@@ -486,6 +493,14 @@ function launch(options) {
         saveBufferOnExit();
         safeDestroyScreen();
         process.exit(0);
+      } else if (cmd === 'set wrap') {
+        editor.setWrapMode(true);
+        panels.topBar.setWrapMode(true);
+        toast.showInfo(screen, 'wrap', themeEngine.getCurrentTheme());
+      } else if (cmd === 'set nowrap') {
+        editor.setWrapMode(false);
+        panels.topBar.setWrapMode(false);
+        toast.showInfo(screen, 'nowrap', themeEngine.getCurrentTheme());
       }
     });
   };
@@ -513,7 +528,7 @@ function launch(options) {
     var action = result.action;
 
     if (action === 'replaceAll') {
-      editor.setText(result.text);
+      editor.setTextUndoable(result.text);
       markModified();
     } else if (action === 'replaceSelection') {
       // Replace the current visual selection in the buffer
@@ -613,6 +628,30 @@ function launch(options) {
       editor.setText(editor.getText() + text);
     }
   }
+
+  // ---------------------------------------------------------------------------
+  // Clipboard integration — write yanked text to the system clipboard.
+  // Uses platform-native tools (pbcopy on macOS, xclip/xsel on Linux, clip on Windows).
+  // Silently fails if no clipboard tool is available (e.g., headless server).
+  // ---------------------------------------------------------------------------
+  function writeToClipboard(text) {
+    try {
+      var cp = require('child_process');
+      if (process.platform === 'darwin') {
+        cp.spawnSync('pbcopy', [], { input: text, timeout: 1000 });
+      } else if (process.platform === 'linux') {
+        var r = cp.spawnSync('xclip', ['-selection', 'clipboard'], { input: text, timeout: 1000 });
+        if (r.status !== 0) {
+          cp.spawnSync('xsel', ['--clipboard', '--input'], { input: text, timeout: 1000 });
+        }
+      } else if (process.platform === 'win32') {
+        cp.spawnSync('clip', [], { input: text, timeout: 1000 });
+      }
+    } catch (_e) { /* silently fail — no clipboard tool available */ }
+  }
+
+  // Wire yank → system clipboard
+  editor.vim.onYank = function (text) { writeToClipboard(text); };
 
   var palette = paletteModule.createPalette(screen, {
     scripts: scripts,

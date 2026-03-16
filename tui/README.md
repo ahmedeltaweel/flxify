@@ -25,6 +25,8 @@ flxify --theme cyber-neon      # Launch with a specific theme
 - **Command palette** (Ctrl+B) with fuzzy search across all scripts
 - **Vim keybindings** — Normal, Insert, Visual, and Visual-Line modes
 - **6 themes** — Standard Dark/Light, Cyber Neon, Nordic Frost, Monokai Pro, OLED Stealth
+- **Word wrap** — `:set wrap` / `:set nowrap` to toggle soft wrap for long lines
+- **System clipboard** — yanking (`yy`, visual `y`) copies to clipboard automatically
 - **File editing** — open, edit, and save files with Ctrl+S
 - **Unsaved changes protection** — prompts before quitting with unsaved edits
 - **Search** — `/` in Normal mode for incremental search with `n`/`N` navigation
@@ -57,6 +59,8 @@ Press `:` in Normal mode to open the command bar:
 | `:x` | Save and quit (alias for `:wq`) |
 | `:q` | Quit (warns if unsaved changes) |
 | `:q!` | Force quit without saving |
+| `:set wrap` | Enable word wrap for long lines |
+| `:set nowrap` | Disable word wrap (default) |
 
 ## Themes
 

@@ -10,9 +10,11 @@
 **/
 
 function main(input) {
-	
-	input.text = reverse(input.text)
-	
+	var text = input.text;
+	// Preserve trailing newlines — reversing moves them to position 0 otherwise.
+	var match = text.match(/\n+$/);
+	var trailing = match ? match[0] : '';
+	input.text = reverse(text.replace(/\n+$/, '')) + trailing;
 }
 
 /* 

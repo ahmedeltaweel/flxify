@@ -344,6 +344,72 @@ describe('TextBuffer — undo / redo', function () {
 });
 
 // ---------------------------------------------------------------------------
+// deleteLines — crash fix (Bug 4)
+// ---------------------------------------------------------------------------
+describe('TextBuffer — deleteLines crash fix', function () {
+  it('delete all lines with cursor on non-zero line clamps cursor to 0', function () {
+    var b = makeBuffer('a\nb\nc');
+    b.setCursor(2, 0); // cursor on line 2 ("c")
+    b.deleteLines(0, 3); // delete all 3 lines
+    // Should not crash; buffer should be [''], cursor at line 0
+    expect(b.getLineCount()).toBe(1);
+    expect(b.getLine(0)).toBe('');
+    expect(b.getCursor().line).toBe(0);
+  });
+
+  it('delete all lines when cursor is on last line — no crash', function () {
+    var b = makeBuffer('x\ny');
+    b.setCursor(1, 0);
+    b.deleteLines(0, 2);
+    expect(b.getLineCount()).toBe(1);
+    expect(b.getCursor().line).toBe(0);
+  });
+
+  it('delete subset of lines does not crash', function () {
+    var b = makeBuffer('a\nb\nc');
+    b.deleteLines(1, 2); // delete 'b' and 'c'
+    expect(b.getLineCount()).toBe(1);
+    expect(b.getLine(0)).toBe('a');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// setTextUndoable — Bug 5
+// ---------------------------------------------------------------------------
+describe('TextBuffer — setTextUndoable', function () {
+  it('preserves undo stack', function () {
+    var b = new TextBuffer();
+    b.insertChar('a');   // undo stack has 1 entry
+    var undoDepthBefore = b._undoStack.length;
+
+    b.setTextUndoable('hello');
+    // One more entry should be on the undo stack
+    expect(b._undoStack.length).toBe(undoDepthBefore + 1);
+    expect(b.getText()).toBe('hello');
+  });
+
+  it('u after setTextUndoable restores prior content', function () {
+    var b = makeBuffer('original');
+    b.setTextUndoable('replaced');
+    expect(b.getText()).toBe('replaced');
+    b.undo();
+    expect(b.getText()).toBe('original');
+  });
+
+  it('does not clear existing undo history', function () {
+    var b = new TextBuffer();
+    b.insertChar('x');
+    b.insertChar('y');
+    b.setTextUndoable('new');
+    // Undo setTextUndoable → 'xy', then undo 'y' → 'x'
+    b.undo(); // reverts setTextUndoable
+    expect(b.getText()).toBe('xy');
+    b.undo(); // reverts insertChar('y')
+    expect(b.getText()).toBe('x');
+  });
+});
+
+// ---------------------------------------------------------------------------
 // Full round-trip: type and delete text
 // ---------------------------------------------------------------------------
 describe('TextBuffer — round-trip editing', function () {

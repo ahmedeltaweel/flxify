@@ -68,6 +68,10 @@ function VimStateMachine(buffer) {
   this.onCommandOpen = null;   // function() — called when : is pressed
   this.onCommandClose = null;  // function() — called when command mode closes
   this.onCommandUpdate = null; // function(text) — called on each command keystroke
+
+  // Yank callback — called with the register text after any yank (yy, y{motion}, visual y).
+  // app.js wires this to the system clipboard writer.
+  this.onYank = null;          // function(text) — called after register is populated
 }
 
 // ---------------------------------------------------------------------------
@@ -445,6 +449,7 @@ VimStateMachine.prototype._yankLines = function (n) {
   }
   this.register = lines.join('\n');
   this.registerIsLine = true;
+  if (typeof this.onYank === 'function') this.onYank(this.register);
   return n === 1 ? '1 line yanked' : n + ' lines yanked';
 };
 
@@ -459,7 +464,7 @@ VimStateMachine.prototype._deleteLines = function (n) {
   var actual = Math.min(n, total - cur.line);
   var deleted = [];
   for (var i = 0; i < actual; i++) {
-    deleted.push(this.buffer.getLine(cur.line));
+    deleted.push(this.buffer.getLine(cur.line + i));
   }
   this.register = deleted.join('\n');
   this.registerIsLine = true;
@@ -482,13 +487,34 @@ VimStateMachine.prototype._pasteAfter = function () {
     }
     this.buffer.setCursor(cur.line + 1, 0);
   } else {
-    // Insert chars after cursor
+    // Insert chars after cursor (col + 1 is the insertion point)
     var text = this.register;
-    var col = cur.col + 1;
+    var insertCol = cur.col + 1;
     var line = this.buffer.getLine(cur.line);
+    var before = line.slice(0, insertCol);
+    var after = line.slice(insertCol);
     this.buffer.pushUndo();
-    this.buffer.lines[cur.line] = line.slice(0, col) + text + line.slice(col);
-    this.buffer.setCursor(cur.line, col + text.length - 1);
+    if (text.indexOf('\n') === -1) {
+      // Single-line char paste
+      this.buffer.lines[cur.line] = before + text + after;
+      var newCol = before.length + text.length - 1;
+      if (newCol < 0) newCol = 0;
+      this.buffer.setCursor(cur.line, newCol);
+    } else {
+      // Multi-line char paste — split register on '\n' and splice lines
+      var parts = text.split('\n');
+      parts[0] = before + parts[0];
+      parts[parts.length - 1] = parts[parts.length - 1] + after;
+      this.buffer.lines.splice(cur.line, 1);
+      for (var i = parts.length - 1; i >= 0; i--) {
+        this.buffer.lines.splice(cur.line, 0, parts[i]);
+      }
+      var lastLineIdx = cur.line + parts.length - 1;
+      var lastPartLen = parts[parts.length - 1].length;
+      var newCol = lastPartLen - after.length - 1;
+      if (newCol < 0) newCol = 0;
+      this.buffer.setCursor(lastLineIdx, newCol);
+    }
   }
 };
 
@@ -506,12 +532,34 @@ VimStateMachine.prototype._pasteBefore = function () {
     }
     this.buffer.setCursor(cur.line, 0);
   } else {
+    // Insert chars before cursor (at current col)
     var text = this.register;
     var line = this.buffer.getLine(cur.line);
-    var col = cur.col;
+    var insertCol = cur.col;
+    var before = line.slice(0, insertCol);
+    var after = line.slice(insertCol);
     this.buffer.pushUndo();
-    this.buffer.lines[cur.line] = line.slice(0, col) + text + line.slice(col);
-    this.buffer.setCursor(cur.line, col + text.length - 1);
+    if (text.indexOf('\n') === -1) {
+      // Single-line char paste
+      this.buffer.lines[cur.line] = before + text + after;
+      var newCol = before.length + text.length - 1;
+      if (newCol < 0) newCol = 0;
+      this.buffer.setCursor(cur.line, newCol);
+    } else {
+      // Multi-line char paste — split register on '\n' and splice lines
+      var parts = text.split('\n');
+      parts[0] = before + parts[0];
+      parts[parts.length - 1] = parts[parts.length - 1] + after;
+      this.buffer.lines.splice(cur.line, 1);
+      for (var i = parts.length - 1; i >= 0; i--) {
+        this.buffer.lines.splice(cur.line, 0, parts[i]);
+      }
+      var lastLineIdx = cur.line + parts.length - 1;
+      var lastPartLen = parts[parts.length - 1].length;
+      var newCol = lastPartLen - after.length - 1;
+      if (newCol < 0) newCol = 0;
+      this.buffer.setCursor(lastLineIdx, newCol);
+    }
   }
 };
 
@@ -552,6 +600,7 @@ VimStateMachine.prototype._visualYank = function () {
   this.buffer.setCursor(range.startLine, range.startCol);
   this.selection.clear();
   this.mode = 'normal';
+  if (typeof this.onYank === 'function') this.onYank(this.register);
 };
 
 /**
@@ -1175,6 +1224,7 @@ VimStateMachine.prototype._processPendingKey = function (ch, key, full) {
       this._operateWordMotion(ch, 'y');
     }
     this.registerIsLine = false;
+    if (typeof this.onYank === 'function') this.onYank(this.register);
     return this._result(false, false, '1 text yanked');
   }
 

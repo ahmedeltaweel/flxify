@@ -498,6 +498,15 @@ describe('VimStateMachine — dd (delete line)', function () {
     expect(v.buf.getLine(0)).toBe('c');
   });
 
+  it('2dd stores correct lines in register (not same line twice)', function () {
+    var v = makeVim('a\nb\nc');
+    v.buf.setCursor(0, 0);
+    key(v.vim, '2');
+    key(v.vim, 'd');
+    key(v.vim, 'd');
+    expect(v.vim.register).toBe('a\nb');
+  });
+
   it('dd on last line leaves empty buffer', function () {
     var v = makeVim('only');
     key(v.vim, 'd');
@@ -586,6 +595,59 @@ describe('VimStateMachine — p / P (paste)', function () {
     expect(v.buf.getLineCount()).toBe(3);
     expect(v.buf.getLine(1)).toBe('hello');
     expect(v.buf.getLine(2)).toBe('world');
+  });
+
+  it('p char-wise paste leaves cursor on last pasted char', function () {
+    var v = makeVim('hello');
+    v.vim.register = 'foo';
+    v.vim.registerIsLine = false;
+    v.buf.setCursor(0, 0); // cursor on 'h'
+    key(v.vim, 'p');
+    expect(v.buf.getLine(0)).toBe('hfooello');
+    expect(v.buf.getCursor().col).toBe(3);
+  });
+
+  it('p char-wise paste on empty line leaves cursor on last pasted char', function () {
+    var v = makeVim('');
+    v.vim.register = 'abc';
+    v.vim.registerIsLine = false;
+    key(v.vim, 'p');
+    expect(v.buf.getLine(0)).toBe('abc');
+    expect(v.buf.getCursor().col).toBe(2);
+  });
+
+  it('P char-wise paste inserts before cursor and positions cursor on last pasted char', function () {
+    var v = makeVim('hello');
+    v.vim.register = 'foo';
+    v.vim.registerIsLine = false;
+    v.buf.setCursor(0, 2); // cursor on second 'l'
+    key(v.vim, 'P');
+    expect(v.buf.getLine(0)).toBe('hefoollo');
+    expect(v.buf.getCursor().col).toBe(4);
+  });
+
+  it('p multi-line char-wise paste splits into new lines', function () {
+    var v = makeVim('hello\nworld');
+    v.vim.register = 'abc\ndef';
+    v.vim.registerIsLine = false;
+    v.buf.setCursor(0, 2); // cursor on 'l'
+    key(v.vim, 'p');
+    expect(v.buf.getLineCount()).toBe(3);
+    expect(v.buf.getLine(0)).toBe('helabc');
+    expect(v.buf.getLine(1)).toBe('deflo');
+    expect(v.buf.getLine(2)).toBe('world');
+  });
+
+  it('2dd then p restores correct lines', function () {
+    var v = makeVim('a\nb\nc');
+    v.buf.setCursor(0, 0);
+    key(v.vim, '2');
+    key(v.vim, 'd');
+    key(v.vim, 'd');
+    key(v.vim, 'p');
+    expect(v.buf.getLine(0)).toBe('c');
+    expect(v.buf.getLine(1)).toBe('a');
+    expect(v.buf.getLine(2)).toBe('b');
   });
 });
 
@@ -1308,5 +1370,69 @@ describe('VimStateMachine — colon command mode', function () {
     key(v.vim, 'w');
     var r = special(v.vim, 'return');
     expect(r.command).toBe('w');
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Bug 4 regression: visual-line d/x on entire buffer does not crash
+// ---------------------------------------------------------------------------
+describe('VimStateMachine — visual-line delete entire buffer (Bug 4)', function () {
+  it('V d on 3-line buffer with cursor at line 2 does not crash', function () {
+    var v = makeVim('a\nb\nc');
+    v.buf.setCursor(2, 0); // cursor on last line
+    key(v.vim, 'V');        // enter visual-line
+    key(v.vim, 'k');        // extend selection up
+    key(v.vim, 'k');        // extend selection up (all 3 lines selected)
+    // Should not throw
+    expect(function () { key(v.vim, 'd'); }).not.toThrow();
+    expect(v.vim.mode).toBe('normal');
+    expect(v.buf.getLineCount()).toBe(1);
+    expect(v.buf.getCursor().line).toBe(0);
+  });
+
+  it('V x on all-empty-line buffer does not crash', function () {
+    var v = makeVim('\n\n');  // 3 empty lines
+    v.buf.setCursor(0, 0);
+    key(v.vim, 'V');
+    key(v.vim, 'j');
+    key(v.vim, 'j');
+    expect(function () { key(v.vim, 'x'); }).not.toThrow();
+    expect(v.vim.mode).toBe('normal');
+    expect(v.buf.getCursor().line).toBe(0);
+  });
+});
+
+// ---------------------------------------------------------------------------
+// Bug 2: onYank callback fires on yy and visual y
+// ---------------------------------------------------------------------------
+describe('VimStateMachine — onYank callback (Bug 2)', function () {
+  it('onYank fires on yy with the yanked text', function () {
+    var v = makeVim('hello\nworld');
+    var yanked = null;
+    v.vim.onYank = function (text) { yanked = text; };
+    v.buf.setCursor(0, 0);
+    key(v.vim, 'y');
+    key(v.vim, 'y');
+    expect(yanked).toBe('hello');
+  });
+
+  it('onYank fires on visual y with the selected text', function () {
+    var v = makeVim('hello');
+    var yanked = null;
+    v.vim.onYank = function (text) { yanked = text; };
+    v.buf.setCursor(0, 0);
+    key(v.vim, 'v');
+    key(v.vim, 'l'); // select 'he'
+    key(v.vim, 'y');
+    expect(yanked).toBe('he');
+  });
+
+  it('onYank is not called when register is unset', function () {
+    var v = makeVim('hello');
+    var called = false;
+    v.vim.onYank = function () { called = true; };
+    // Just move cursor — no yank
+    key(v.vim, 'l');
+    expect(called).toBe(false);
   });
 });

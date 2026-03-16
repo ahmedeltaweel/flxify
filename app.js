@@ -9548,9 +9548,11 @@ scripts.push({
 **/
 
 function main(input) {
-	
-	input.text = reverse(input.text)
-	
+	var text = input.text;
+	// Preserve trailing newlines — reversing moves them to position 0 otherwise.
+	var match = text.match(/\n+$/);
+	var trailing = match ? match[0] : '';
+	input.text = reverse(text.replace(/\n+$/, '')) + trailing;
 }
 
 /* 
@@ -11256,7 +11258,7 @@ function convertToPrettyMarkdownTableFormat(input) {
 
 scripts.push({
   name: "Generate hashtag",
-  description: "Converts text to camelCase hashtag format by removing special characters",
+  description: "Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld)",
   author: "Armand Salle",
   icon: "metamorphose",
   tags: "hashtag,word",
@@ -11265,7 +11267,7 @@ scripts.push({
 {
   "api": 1,
   "name": "Generate hashtag",
-  "description": "Converts text to camelCase hashtag format by removing special characters",
+  "description": "Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld)",
   "author": "Armand Salle",
   "icon": "metamorphose",
   "tags": "hashtag,word"
@@ -11477,9 +11479,7 @@ function main(state) {
 
 function toUnicode(str) {
   return [...str].map(c => {
-    let hex = c.charCodeAt(0).toString(16);
-    if (hex.length == 2) hex = "00" + hex;
-    return ("\\u" + hex).slice(-7);
+    return "\\u" + ("0000" + c.charCodeAt(0).toString(16)).slice(-4);
   }).join("");
 }
 
@@ -11918,24 +11918,24 @@ function applyTheme(themeKey) {
   });
 }
 
-// Theme dropdown toggle
+// Theme option clicks — wire up regardless of which container holds them
+document.querySelectorAll('.theme-option').forEach(function(opt) {
+  opt.addEventListener('click', function() {
+    applyTheme(this.getAttribute('data-theme'));
+    // Close legacy tool-page theme dropdown if present
+    var themeDropdown = document.getElementById('theme-dropdown');
+    if (themeDropdown) themeDropdown.classList.remove('open');
+  });
+});
+
+// Legacy tool-page theme dropdown toggle (not present on homepage)
 var themeToggle = document.getElementById('theme-toggle');
 var themeDropdown = document.getElementById('theme-dropdown');
-
 if (themeToggle && themeDropdown) {
   themeToggle.addEventListener('click', function(e) {
     e.stopPropagation();
     themeDropdown.classList.toggle('open');
   });
-
-  document.querySelectorAll('.theme-option').forEach(function(opt) {
-    opt.addEventListener('click', function() {
-      applyTheme(this.getAttribute('data-theme'));
-      themeDropdown.classList.remove('open');
-    });
-  });
-
-  // Close dropdown when clicking outside
   document.addEventListener('click', function() {
     themeDropdown.classList.remove('open');
   });

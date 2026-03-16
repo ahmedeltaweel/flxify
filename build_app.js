@@ -470,24 +470,24 @@ function applyTheme(themeKey) {
   });
 }
 
-// Theme dropdown toggle
+// Theme option clicks — wire up regardless of which container holds them
+document.querySelectorAll('.theme-option').forEach(function(opt) {
+  opt.addEventListener('click', function() {
+    applyTheme(this.getAttribute('data-theme'));
+    // Close legacy tool-page theme dropdown if present
+    var themeDropdown = document.getElementById('theme-dropdown');
+    if (themeDropdown) themeDropdown.classList.remove('open');
+  });
+});
+
+// Legacy tool-page theme dropdown toggle (not present on homepage)
 var themeToggle = document.getElementById('theme-toggle');
 var themeDropdown = document.getElementById('theme-dropdown');
-
 if (themeToggle && themeDropdown) {
   themeToggle.addEventListener('click', function(e) {
     e.stopPropagation();
     themeDropdown.classList.toggle('open');
   });
-
-  document.querySelectorAll('.theme-option').forEach(function(opt) {
-    opt.addEventListener('click', function() {
-      applyTheme(this.getAttribute('data-theme'));
-      themeDropdown.classList.remove('open');
-    });
-  });
-
-  // Close dropdown when clicking outside
   document.addEventListener('click', function() {
     themeDropdown.classList.remove('open');
   });

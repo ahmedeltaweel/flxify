@@ -661,6 +661,261 @@ body {
   color: var(--btn-text, #fff);
 }
 
+/* ── Top-bar icon links (GitHub, npm) ── */
+.topbar-icon-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  color: var(--text-muted);
+  text-decoration: none;
+  border-radius: 4px;
+  transition: color 0.2s ease, background 0.2s ease;
+  -webkit-app-region: no-drag;
+  flex-shrink: 0;
+}
+
+.topbar-icon-link:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover-subtle);
+}
+
+.topbar-icon-link svg {
+  display: block;
+}
+
+/* ── Top-bar separator ── */
+.top-bar-separator {
+  width: 1px;
+  height: 18px;
+  background: var(--border);
+  flex-shrink: 0;
+  margin: 0 2px;
+}
+
+/* ── Font selector dropdown ── */
+.font-selector {
+  position: relative;
+  -webkit-app-region: no-drag;
+}
+
+.font-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  transition: background 0.15s;
+  -webkit-app-region: no-drag;
+  white-space: nowrap;
+}
+
+.font-toggle-btn:hover {
+  background: var(--bg-hover-subtle);
+}
+
+.font-label {
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.font-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: var(--palette-bg, var(--bg-secondary));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-palette);
+  z-index: 1000;
+  min-width: 170px;
+  padding: 4px;
+  flex-direction: column;
+}
+
+.font-dropdown.open {
+  display: flex;
+}
+
+.font-option {
+  display: flex;
+  align-items: center;
+  padding: 8px 12px;
+  border: none;
+  background: transparent;
+  color: var(--text-primary);
+  cursor: pointer;
+  font-size: 13px;
+  font-family: inherit;
+  border-radius: 4px;
+  width: 100%;
+  text-align: left;
+  transition: background 0.1s;
+}
+
+.font-option:hover {
+  background: var(--bg-hover);
+}
+
+.font-option.active {
+  background: var(--accent, var(--accent-primary));
+  color: var(--btn-text, #fff);
+}
+
+/* ── Font size controls ── */
+.font-size-controls {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  -webkit-app-region: no-drag;
+}
+
+.font-size-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  color: var(--text-secondary);
+  font-size: 11px;
+  font-weight: 600;
+  font-family: inherit;
+  padding: 4px 7px;
+  cursor: pointer;
+  transition: color 0.15s, background 0.15s;
+  -webkit-app-region: no-drag;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.font-size-btn:hover {
+  color: var(--text-primary);
+  background: var(--bg-hover-subtle);
+}
+
+.font-size-display {
+  font-size: 11px;
+  color: var(--text-muted);
+  min-width: 30px;
+  text-align: center;
+  padding: 0 2px;
+  -webkit-app-region: no-drag;
+  pointer-events: none;
+  user-select: none;
+}
+
+/* ── Settings panel (consolidates font, size, theme) ── */
+.settings-panel {
+  position: relative;
+  -webkit-app-region: no-drag;
+}
+
+.settings-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-hover);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text-primary);
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 12px;
+  font-family: inherit;
+  transition: background 0.15s;
+  -webkit-app-region: no-drag;
+  white-space: nowrap;
+}
+
+.settings-toggle-btn:hover {
+  background: var(--bg-hover-subtle);
+}
+
+.settings-label {
+  white-space: nowrap;
+}
+
+.settings-dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  right: 0;
+  margin-top: 4px;
+  background: var(--palette-bg, var(--bg-secondary));
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  box-shadow: var(--shadow-palette);
+  z-index: 1000;
+  min-width: 200px;
+  padding: 8px 4px;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.settings-dropdown.open {
+  display: flex;
+}
+
+.settings-group {
+  padding: 0 4px 4px;
+}
+
+.settings-group + .settings-group {
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 6px;
+}
+
+.settings-group-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  padding: 2px 8px 4px;
+  user-select: none;
+}
+
+/* Font family options inside settings panel */
+.font-selector-inline {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Theme options inside settings panel */
+.theme-selector-inline {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Font size row inside settings panel */
+.font-size-controls-inline {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px;
+}
+
+.font-size-controls-inline .font-size-btn {
+  flex: 1;
+}
+
+.font-size-controls-inline .font-size-display {
+  flex: 0 0 auto;
+  min-width: 36px;
+}
+
 /* Mobile menu button */
 .mobile-menu-btn {
   display: none;
@@ -778,9 +1033,10 @@ body {
 }
 
 #shortcut-hint {
-  color: var(--text-muted);
+  color: var(--text-secondary);
   font-size: 11px;
   letter-spacing: 0.3px;
+  font-weight: 500;
 }
 
 /* Command Palette Overlay */
@@ -1313,6 +1569,15 @@ body.directory-page {
   }
 
   .vscode-ext-link span {
+    display: none;
+  }
+
+  /* Hide settings label text on small screens to save space */
+  .settings-label {
+    display: none;
+  }
+
+  .top-bar-separator {
     display: none;
   }
 

@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Generate hashtag - Free Online Developer Tool | Flxify</title>
-  <meta name="description" content="Converts text to camelCase hashtag format by removing special characters Free online generate hashtag tool. 100% client-side, your data never leaves your b...">
+  <meta name="description" content="Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld) Free online generate hashtag tool. 100% client-side, your data never leaves your br...">
   <meta name="keywords" content="hashtag, word">
   <link rel="canonical" href="https://flxify.dev/tools/generate-hashtag/">
   <link rel="icon" type="image/png" href="../../logo.png">
@@ -15,17 +15,17 @@
 
   <meta property="og:type" content="website">
   <meta property="og:title" content="Generate hashtag - Free Online Developer Tool">
-  <meta property="og:description" content="Converts text to camelCase hashtag format by removing special characters Free online generate hashtag tool. 100% client-side, your data never leaves your b...">
+  <meta property="og:description" content="Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld) Free online generate hashtag tool. 100% client-side, your data never leaves your br...">
   <meta property="og:url" content="https://flxify.dev/tools/generate-hashtag/">
   <meta property="og:site_name" content="Flxify">
   <meta property="og:image" content="https://flxify.dev/logo.png">
 
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Generate hashtag - Free Online Developer Tool">
-  <meta name="twitter:description" content="Converts text to camelCase hashtag format by removing special characters Free online generate hashtag tool. 100% client-side, your data never leaves your b...">
+  <meta name="twitter:description" content="Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld) Free online generate hashtag tool. 100% client-side, your data never leaves your br...">
   <meta name="twitter:image" content="https://flxify.dev/logo.png">
 
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Generate hashtag - Flxify","url":"https://flxify.dev/tools/generate-hashtag/","description":"Converts text to camelCase hashtag format by removing special characters Free online generate hashtag tool. 100% client-side, your data never leaves your b...","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Generate hashtag - Flxify","url":"https://flxify.dev/tools/generate-hashtag/","description":"Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld) Free online generate hashtag tool. 100% client-side, your data never leaves your br...","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Generate hashtag tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes, Generate hashtag on Flxify is completely free to use with no limits or sign-up required."}},{"@type":"Question","name":"Is my data safe when using Generate hashtag?","acceptedAnswer":{"@type":"Answer","text":"All processing happens in your browser. Your data never leaves your device and is never sent to any server."}},{"@type":"Question","name":"Can I use Generate hashtag offline?","acceptedAnswer":{"@type":"Answer","text":"After the initial page load, the tool works offline. All processing is done client-side with no server dependency."}}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to use Generate hashtag","step":[{"@type":"HowToStep","position":1,"text":"Open the Generate hashtag tool on Flxify"},{"@type":"HowToStep","position":2,"text":"Paste or type your text into the editor"},{"@type":"HowToStep","position":3,"text":"Press Cmd+B (or Ctrl+B) and select \"Generate hashtag\" from the command palette"},{"@type":"HowToStep","position":4,"text":"View the transformed result in the editor"},{"@type":"HowToStep","position":5,"text":"Copy the output for your use"}]}</script>
 
@@ -79,7 +79,7 @@
 
   <div id="tool-header">
     <h1>Generate hashtag</h1>
-    <p class="tool-subtitle">Converts text to camelCase hashtag format by removing special characters &mdash; Free Online Developer Utility</p>
+    <p class="tool-subtitle">Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld) &mdash; Free Online Developer Utility</p>
     <span class="privacy-badge">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
       100% Client-Side &middot; Your data never leaves your browser
@@ -117,7 +117,7 @@
 
     <h2>Why Use Generate hashtag?</h2>
     <section class="use-case-section">
-      <p>Converts text to camelCase hashtag format by removing special characters This tool helps developers quickly transform text data without leaving their browser. All processing happens client-side, ensuring your data remains private and secure.</p>
+      <p>Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld) This tool helps developers quickly transform text data without leaving their browser. All processing happens client-side, ensuring your data remains private and secure.</p>
     </section>
 
     <h2>Related Tools</h2>
@@ -558,6 +558,112 @@
     // Signal that CodeMirror is ready
     window.cmReady = true;
     window.dispatchEvent(new Event('cm-ready'));
+
+    // ── Font family & size controls ──
+
+    var FONT_STORAGE_KEY = 'flxify-font';
+    var FONT_SIZE_STORAGE_KEY = 'flxify-font-size';
+    var FONT_MIN = 10;
+    var FONT_MAX = 24;
+
+    // Read persisted values (set by anti-FOUC script in head, or defaults)
+    var currentFont = (function() {
+      try { return localStorage.getItem(FONT_STORAGE_KEY) || ''; } catch(e) { return ''; }
+    })();
+    var currentFontSize = (function() {
+      var v = parseInt(localStorage.getItem(FONT_SIZE_STORAGE_KEY), 10);
+      return (v >= FONT_MIN && v <= FONT_MAX) ? v : 14;
+    })();
+
+    // Apply font to CodeMirror editor
+    function applyEditorFont(fontFamily, fontSize) {
+      var scroller = cmEditor.scrollDOM;
+      // scrollDOM is the .cm-scroller element — setting style here overrides the
+      // static EditorView.theme() rule without needing a full CM dispatch
+      scroller.style.fontFamily = fontFamily
+        ? fontFamily + ", 'SF Mono', 'Consolas', monospace"
+        : "'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Menlo', monospace";
+      scroller.style.fontSize = fontSize + 'px';
+      // Also update the CSS variable so it's available to any other consumers
+      document.documentElement.style.setProperty('--editor-font-family', scroller.style.fontFamily);
+      document.documentElement.style.setProperty('--editor-font-size', fontSize + 'px');
+    }
+
+    // Persist & apply font family choice
+    function setFont(fontValue, fontLabel) {
+      currentFont = fontValue;
+      try { localStorage.setItem(FONT_STORAGE_KEY, fontValue); } catch(e) {}
+      applyEditorFont(currentFont, currentFontSize);
+      // Update active state on options
+      document.querySelectorAll('.font-option').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.font === fontValue);
+      });
+    }
+
+    // Persist & apply font size change
+    function setFontSize(size) {
+      size = Math.max(FONT_MIN, Math.min(FONT_MAX, size));
+      currentFontSize = size;
+      try { localStorage.setItem(FONT_SIZE_STORAGE_KEY, size); } catch(e) {}
+      applyEditorFont(currentFont, currentFontSize);
+      var displayEl = document.getElementById('font-size-display');
+      if (displayEl) displayEl.textContent = size + 'px';
+    }
+
+    // Apply persisted values immediately (editor just initialised)
+    applyEditorFont(currentFont, currentFontSize);
+
+    // Sync active state for the persisted font choice
+    (function() {
+      document.querySelectorAll('.font-option').forEach(function(btn) {
+        if (btn.dataset.font === currentFont) {
+          btn.classList.add('active');
+        }
+      });
+      var displayEl = document.getElementById('font-size-display');
+      if (displayEl) displayEl.textContent = currentFontSize + 'px';
+    })();
+
+    // ── Settings panel toggle ──
+    var settingsToggleBtn = document.getElementById('settings-toggle');
+    var settingsDropdown = document.getElementById('settings-dropdown');
+    var settingsPanel = document.getElementById('settings-panel');
+
+    if (settingsToggleBtn && settingsDropdown) {
+      settingsToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        settingsDropdown.classList.toggle('open');
+      });
+
+      document.addEventListener('click', function(e) {
+        if (settingsPanel && !settingsPanel.contains(e.target)) {
+          settingsDropdown.classList.remove('open');
+        }
+      });
+    }
+
+    // Font option clicks
+    document.querySelectorAll('.font-option').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setFont(btn.dataset.font, btn.dataset.label);
+        // keep settings panel open so users can continue adjusting
+      });
+    });
+
+    // Font size buttons
+    var fontSizeDecBtn = document.getElementById('font-size-dec');
+    var fontSizeIncBtn = document.getElementById('font-size-inc');
+
+    if (fontSizeDecBtn) {
+      fontSizeDecBtn.addEventListener('click', function() {
+        setFontSize(currentFontSize - 1);
+      });
+    }
+    if (fontSizeIncBtn) {
+      fontSizeIncBtn.addEventListener('click', function() {
+        setFontSize(currentFontSize + 1);
+      });
+    }
   </script>
   <script defer src="../../app.js"></script>
 </body>

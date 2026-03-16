@@ -157,6 +157,20 @@ TextBuffer.prototype.setText = function (text) {
 };
 
 /**
+ * Replace the entire buffer content with the given string, but push an undo
+ * snapshot first so the change can be undone (unlike setText which clears undo).
+ * Used by applyResult() for 'replaceAll' script actions.
+ * @param {string} text
+ */
+TextBuffer.prototype.setTextUndoable = function (text) {
+  this.pushUndo();
+  this.lines = text.replace(/\r\n/g, '\n').replace(/\r/g, '\n').split('\n');
+  if (this.lines.length === 0) this.lines = [''];
+  this.cursor = { line: 0, col: 0 };
+  // Intentionally do NOT clear _undoStack or _redoStack
+};
+
+/**
  * Set cursor position with clamping.
  * @param {number} line - 0-based
  * @param {number} col  - 0-based
@@ -306,6 +320,7 @@ TextBuffer.prototype.deleteLines = function (lineNum, count) {
   if (this.lines.length <= n) {
     // Deleting all (or more than all) lines — reset to single empty line
     this.lines = [''];
+    this.cursor.line = 0;  // clamp cursor — it may have been on a now-gone line
   } else {
     this.lines.splice(l, n);
     // Clamp cursor line
@@ -559,6 +574,7 @@ TextBuffer.prototype.deleteLinesRaw = function (lineNum, count) {
 
   if (this.lines.length <= n) {
     this.lines = [''];
+    this.cursor.line = 0;  // clamp cursor — same fix as deleteLines
   } else {
     this.lines.splice(l, n);
     if (this.cursor.line >= this.lines.length) {

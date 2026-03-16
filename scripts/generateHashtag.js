@@ -2,7 +2,7 @@
 {
   "api": 1,
   "name": "Generate hashtag",
-  "description": "Converts text to camelCase hashtag format by removing special characters",
+  "description": "Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld)",
   "author": "Armand Salle",
   "icon": "metamorphose",
   "tags": "hashtag,word"

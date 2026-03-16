@@ -75,7 +75,7 @@ if (options.help) {
     '  [file]                Optional file path to open on startup',
     '',
     'Key Bindings:',
-    '  Ctrl+B                Open command palette',
+    '  Ctrl+B / Ctrl+P       Open command palette',
     '  Ctrl+T                Cycle theme',
     '  Ctrl+S                Save file',
     '  Ctrl+Q                Quit',

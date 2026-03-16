@@ -1,28 +1,16 @@
 # DOING.md
 
-## Shipped
-
-### Terminal CLI (@flxify/cli)
-
-Full TUI text editor with Vim keybindings, command palette (111 scripts), 6 themes, file open/save, search, undo/redo. Published on npm as `@flxify/cli`.
-
-## In Progress
-
-### Multi Cursor Editing
-
-The ability to have more than one active cursor to type and edit content.
-
 ## Planned
 
-### Font Settings
-
-The ability to change font, and more importantly font-size.
-
 ### Multi Editor Spaces
-
 The ability to have multiple files as spaces and switch between them.
 
+### "AI Intent" (Natural Language Operations)
 
-## link github and npm to main websire. 
-
-## "AI Intent" (Natural Language Operations)
+### make wrap in vim and nano mode
+- ~~Word wrap~~ — done in v1.3.0 (`:set wrap` / `:set nowrap`)
+- Nano keybindings mode — prompt on first launch, switchable per session
+- Multi-file support — tabs or Alt+Arrow switching
+- AI command — send text + prompt to Claude, result replaces inline
+- Session persistence (tmux-resurrect-style) — the user's point is that vim's real superpower is leaving files open indefinitely
+across restarts via tmux sessions organized by project

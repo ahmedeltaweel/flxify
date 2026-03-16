@@ -557,6 +557,112 @@
     // Signal that CodeMirror is ready
     window.cmReady = true;
     window.dispatchEvent(new Event('cm-ready'));
+
+    // ── Font family & size controls ──
+
+    var FONT_STORAGE_KEY = 'flxify-font';
+    var FONT_SIZE_STORAGE_KEY = 'flxify-font-size';
+    var FONT_MIN = 10;
+    var FONT_MAX = 24;
+
+    // Read persisted values (set by anti-FOUC script in head, or defaults)
+    var currentFont = (function() {
+      try { return localStorage.getItem(FONT_STORAGE_KEY) || ''; } catch(e) { return ''; }
+    })();
+    var currentFontSize = (function() {
+      var v = parseInt(localStorage.getItem(FONT_SIZE_STORAGE_KEY), 10);
+      return (v >= FONT_MIN && v <= FONT_MAX) ? v : 14;
+    })();
+
+    // Apply font to CodeMirror editor
+    function applyEditorFont(fontFamily, fontSize) {
+      var scroller = cmEditor.scrollDOM;
+      // scrollDOM is the .cm-scroller element — setting style here overrides the
+      // static EditorView.theme() rule without needing a full CM dispatch
+      scroller.style.fontFamily = fontFamily
+        ? fontFamily + ", 'SF Mono', 'Consolas', monospace"
+        : "'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Menlo', monospace";
+      scroller.style.fontSize = fontSize + 'px';
+      // Also update the CSS variable so it's available to any other consumers
+      document.documentElement.style.setProperty('--editor-font-family', scroller.style.fontFamily);
+      document.documentElement.style.setProperty('--editor-font-size', fontSize + 'px');
+    }
+
+    // Persist & apply font family choice
+    function setFont(fontValue, fontLabel) {
+      currentFont = fontValue;
+      try { localStorage.setItem(FONT_STORAGE_KEY, fontValue); } catch(e) {}
+      applyEditorFont(currentFont, currentFontSize);
+      // Update active state on options
+      document.querySelectorAll('.font-option').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.font === fontValue);
+      });
+    }
+
+    // Persist & apply font size change
+    function setFontSize(size) {
+      size = Math.max(FONT_MIN, Math.min(FONT_MAX, size));
+      currentFontSize = size;
+      try { localStorage.setItem(FONT_SIZE_STORAGE_KEY, size); } catch(e) {}
+      applyEditorFont(currentFont, currentFontSize);
+      var displayEl = document.getElementById('font-size-display');
+      if (displayEl) displayEl.textContent = size + 'px';
+    }
+
+    // Apply persisted values immediately (editor just initialised)
+    applyEditorFont(currentFont, currentFontSize);
+
+    // Sync active state for the persisted font choice
+    (function() {
+      document.querySelectorAll('.font-option').forEach(function(btn) {
+        if (btn.dataset.font === currentFont) {
+          btn.classList.add('active');
+        }
+      });
+      var displayEl = document.getElementById('font-size-display');
+      if (displayEl) displayEl.textContent = currentFontSize + 'px';
+    })();
+
+    // ── Settings panel toggle ──
+    var settingsToggleBtn = document.getElementById('settings-toggle');
+    var settingsDropdown = document.getElementById('settings-dropdown');
+    var settingsPanel = document.getElementById('settings-panel');
+
+    if (settingsToggleBtn && settingsDropdown) {
+      settingsToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        settingsDropdown.classList.toggle('open');
+      });
+
+      document.addEventListener('click', function(e) {
+        if (settingsPanel && !settingsPanel.contains(e.target)) {
+          settingsDropdown.classList.remove('open');
+        }
+      });
+    }
+
+    // Font option clicks
+    document.querySelectorAll('.font-option').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setFont(btn.dataset.font, btn.dataset.label);
+        // keep settings panel open so users can continue adjusting
+      });
+    });
+
+    // Font size buttons
+    var fontSizeDecBtn = document.getElementById('font-size-dec');
+    var fontSizeIncBtn = document.getElementById('font-size-inc');
+
+    if (fontSizeDecBtn) {
+      fontSizeDecBtn.addEventListener('click', function() {
+        setFontSize(currentFontSize - 1);
+      });
+    }
+    if (fontSizeIncBtn) {
+      fontSizeIncBtn.addEventListener('click', function() {
+        setFontSize(currentFontSize + 1);
+      });
+    }
   </script>
   <script defer src="../../app.js"></script>
 </body>

@@ -50,7 +50,7 @@
   </script>
 
   <link rel="stylesheet" href="style.css">
-  <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);var f=localStorage.getItem('flxify-font')||'';var s=parseInt(localStorage.getItem('flxify-font-size'),10)||14;document.documentElement.style.setProperty('--editor-font-family',f||"'SF Mono','Fira Code','Consolas','Monaco','Menlo',monospace");document.documentElement.style.setProperty('--editor-font-size',s+'px');})();</script>
 </head>
 <body>
   <div id="top-bar">
@@ -64,31 +64,67 @@
         <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.583.063a1.5 1.5 0 0 1 1.342.825l4.5 9.75a1.5 1.5 0 0 1 0 1.272l-4.5 9.75a1.5 1.5 0 0 1-1.342.84H6.417a1.5 1.5 0 0 1-1.342-.825l-4.5-9.75a1.5 1.5 0 0 1 0-1.272l4.5-9.75A1.5 1.5 0 0 1 6.417.038h11.166zM12 6.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5z"/></svg>
         <span>VS Code Extension</span>
       </a>
-      <div id="theme-selector" class="theme-selector">
-        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Change theme" title="Change theme">
-          <span class="theme-dot"></span>
-          <span class="theme-label">Standard Dark</span>
+      <a href="https://github.com/ahmedeltaweel/flxify" target="_blank" rel="noopener" class="topbar-icon-link" title="View on GitHub">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59 0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/></svg>
+      </a>
+      <a href="https://www.npmjs.com/package/@flxify/cli" target="_blank" rel="noopener" class="topbar-icon-link" title="View on npm">
+        <svg width="20" height="8" viewBox="0 0 18 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 0h18v6H9V7H5V6H0V0zm1 5h2V2h1v3h1V1H1v4zm5-4v5h2V5h2V1H6zm2 1h1v2H8V2zm3-1v4h2V2h1v3h1V2h1v3h1V1h-6z" fill="currentColor"/></svg>
+      </a>
+      <div class="top-bar-separator"></div>
+      <!-- Settings dropdown: consolidates font family, font size, and theme -->
+      <div id="settings-panel" class="settings-panel">
+        <button id="settings-toggle" class="settings-toggle-btn" aria-label="Open settings" title="Settings">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span class="settings-label">Settings</span>
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
-        <div id="theme-dropdown" class="theme-dropdown">
-          <button class="theme-option" data-theme="standard-light" data-label="Standard Light" data-dot="#0066cc">
-            <span class="theme-dot" style="background:#0066cc"></span> Standard Light
-          </button>
-          <button class="theme-option" data-theme="standard-dark" data-label="Standard Dark" data-dot="#094771">
-            <span class="theme-dot" style="background:#094771"></span> Standard Dark
-          </button>
-          <button class="theme-option" data-theme="cyber-neon" data-label="Cyber Neon" data-dot="#00f5ff">
-            <span class="theme-dot" style="background:#00f5ff"></span> Cyber Neon
-          </button>
-          <button class="theme-option" data-theme="nordic-frost" data-label="Nordic Frost" data-dot="#81a1c1">
-            <span class="theme-dot" style="background:#81a1c1"></span> Nordic Frost
-          </button>
-          <button class="theme-option" data-theme="monokai-pro" data-label="Monokai Pro" data-dot="#ab9df2">
-            <span class="theme-dot" style="background:#ab9df2"></span> Monokai Pro
-          </button>
-          <button class="theme-option" data-theme="oled-stealth" data-label="OLED Stealth" data-dot="#0066ff">
-            <span class="theme-dot" style="background:#0066ff"></span> OLED Stealth
-          </button>
+        <div id="settings-dropdown" class="settings-dropdown">
+          <!-- Font family -->
+          <div class="settings-group">
+            <div class="settings-group-label">Font</div>
+            <div id="font-selector" class="font-selector-inline">
+              <button class="font-option" data-font="" data-label="System Default">System Default</button>
+              <button class="font-option" data-font="'JetBrains Mono'" data-label="JetBrains Mono" style="font-family:'JetBrains Mono',monospace">JetBrains Mono</button>
+              <button class="font-option" data-font="'Fira Code'" data-label="Fira Code" style="font-family:'Fira Code',monospace">Fira Code</button>
+              <button class="font-option" data-font="'Source Code Pro'" data-label="Source Code Pro" style="font-family:'Source Code Pro',monospace">Source Code Pro</button>
+              <button class="font-option" data-font="'Cascadia Code'" data-label="Cascadia Code" style="font-family:'Cascadia Code',monospace">Cascadia Code</button>
+              <button class="font-option" data-font="'Courier New'" data-label="Courier New" style="font-family:'Courier New',monospace">Courier New</button>
+              <button class="font-option" data-font="monospace" data-label="Monospace">Monospace</button>
+            </div>
+          </div>
+          <!-- Font size -->
+          <div class="settings-group">
+            <div class="settings-group-label">Size</div>
+            <div class="font-size-controls-inline">
+              <button id="font-size-dec" class="font-size-btn" title="Decrease font size" aria-label="Decrease font size">A-</button>
+              <span id="font-size-display" class="font-size-display">14px</span>
+              <button id="font-size-inc" class="font-size-btn" title="Increase font size" aria-label="Increase font size">A+</button>
+            </div>
+          </div>
+          <!-- Theme -->
+          <div class="settings-group">
+            <div class="settings-group-label">Theme</div>
+            <div id="theme-selector" class="theme-selector-inline">
+              <button class="theme-option" data-theme="standard-light" data-label="Standard Light" data-dot="#0066cc">
+                <span class="theme-dot" style="background:#0066cc"></span> Standard Light
+              </button>
+              <button class="theme-option" data-theme="standard-dark" data-label="Standard Dark" data-dot="#094771">
+                <span class="theme-dot" style="background:#094771"></span> Standard Dark
+              </button>
+              <button class="theme-option" data-theme="cyber-neon" data-label="Cyber Neon" data-dot="#00f5ff">
+                <span class="theme-dot" style="background:#00f5ff"></span> Cyber Neon
+              </button>
+              <button class="theme-option" data-theme="nordic-frost" data-label="Nordic Frost" data-dot="#81a1c1">
+                <span class="theme-dot" style="background:#81a1c1"></span> Nordic Frost
+              </button>
+              <button class="theme-option" data-theme="monokai-pro" data-label="Monokai Pro" data-dot="#ab9df2">
+                <span class="theme-dot" style="background:#ab9df2"></span> Monokai Pro
+              </button>
+              <button class="theme-option" data-theme="oled-stealth" data-label="OLED Stealth" data-dot="#0066ff">
+                <span class="theme-dot" style="background:#0066ff"></span> OLED Stealth
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -525,6 +561,112 @@
     // Signal that CodeMirror is ready
     window.cmReady = true;
     window.dispatchEvent(new Event('cm-ready'));
+
+    // ── Font family & size controls ──
+
+    var FONT_STORAGE_KEY = 'flxify-font';
+    var FONT_SIZE_STORAGE_KEY = 'flxify-font-size';
+    var FONT_MIN = 10;
+    var FONT_MAX = 24;
+
+    // Read persisted values (set by anti-FOUC script in head, or defaults)
+    var currentFont = (function() {
+      try { return localStorage.getItem(FONT_STORAGE_KEY) || ''; } catch(e) { return ''; }
+    })();
+    var currentFontSize = (function() {
+      var v = parseInt(localStorage.getItem(FONT_SIZE_STORAGE_KEY), 10);
+      return (v >= FONT_MIN && v <= FONT_MAX) ? v : 14;
+    })();
+
+    // Apply font to CodeMirror editor
+    function applyEditorFont(fontFamily, fontSize) {
+      var scroller = cmEditor.scrollDOM;
+      // scrollDOM is the .cm-scroller element — setting style here overrides the
+      // static EditorView.theme() rule without needing a full CM dispatch
+      scroller.style.fontFamily = fontFamily
+        ? fontFamily + ", 'SF Mono', 'Consolas', monospace"
+        : "'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Menlo', monospace";
+      scroller.style.fontSize = fontSize + 'px';
+      // Also update the CSS variable so it's available to any other consumers
+      document.documentElement.style.setProperty('--editor-font-family', scroller.style.fontFamily);
+      document.documentElement.style.setProperty('--editor-font-size', fontSize + 'px');
+    }
+
+    // Persist & apply font family choice
+    function setFont(fontValue, fontLabel) {
+      currentFont = fontValue;
+      try { localStorage.setItem(FONT_STORAGE_KEY, fontValue); } catch(e) {}
+      applyEditorFont(currentFont, currentFontSize);
+      // Update active state on options
+      document.querySelectorAll('.font-option').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.font === fontValue);
+      });
+    }
+
+    // Persist & apply font size change
+    function setFontSize(size) {
+      size = Math.max(FONT_MIN, Math.min(FONT_MAX, size));
+      currentFontSize = size;
+      try { localStorage.setItem(FONT_SIZE_STORAGE_KEY, size); } catch(e) {}
+      applyEditorFont(currentFont, currentFontSize);
+      var displayEl = document.getElementById('font-size-display');
+      if (displayEl) displayEl.textContent = size + 'px';
+    }
+
+    // Apply persisted values immediately (editor just initialised)
+    applyEditorFont(currentFont, currentFontSize);
+
+    // Sync active state for the persisted font choice
+    (function() {
+      document.querySelectorAll('.font-option').forEach(function(btn) {
+        if (btn.dataset.font === currentFont) {
+          btn.classList.add('active');
+        }
+      });
+      var displayEl = document.getElementById('font-size-display');
+      if (displayEl) displayEl.textContent = currentFontSize + 'px';
+    })();
+
+    // ── Settings panel toggle ──
+    var settingsToggleBtn = document.getElementById('settings-toggle');
+    var settingsDropdown = document.getElementById('settings-dropdown');
+    var settingsPanel = document.getElementById('settings-panel');
+
+    if (settingsToggleBtn && settingsDropdown) {
+      settingsToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        settingsDropdown.classList.toggle('open');
+      });
+
+      document.addEventListener('click', function(e) {
+        if (settingsPanel && !settingsPanel.contains(e.target)) {
+          settingsDropdown.classList.remove('open');
+        }
+      });
+    }
+
+    // Font option clicks
+    document.querySelectorAll('.font-option').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setFont(btn.dataset.font, btn.dataset.label);
+        // keep settings panel open so users can continue adjusting
+      });
+    });
+
+    // Font size buttons
+    var fontSizeDecBtn = document.getElementById('font-size-dec');
+    var fontSizeIncBtn = document.getElementById('font-size-inc');
+
+    if (fontSizeDecBtn) {
+      fontSizeDecBtn.addEventListener('click', function() {
+        setFontSize(currentFontSize - 1);
+      });
+    }
+    if (fontSizeIncBtn) {
+      fontSizeIncBtn.addEventListener('click', function() {
+        setFontSize(currentFontSize + 1);
+      });
+    }
   </script>
   <script defer src="app.js"></script>
 </body>
