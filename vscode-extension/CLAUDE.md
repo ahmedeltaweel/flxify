@@ -153,6 +153,7 @@ Alternative (skip login): `npx @vscode/vsce publish --pat <YOUR_PAT>`
 | 0.4.0 | Added ULID Generator script, total 110 scripts |
 | 0.5.0 | Added Extract Phone Numbers script, total 111 scripts |
 | 0.6.0 | Added Character Frequency script, total 112 scripts |
+| 0.7.0 | Bug fixes: toUnicode 4-digit padding, ReverseString trailing newline, GenerateHashtag description |
 
 ## Web-Only Features (NOT in Extension)
 

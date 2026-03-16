@@ -2,7 +2,7 @@
   "name": "flxify",
   "displayName": "Flxify",
   "description": "112+ text transformation scripts for developers. Format JSON, encode Base64, hash text, convert cases, and more — right in your editor.",
-  "version": "0.6.0",
+  "version": "0.7.0",
   "publisher": "flxify",
   "author": {
     "name": "Ahmed El Taweel"
