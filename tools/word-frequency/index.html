@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Word Frequency - Free Online Developer Tool | Flxify</title>
+  <meta name="description" content="Count occurrences of each word in text Free online word frequency tool. 100% client-side, your data never leaves your browser.">
+  <meta name="keywords" content="count, word, frequency, occurrences, statistics">
+  <link rel="canonical" href="https://flxify.dev/tools/word-frequency/">
+  <link rel="icon" type="image/png" href="../../logo.png">
+  <link rel="manifest" href="../../manifest.json">
+  <meta name="theme-color" content="#252526">
+  <link rel="apple-touch-icon" href="../../icons/icon-192.png">
+  <link rel="preconnect" href="https://esm.sh">
+
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Word Frequency - Free Online Developer Tool">
+  <meta property="og:description" content="Count occurrences of each word in text Free online word frequency tool. 100% client-side, your data never leaves your browser.">
+  <meta property="og:url" content="https://flxify.dev/tools/word-frequency/">
+  <meta property="og:site_name" content="Flxify">
+  <meta property="og:image" content="https://flxify.dev/logo.png">
+
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Word Frequency - Free Online Developer Tool">
+  <meta name="twitter:description" content="Count occurrences of each word in text Free online word frequency tool. 100% client-side, your data never leaves your browser.">
+  <meta name="twitter:image" content="https://flxify.dev/logo.png">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Word Frequency - Flxify","url":"https://flxify.dev/tools/word-frequency/","description":"Count occurrences of each word in text Free online word frequency tool. 100% client-side, your data never leaves your browser.","applicationCategory":"DeveloperApplication","operatingSystem":"Any","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Word Frequency tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes, Word Frequency on Flxify is completely free to use with no limits or sign-up required."}},{"@type":"Question","name":"Is my data safe when using Word Frequency?","acceptedAnswer":{"@type":"Answer","text":"All processing happens in your browser. Your data never leaves your device and is never sent to any server."}},{"@type":"Question","name":"Can I use Word Frequency offline?","acceptedAnswer":{"@type":"Answer","text":"After the initial page load, the tool works offline. All processing is done client-side with no server dependency."}}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to use Word Frequency","step":[{"@type":"HowToStep","position":1,"text":"Open the Word Frequency tool on Flxify"},{"@type":"HowToStep","position":2,"text":"Paste or type your text into the editor"},{"@type":"HowToStep","position":3,"text":"Press Cmd+B (or Ctrl+B) and select \"Word Frequency\" from the command palette"},{"@type":"HowToStep","position":4,"text":"View the transformed result in the editor"},{"@type":"HowToStep","position":5,"text":"Copy the output for your use"}]}</script>
+
+  <link rel="stylesheet" href="../../style.css">
+  <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+</head>
+<body class="tool-page">
+  <div id="top-bar">
+    <a href="../../" class="top-bar-home">
+      <img src="../../logo.png" alt="Flxify" class="app-logo">
+      <span class="app-title">Flxify</span>
+    </a>
+    <button id="mobile-menu-btn" class="mobile-menu-btn" title="Open command palette">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <nav class="top-bar-nav">
+      <a href="../" class="nav-link">All Tools</a>
+      <a href="https://marketplace.visualstudio.com/items?itemName=flxify.flxify" target="_blank" rel="noopener" class="vscode-ext-link" title="Get the VS Code Extension">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.583.063a1.5 1.5 0 0 1 1.342.825l4.5 9.75a1.5 1.5 0 0 1 0 1.272l-4.5 9.75a1.5 1.5 0 0 1-1.342.84H6.417a1.5 1.5 0 0 1-1.342-.825l-4.5-9.75a1.5 1.5 0 0 1 0-1.272l4.5-9.75A1.5 1.5 0 0 1 6.417.038h11.166zM12 6.75a5.25 5.25 0 1 0 0 10.5 5.25 5.25 0 0 0 0-10.5z"/></svg>
+        <span>VS Code</span>
+      </a>
+      <div id="theme-selector" class="theme-selector">
+        <button id="theme-toggle" class="theme-toggle-btn" aria-label="Change theme" title="Change theme">
+          <span class="theme-dot"></span>
+          <span class="theme-label">Standard Dark</span>
+          <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+        <div id="theme-dropdown" class="theme-dropdown">
+          <button class="theme-option" data-theme="standard-light" data-label="Standard Light" data-dot="#0066cc">
+            <span class="theme-dot" style="background:#0066cc"></span> Standard Light
+          </button>
+          <button class="theme-option" data-theme="standard-dark" data-label="Standard Dark" data-dot="#094771">
+            <span class="theme-dot" style="background:#094771"></span> Standard Dark
+          </button>
+          <button class="theme-option" data-theme="cyber-neon" data-label="Cyber Neon" data-dot="#00f5ff">
+            <span class="theme-dot" style="background:#00f5ff"></span> Cyber Neon
+          </button>
+          <button class="theme-option" data-theme="nordic-frost" data-label="Nordic Frost" data-dot="#81a1c1">
+            <span class="theme-dot" style="background:#81a1c1"></span> Nordic Frost
+          </button>
+          <button class="theme-option" data-theme="monokai-pro" data-label="Monokai Pro" data-dot="#ab9df2">
+            <span class="theme-dot" style="background:#ab9df2"></span> Monokai Pro
+          </button>
+          <button class="theme-option" data-theme="oled-stealth" data-label="OLED Stealth" data-dot="#0066ff">
+            <span class="theme-dot" style="background:#0066ff"></span> OLED Stealth
+          </button>
+        </div>
+      </div>
+    </nav>
+  </div>
+
+  <div id="tool-header">
+    <h1>Word Frequency</h1>
+    <p class="tool-subtitle">Count occurrences of each word in text &mdash; Free Online Developer Utility</p>
+    <span class="privacy-badge">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="currentColor"><path d="M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z"/></svg>
+      100% Client-Side &middot; Your data never leaves your browser
+    </span>
+  </div>
+
+  <div id="editor-wrapper">
+    <div id="editor"></div>
+    <div id="editor-hint">Press <kbd id="hint-shortcut-key">Cmd+B</kbd> to open the command palette</div>
+  </div>
+
+  <div id="command-palette" class="hidden">
+    <div id="palette-container">
+      <div id="palette-header">
+        <input id="search" type="text" placeholder="Type a command..." autocomplete="off" spellcheck="false">
+        <button id="palette-close" type="button" aria-label="Close">&times;</button>
+      </div>
+      <ul id="results"></ul>
+    </div>
+  </div>
+
+  <div id="toast"></div>
+
+  <div id="seo-content">
+    <h2>How to Use Word Frequency</h2>
+    <section class="how-to-section">
+      <ol>
+        <li>Open the Word Frequency tool on Flxify</li>
+        <li>Paste or type your text into the editor</li>
+        <li>Press Cmd+B (or Ctrl+B) and select &quot;Word Frequency&quot; from the command palette</li>
+        <li>View the transformed result in the editor</li>
+        <li>Copy the output for your use</li>
+      </ol>
+    </section>
+
+    <h2>Why Use Word Frequency?</h2>
+    <section class="use-case-section">
+      <p>Count occurrences of each word in text This tool helps developers quickly transform text data without leaving their browser. All processing happens client-side, ensuring your data remains private and secure.</p>
+    </section>
+
+    <h2>Related Tools</h2>
+    <section class="related-tools-section">
+      <div class="related-grid">
+        <a href="../extract-urls/" class="related-card">Extract URLs</a>
+        <a href="../extract-emails/" class="related-card">Extract Emails</a>
+        <a href="../extract-phone-numbers/" class="related-card">Extract Phone Numbers</a>
+        <a href="../count-characters/" class="related-card">Count Characters</a>
+      </div>
+    </section>
+
+    <h2>Frequently Asked Questions</h2>
+    <section class="faq-section">
+      <div class="faq-item">
+        <div class="faq-question">Is the Word Frequency tool free?</div>
+        <div class="faq-answer">Yes, Word Frequency on Flxify is completely free to use with no limits or sign-up required.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is my data safe when using Word Frequency?</div>
+        <div class="faq-answer">All processing happens in your browser. Your data never leaves your device and is never sent to any server.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Can I use Word Frequency offline?</div>
+        <div class="faq-answer">After the initial page load, the tool works offline. All processing is done client-side with no server dependency.</div>
+      </div>
+    </section>
+
+    <a href="../" class="all-tools-cta">Browse All 113 Developer Tools</a>
+  </div>
+
+  <div id="status-bar">
+    <span id="credit">
+      Crafted with <span class="heart">&hearts;</span> in Berlin by Ahmed El Taweel
+    </span>
+    <span id="shortcut-hint"></span>
+  </div>
+
+  <script>window.flxifyAutoScript = "Word Frequency";</script>
+  <script type="module">
+    import { EditorView, keymap, lineNumbers } from 'https://esm.sh/@codemirror/view@6';
+    import { EditorState, Compartment } from 'https://esm.sh/@codemirror/state@6';
+    import { defaultKeymap, history, historyKeymap } from 'https://esm.sh/@codemirror/commands@6';
+    import { syntaxHighlighting, defaultHighlightStyle, bracketMatching, HighlightStyle } from 'https://esm.sh/@codemirror/language@6';
+    import { tags } from 'https://esm.sh/@lezer/highlight@1';
+    import { oneDark } from 'https://esm.sh/@codemirror/theme-one-dark@6';
+    import { json } from 'https://esm.sh/@codemirror/lang-json@6';
+    import { javascript } from 'https://esm.sh/@codemirror/lang-javascript@6';
+    import { html } from 'https://esm.sh/@codemirror/lang-html@6';
+    import { css } from 'https://esm.sh/@codemirror/lang-css@6';
+    import { xml } from 'https://esm.sh/@codemirror/lang-xml@6';
+    import { sql } from 'https://esm.sh/@codemirror/lang-sql@6';
+    import { yaml } from 'https://esm.sh/@codemirror/lang-yaml@6';
+    import { python } from 'https://esm.sh/@codemirror/lang-python@6';
+    import { markdown } from 'https://esm.sh/@codemirror/lang-markdown@6';
+    import { languages } from 'https://esm.sh/@codemirror/language-data@6';
+
+    // Platform detection for shortcut hints
+    const isMac = navigator.platform.includes('Mac');
+    const modKey = isMac ? 'Cmd' : 'Ctrl';
+
+    // Set hint text
+    document.getElementById('hint-shortcut-key').textContent = modKey + '+B';
+    document.getElementById('shortcut-hint').textContent = modKey + '+B  \u00B7  Command Palette';
+
+    // Theme compartment for dynamic switching
+    const themeConf = new Compartment();
+
+    // Light editor theme
+    const lightEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#ffffff' },
+      '.cm-gutters': { backgroundColor: '#ffffff', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#b0b0b0' },
+      '.cm-activeLine': { backgroundColor: 'rgba(0, 0, 0, 0.03)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(0, 102, 204, 0.2) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(0, 102, 204, 0.35) !important' },
+      '.cm-content': { caretColor: '#1e1e1e' },
+      '.cm-cursor': { borderLeftColor: '#1e1e1e' }
+    }, { dark: false });
+
+    // Dark editor theme (oneDark + overrides)
+    const darkEditorTheme = oneDark;
+
+    // ── Cyber Neon CM6 Theme ──
+    const cyberNeonEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#0a0a14', color: '#e8e8ff' },
+      '.cm-gutters': { backgroundColor: '#0d0d1a', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#2a2a4a' },
+      '.cm-activeLine': { backgroundColor: 'rgba(0, 245, 255, 0.04)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(0, 245, 255, 0.15) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(0, 245, 255, 0.30) !important' },
+      '.cm-content': { caretColor: '#00f5ff' },
+      '.cm-cursor': { borderLeftColor: '#00f5ff' }
+    }, { dark: true });
+    const cyberNeonHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#ff2d95' },
+      { tag: tags.string, color: '#39ff14' },
+      { tag: tags.number, color: '#ffcc00' },
+      { tag: tags.comment, color: '#3a3a6a', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#00f5ff' },
+      { tag: tags.variableName, color: '#e8e8ff' },
+      { tag: tags.function(tags.variableName), color: '#00f5ff' },
+      { tag: tags.definition(tags.variableName), color: '#e8e8ff' },
+      { tag: tags.typeName, color: '#ff2d95' },
+      { tag: tags.operator, color: '#ff2d95' },
+      { tag: tags.punctuation, color: '#8888cc' },
+      { tag: tags.tagName, color: '#ff2d95' },
+      { tag: tags.attributeName, color: '#00f5ff' },
+      { tag: tags.attributeValue, color: '#39ff14' },
+      { tag: tags.bool, color: '#ffcc00' },
+      { tag: tags.null, color: '#4a4a7a' },
+      { tag: tags.regexp, color: '#39ff14' },
+      { tag: tags.heading, color: '#00f5ff', fontWeight: 'bold' },
+      { tag: tags.link, color: '#39ff14', textDecoration: 'underline' },
+    ]);
+    window.flxifyCyberNeonTheme = [cyberNeonEditorTheme, syntaxHighlighting(cyberNeonHighlight)];
+
+    // ── Nordic Frost CM6 Theme ──
+    const nordicFrostEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#2e3440', color: '#eceff4' },
+      '.cm-gutters': { backgroundColor: '#2e3440', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#4c566a' },
+      '.cm-activeLine': { backgroundColor: 'rgba(255, 255, 255, 0.03)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(136, 192, 208, 0.20) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(136, 192, 208, 0.35) !important' },
+      '.cm-content': { caretColor: '#d8dee9' },
+      '.cm-cursor': { borderLeftColor: '#d8dee9' }
+    }, { dark: true });
+    const nordicFrostHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#81a1c1' },
+      { tag: tags.string, color: '#a3be8c' },
+      { tag: tags.number, color: '#b48ead' },
+      { tag: tags.comment, color: '#4c566a', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#88c0d0' },
+      { tag: tags.variableName, color: '#d8dee9' },
+      { tag: tags.function(tags.variableName), color: '#88c0d0' },
+      { tag: tags.definition(tags.variableName), color: '#8fbcbb' },
+      { tag: tags.typeName, color: '#8fbcbb' },
+      { tag: tags.operator, color: '#81a1c1' },
+      { tag: tags.punctuation, color: '#eceff4' },
+      { tag: tags.tagName, color: '#81a1c1' },
+      { tag: tags.attributeName, color: '#8fbcbb' },
+      { tag: tags.attributeValue, color: '#a3be8c' },
+      { tag: tags.bool, color: '#b48ead' },
+      { tag: tags.null, color: '#4c566a' },
+      { tag: tags.regexp, color: '#ebcb8b' },
+      { tag: tags.heading, color: '#88c0d0', fontWeight: 'bold' },
+      { tag: tags.link, color: '#a3be8c', textDecoration: 'underline' },
+    ]);
+    window.flxifyNordicFrostTheme = [nordicFrostEditorTheme, syntaxHighlighting(nordicFrostHighlight)];
+
+    // ── Monokai Pro CM6 Theme ──
+    const monokaiProEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#2d2a2e', color: '#fcfcfa' },
+      '.cm-gutters': { backgroundColor: '#2d2a2e', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#5b595c' },
+      '.cm-activeLine': { backgroundColor: 'rgba(255, 255, 255, 0.04)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(171, 157, 242, 0.25) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(171, 157, 242, 0.45) !important' },
+      '.cm-content': { caretColor: '#fcfcfa' },
+      '.cm-cursor': { borderLeftColor: '#fcfcfa' }
+    }, { dark: true });
+    const monokaiProHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#ff6188' },
+      { tag: tags.string, color: '#ffd866' },
+      { tag: tags.number, color: '#ab9df2' },
+      { tag: tags.comment, color: '#727072', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#78dce8' },
+      { tag: tags.variableName, color: '#fcfcfa' },
+      { tag: tags.function(tags.variableName), color: '#a9dc76' },
+      { tag: tags.definition(tags.variableName), color: '#fcfcfa' },
+      { tag: tags.typeName, color: '#78dce8' },
+      { tag: tags.operator, color: '#ff6188' },
+      { tag: tags.punctuation, color: '#939293' },
+      { tag: tags.tagName, color: '#ff6188' },
+      { tag: tags.attributeName, color: '#78dce8' },
+      { tag: tags.attributeValue, color: '#ffd866' },
+      { tag: tags.bool, color: '#ab9df2' },
+      { tag: tags.null, color: '#727072' },
+      { tag: tags.regexp, color: '#ff6188' },
+      { tag: tags.heading, color: '#ffd866', fontWeight: 'bold' },
+      { tag: tags.link, color: '#78dce8', textDecoration: 'underline' },
+    ]);
+    window.flxifyMonokaiProTheme = [monokaiProEditorTheme, syntaxHighlighting(monokaiProHighlight)];
+
+    // ── OLED Stealth CM6 Theme ──
+    const oledStealthEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#000000', color: '#e8e8e8' },
+      '.cm-gutters': { backgroundColor: '#0a0a0a', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#222222' },
+      '.cm-activeLine': { backgroundColor: 'rgba(255, 255, 255, 0.02)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(0, 102, 255, 0.20) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(0, 102, 255, 0.40) !important' },
+      '.cm-content': { caretColor: '#0066ff' },
+      '.cm-cursor': { borderLeftColor: '#0066ff' }
+    }, { dark: true });
+    const oledStealthHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#0066ff' },
+      { tag: tags.string, color: '#aaaaaa' },
+      { tag: tags.number, color: '#888888' },
+      { tag: tags.comment, color: '#333333', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#cccccc' },
+      { tag: tags.variableName, color: '#e8e8e8' },
+      { tag: tags.function(tags.variableName), color: '#4488ff' },
+      { tag: tags.definition(tags.variableName), color: '#e8e8e8' },
+      { tag: tags.typeName, color: '#5599ff' },
+      { tag: tags.operator, color: '#666666' },
+      { tag: tags.punctuation, color: '#555555' },
+      { tag: tags.tagName, color: '#0066ff' },
+      { tag: tags.attributeName, color: '#aaaaaa' },
+      { tag: tags.attributeValue, color: '#888888' },
+      { tag: tags.bool, color: '#0066ff' },
+      { tag: tags.null, color: '#333333' },
+      { tag: tags.regexp, color: '#4488ff' },
+      { tag: tags.heading, color: '#ffffff', fontWeight: 'bold' },
+      { tag: tags.link, color: '#0066ff', textDecoration: 'underline' },
+    ]);
+    window.flxifyOledStealthTheme = [oledStealthEditorTheme, syntaxHighlighting(oledStealthHighlight)];
+
+    // Read saved theme preference
+    const savedTheme = (() => {
+      try { return localStorage.getItem('flxify-theme') || 'standard-dark'; } catch(e) { return 'standard-dark'; }
+    })();
+
+    // Language compartment for dynamic switching
+    const languageConf = new Compartment();
+
+    // Language detection — returns a string ID
+    function detectLanguageId(text) {
+      if (!text || text.trim().length === 0) return 'none';
+
+      const trimmed = text.trim();
+
+      // Markdown detection (check first — it can embed other languages)
+      if (/^#{1,6}\s+\S/m.test(trimmed) && (/^```/m.test(trimmed) || /^[-*+]\s+\S/m.test(trimmed) || /\[.+\]\(.+\)/.test(trimmed) || /^>\s+\S/m.test(trimmed))) {
+        return 'markdown';
+      }
+
+      // JSON detection — relaxed: looks for "key": patterns instead of requiring valid JSON.parse()
+      if ((trimmed.startsWith('{') || trimmed.startsWith('[')) && (trimmed.endsWith('}') || trimmed.endsWith(']'))) {
+        if (/"[\w$]+"(\s+)?:/.test(trimmed)) return 'json';
+        try { JSON.parse(trimmed); return 'json'; } catch(e) { /* not valid JSON, continue */ }
+      }
+
+      // HTML/XML detection
+      if (trimmed.startsWith('<!') || trimmed.startsWith('<?xml') || /<\w+[\s>]/.test(trimmed.substring(0, 200))) {
+        if (trimmed.startsWith('<?xml') || (/<\w+[^>]*\/>/.test(trimmed) && !/<(html|div|span|p|a|body|head|script|style)\b/i.test(trimmed))) {
+          return 'xml';
+        }
+        return 'html';
+      }
+
+      // SQL detection
+      if (/^\s*(SELECT|INSERT|UPDATE|DELETE|CREATE|ALTER|DROP|WITH)\b/i.test(trimmed)) {
+        return 'sql';
+      }
+
+      // Python detection
+      if (/(^|\n)\s*(def\s+\w+\s*\(|class\s+\w+[\s(:]|from\s+\w+\s+import\s|import\s+\w+|elif\s|except(\s+\w+)?:)/.test(trimmed)) {
+        return 'python';
+      }
+
+      // CSS detection — broadened with @font-face, @charset
+      if (/^[\s\S]*\{[\s\S]*[\w-]+\s*:\s*[^;]+;/m.test(trimmed) && /^(@media|@import|@keyframes|@font-face|@charset|[.#\w\[\*:][\w\-\s,.#>\+~\[\]='"*:()]*\{)/m.test(trimmed)) {
+        return 'css';
+      }
+
+      // TypeScript detection — JS patterns + type annotations
+      if (/(^|\n)\s*(interface\s+\w+|type\s+\w+\s*=|<\w+>\s*\(|:\s*(string|number|boolean|void|any|never)\b)/.test(trimmed) &&
+          /(^|\n)\s*(function\s+\w+|const\s+\w+|let\s+\w+|var\s+\w+|import\s+|export\s+|class\s+\w+|=>\s*\{)/.test(trimmed)) {
+        return 'typescript';
+      }
+
+      // JavaScript detection
+      if (/(^|\n)\s*(function\s+\w+|const\s+\w+|let\s+\w+|var\s+\w+|import\s+|export\s+|class\s+\w+|=>\s*\{)/.test(trimmed)) {
+        return 'javascript';
+      }
+
+      // YAML detection — key: value lines (≥2) or --- separator
+      if (!trimmed.startsWith('{') && (/^---\s*$/m.test(trimmed) || (trimmed.match(/^[\w][\w.-]*\s*:(\s+\S|$)/gm) || []).length >= 2)) {
+        return 'yaml';
+      }
+
+      return 'none';
+    }
+
+    // Map string ID to CodeMirror language extension
+    function languageExtension(id) {
+      switch (id) {
+        case 'json': return json();
+        case 'html': return html();
+        case 'xml': return xml();
+        case 'sql': return sql();
+        case 'css': return css();
+        case 'javascript': return javascript();
+        case 'typescript': return javascript({ typescript: true });
+        case 'python': return python();
+        case 'yaml': return yaml();
+        case 'markdown': return markdown({ codeLanguages: languages });
+        default: return [];
+      }
+    }
+
+    // Debounce helper
+    let detectTimeout = null;
+    let currentLangId = 'none';
+
+    function updateLanguage(view) {
+      clearTimeout(detectTimeout);
+      detectTimeout = setTimeout(() => {
+        const text = view.state.doc.toString();
+        const id = detectLanguageId(text);
+        if (id !== currentLangId) {
+          currentLangId = id;
+          view.dispatch({
+            effects: languageConf.reconfigure(id !== 'none' ? languageExtension(id) : [])
+          });
+        }
+      }, 500);
+    }
+
+    // Hint visibility
+    const hintEl = document.getElementById('editor-hint');
+
+    function updateHintVisibility(doc) {
+      if (doc.length === 0) {
+        hintEl.classList.remove('hidden');
+      } else {
+        hintEl.classList.add('hidden');
+      }
+    }
+
+    // localStorage persistence
+    const STORAGE_KEY = 'flxify-editor-content';
+
+    function loadSavedContent() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        return (typeof saved === 'string') ? saved : '';
+      } catch (e) {
+        console.warn('Could not read from localStorage:', e);
+        return '';
+      }
+    }
+
+    let saveTimeout = null;
+
+    function saveContent(text) {
+      clearTimeout(saveTimeout);
+      saveTimeout = setTimeout(() => {
+        try {
+          localStorage.setItem(STORAGE_KEY, text);
+        } catch (e) {
+          console.warn('Could not save to localStorage:', e);
+        }
+      }, 300);
+    }
+
+    const savedContent = loadSavedContent();
+
+    // Create the editor
+    const editorParent = document.getElementById('editor');
+
+    const startState = EditorState.create({
+      doc: savedContent,
+      extensions: [
+        history(),
+        bracketMatching(),
+        syntaxHighlighting(defaultHighlightStyle, { fallback: true }),
+        themeConf.of([darkEditorTheme]),
+        lineNumbers(),
+        languageConf.of([]),
+        keymap.of([...defaultKeymap, ...historyKeymap]),
+        EditorView.updateListener.of((update) => {
+          if (update.docChanged) {
+            updateLanguage(update.view);
+            updateHintVisibility(update.state.doc);
+            saveContent(update.state.doc.toString());
+          }
+        }),
+        EditorView.theme({
+          '&': {
+            height: '100%'
+          },
+          '.cm-scroller': {
+            fontFamily: "'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Menlo', monospace",
+            fontSize: '14px',
+            lineHeight: '1.6',
+            padding: '16px 0',
+            overflow: 'auto'
+          },
+          '.cm-content': {
+            padding: '0 24px'
+          },
+          '.cm-lineNumbers .cm-gutterElement': {
+            fontSize: '13px',
+            minWidth: '40px',
+            textAlign: 'right'
+          },
+          '&.cm-focused': {
+            outline: 'none'
+          }
+        }),
+        EditorView.lineWrapping,
+      ]
+    });
+
+    const cmEditor = new EditorView({
+      state: startState,
+      parent: editorParent,
+    });
+
+    // Expose to global scope for app.js
+    window.cmEditor = cmEditor;
+
+    // Initialize state for restored content
+    if (savedContent.length > 0) {
+      updateHintVisibility(cmEditor.state.doc);
+      updateLanguage(cmEditor);
+    }
+
+    // Focus the editor on load
+    cmEditor.focus();
+
+    // Expose theme compartment and all themes for app.js theme switcher
+    window.flxifyThemeConf = themeConf;
+    window.flxifyLightTheme = [lightEditorTheme, syntaxHighlighting(defaultHighlightStyle)];
+    window.flxifyDarkTheme = [darkEditorTheme];
+
+    // Update hint text for mobile
+    const isMobile = window.matchMedia('(max-width: 768px)').matches;
+    const hintShortcut = document.getElementById('hint-shortcut-key');
+    if (isMobile && hintShortcut) {
+      hintShortcut.textContent = 'menu';
+      hintShortcut.parentElement.innerHTML = 'Tap the <kbd>menu</kbd> button to open the command palette';
+    }
+
+    // Signal that CodeMirror is ready
+    window.cmReady = true;
+    window.dispatchEvent(new Event('cm-ready'));
+
+    // ── Font family & size controls ──
+
+    var FONT_STORAGE_KEY = 'flxify-font';
+    var FONT_SIZE_STORAGE_KEY = 'flxify-font-size';
+    var FONT_MIN = 10;
+    var FONT_MAX = 24;
+
+    // Read persisted values (set by anti-FOUC script in head, or defaults)
+    var currentFont = (function() {
+      try { return localStorage.getItem(FONT_STORAGE_KEY) || ''; } catch(e) { return ''; }
+    })();
+    var currentFontSize = (function() {
+      var v = parseInt(localStorage.getItem(FONT_SIZE_STORAGE_KEY), 10);
+      return (v >= FONT_MIN && v <= FONT_MAX) ? v : 14;
+    })();
+
+    // Apply font to CodeMirror editor
+    function applyEditorFont(fontFamily, fontSize) {
+      var scroller = cmEditor.scrollDOM;
+      // scrollDOM is the .cm-scroller element — setting style here overrides the
+      // static EditorView.theme() rule without needing a full CM dispatch
+      scroller.style.fontFamily = fontFamily
+        ? fontFamily + ", 'SF Mono', 'Consolas', monospace"
+        : "'SF Mono', 'Fira Code', 'Consolas', 'Monaco', 'Menlo', monospace";
+      scroller.style.fontSize = fontSize + 'px';
+      // Also update the CSS variable so it's available to any other consumers
+      document.documentElement.style.setProperty('--editor-font-family', scroller.style.fontFamily);
+      document.documentElement.style.setProperty('--editor-font-size', fontSize + 'px');
+    }
+
+    // Persist & apply font family choice
+    function setFont(fontValue, fontLabel) {
+      currentFont = fontValue;
+      try { localStorage.setItem(FONT_STORAGE_KEY, fontValue); } catch(e) {}
+      applyEditorFont(currentFont, currentFontSize);
+      // Update active state on options
+      document.querySelectorAll('.font-option').forEach(function(btn) {
+        btn.classList.toggle('active', btn.dataset.font === fontValue);
+      });
+    }
+
+    // Persist & apply font size change
+    function setFontSize(size) {
+      size = Math.max(FONT_MIN, Math.min(FONT_MAX, size));
+      currentFontSize = size;
+      try { localStorage.setItem(FONT_SIZE_STORAGE_KEY, size); } catch(e) {}
+      applyEditorFont(currentFont, currentFontSize);
+      var displayEl = document.getElementById('font-size-display');
+      if (displayEl) displayEl.textContent = size + 'px';
+    }
+
+    // Apply persisted values immediately (editor just initialised)
+    applyEditorFont(currentFont, currentFontSize);
+
+    // Sync active state for the persisted font choice
+    (function() {
+      document.querySelectorAll('.font-option').forEach(function(btn) {
+        if (btn.dataset.font === currentFont) {
+          btn.classList.add('active');
+        }
+      });
+      var displayEl = document.getElementById('font-size-display');
+      if (displayEl) displayEl.textContent = currentFontSize + 'px';
+    })();
+
+    // ── Settings panel toggle ──
+    var settingsToggleBtn = document.getElementById('settings-toggle');
+    var settingsDropdown = document.getElementById('settings-dropdown');
+    var settingsPanel = document.getElementById('settings-panel');
+
+    if (settingsToggleBtn && settingsDropdown) {
+      settingsToggleBtn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        settingsDropdown.classList.toggle('open');
+      });
+
+      document.addEventListener('click', function(e) {
+        if (settingsPanel && !settingsPanel.contains(e.target)) {
+          settingsDropdown.classList.remove('open');
+        }
+      });
+    }
+
+    // Font option clicks
+    document.querySelectorAll('.font-option').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        setFont(btn.dataset.font, btn.dataset.label);
+        // keep settings panel open so users can continue adjusting
+      });
+    });
+
+    // Font size buttons
+    var fontSizeDecBtn = document.getElementById('font-size-dec');
+    var fontSizeIncBtn = document.getElementById('font-size-inc');
+
+    if (fontSizeDecBtn) {
+      fontSizeDecBtn.addEventListener('click', function() {
+        setFontSize(currentFontSize - 1);
+      });
+    }
+    if (fontSizeIncBtn) {
+      fontSizeIncBtn.addEventListener('click', function() {
+        setFontSize(currentFontSize + 1);
+      });
+    }
+  </script>
+  <script defer src="../../app.js"></script>
+</body>
+</html>
