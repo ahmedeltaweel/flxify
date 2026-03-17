@@ -1031,3 +1031,75 @@ fs.writeFileSync(path.join(__dirname, 'robots.txt'), robotsTxt, 'utf-8');
 console.log('  Generated robots.txt');
 
 console.log('SEO generation complete.');
+
+// ---- Phase 3: Update script count in source files ----
+// Replaces hardcoded script counts so they stay in sync automatically.
+console.log(`\nPhase 3: Updating script count (${scriptEntries.length}) in source files...`);
+
+const SCRIPT_COUNT = scriptEntries.length;
+
+const SITEMAP_COUNT = SCRIPT_COUNT + 2; // homepage + directory + N tools
+
+const countReplacements = [
+  // [file, pattern, replacement] — pattern matches the old count in context
+  // README.md
+  ['README.md', /\*\*\d+ executable scripts\*\*/g, `**${SCRIPT_COUNT} executable scripts**`],
+  ['README.md', /- \*\*\d+ scripts\*\*/g, `- **${SCRIPT_COUNT} scripts**`],
+  ['README.md', /the same \d+ scripts/g, `the same ${SCRIPT_COUNT} scripts`],
+  ['README.md', /all \d+ scripts\./g, `all ${SCRIPT_COUNT} scripts.`],
+  ['README.md', /all \d+ scripts organized/g, `all ${SCRIPT_COUNT} scripts organized`],
+  // SCRIPTS.md
+  ['SCRIPTS.md', /All \d+ scripts/g, `All ${SCRIPT_COUNT} scripts`],
+  // tui/README.md
+  ['tui/README.md', /\*\*\d+ transformation scripts\*\*/g, `**${SCRIPT_COUNT} transformation scripts**`],
+  ['tui/README.md', /\*\*\d+ scripts\*\*/g, `**${SCRIPT_COUNT} scripts**`],
+  ['tui/README.md', /the same \d+ scripts/g, `the same ${SCRIPT_COUNT} scripts`],
+  // tui/package.json
+  ['tui/package.json', /Terminal text utility with \d+ transformation/g, `Terminal text utility with ${SCRIPT_COUNT} transformation`],
+  // vscode-extension
+  ['vscode-extension/package.json', /\d+\+ text transformation scripts for developers/g, `${SCRIPT_COUNT}+ text transformation scripts for developers`],
+  ['vscode-extension/README.md', /\d+\+ text transformation scripts/g, `${SCRIPT_COUNT}+ text transformation scripts`],
+  ['vscode-extension/README.md', /\d+\+ Built-in Scripts/g, `${SCRIPT_COUNT}+ Built-in Scripts`],
+  // CLAUDE.md — current counts (not version history)
+  ['CLAUDE.md', /with \d+ executable scripts accessible/g, `with ${SCRIPT_COUNT} executable scripts accessible`],
+  ['CLAUDE.md', /\*\*\d+ scripts\*\* are auto-discovered/g, `**${SCRIPT_COUNT} scripts** are auto-discovered`],
+  ['CLAUDE.md', /all \d+ scripts, BoopState/g, `all ${SCRIPT_COUNT} scripts, BoopState`],
+  ['CLAUDE.md', /Source of truth for all \d+ scripts/g, `Source of truth for all ${SCRIPT_COUNT} scripts`],
+  ['CLAUDE.md', /\d+ tool pages \+ directory/g, `${SCRIPT_COUNT} tool pages + directory`],
+  ['CLAUDE.md', /all \d+ URLs \(homepage/g, `all ${SITEMAP_COUNT} URLs (homepage`],
+  ['CLAUDE.md', /\+ directory \+ \d+ tools\)/g, `+ directory + ${SCRIPT_COUNT} tools)`],
+  ['CLAUDE.md', /Loads \d+ scripts at runtime for TUI/g, `Loads ${SCRIPT_COUNT} scripts at runtime for TUI`],
+  ['CLAUDE.md', /generates \d+ static tool pages/g, `generates ${SCRIPT_COUNT} static tool pages`],
+  ['CLAUDE.md', /all \d+ scripts via Cmd/g, `all ${SCRIPT_COUNT} scripts via Cmd`],
+  ['CLAUDE.md', /generates app\.js \+ \d+ tool pages/g, `generates app.js + ${SCRIPT_COUNT} tool pages`],
+  ['CLAUDE.md', /for each of \d+ scripts/g, `for each of ${SCRIPT_COUNT} scripts`],
+  ['CLAUDE.md', /\d+ URLs: homepage \+ directory \+ \d+ tools/g, `${SITEMAP_COUNT} URLs: homepage + directory + ${SCRIPT_COUNT} tools`],
+  ['CLAUDE.md', /shares the same \d+ scripts/g, `shares the same ${SCRIPT_COUNT} scripts`],
+  ['CLAUDE.md', /metadata validation \(all \d+ scripts\)/g, `metadata validation (all ${SCRIPT_COUNT} scripts)`],
+  ['CLAUDE.md', /the same \d+ scripts\. Launches/g, `the same ${SCRIPT_COUNT} scripts. Launches`],
+  // DOING.md
+  ['DOING.md', /command palette \(\d+ scripts\)/g, `command palette (${SCRIPT_COUNT} scripts)`],
+];
+
+// Group replacements by file — read once, apply all patterns, write once
+const replacementsByFile = {};
+for (const [relPath, pattern, replacement] of countReplacements) {
+  if (!replacementsByFile[relPath]) replacementsByFile[relPath] = [];
+  replacementsByFile[relPath].push({ pattern, replacement });
+}
+
+let countUpdated = 0;
+for (const [relPath, replacements] of Object.entries(replacementsByFile)) {
+  const filePath = path.join(__dirname, relPath);
+  let content = fs.readFileSync(filePath, 'utf-8');
+  const original = content;
+  for (const { pattern, replacement } of replacements) {
+    content = content.replace(pattern, replacement);
+  }
+  if (content !== original) {
+    fs.writeFileSync(filePath, content, 'utf-8');
+    countUpdated++;
+    console.log(`  Updated ${relPath}`);
+  }
+}
+console.log(`Script count update complete (${countUpdated} files updated).`);

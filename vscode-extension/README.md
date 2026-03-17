@@ -1,6 +1,6 @@
 # Flxify
 
-> **111+ text transformation scripts for developers.** Format JSON, encode Base64, generate UUIDs, hash text, convert cases, sort lines, and more — without leaving your editor.
+> **112+ text transformation scripts for developers.** Format JSON, encode Base64, generate UUIDs, hash text, convert cases, sort lines, and more — without leaving your editor.
 
 Flxify is the Swiss Army knife for text transformations in VS Code. Select text, pick a script, done.
 
@@ -19,7 +19,7 @@ You can also open the Command Palette (`Cmd+Shift+P`) and type **"Flxify: Run Sc
 
 ## Features
 
-### 111+ Built-in Scripts
+### 112+ Built-in Scripts
 
 | Category | Examples |
 |----------|---------|

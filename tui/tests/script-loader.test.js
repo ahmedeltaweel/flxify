@@ -35,15 +35,12 @@ describe('script-loader — loadScripts()', function () {
     expect(Array.isArray(scripts)).toBe(true);
   });
 
-  it('loads at least 108 scripts (111 minus a few known edge cases)', function () {
-    // Total is 111, but we allow for minor variance in case a script has
-    // a parse error in metadata. Must be >= 108.
-    expect(scripts.length).toBeGreaterThanOrEqual(108);
-  });
-
-  it('loads exactly 112 scripts', function () {
-    // The canonical count. If this fails, a script's metadata may be broken.
-    expect(scripts.length).toBe(112);
+  it('loads all scripts from the scripts directory', function () {
+    // Count .js files in scripts/ to get the expected number dynamically
+    var fs = require('fs');
+    var expectedCount = fs.readdirSync(SCRIPTS_DIR)
+      .filter(function (f) { return f.endsWith('.js'); }).length;
+    expect(scripts.length).toBe(expectedCount);
   });
 });
 
