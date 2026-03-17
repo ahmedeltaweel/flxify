@@ -5,19 +5,19 @@
 [![VS Code Marketplace](https://img.shields.io/visual-studio-marketplace/v/flxify.flxify)](https://marketplace.visualstudio.com/items?itemName=flxify.flxify)
 [![npm](https://img.shields.io/npm/v/@flxify/cli)](https://www.npmjs.com/package/@flxify/cli)
 
-A developer text utility tool with **112 executable scripts** accessible via a command palette. Available as a **web app**, **VS Code extension**, and **terminal CLI**. Paste text, run a script, get transformed output. Think "Swiss Army knife for text transformations."
+A developer text utility tool with **113 executable scripts** accessible via a command palette. Available as a **web app**, **VS Code extension**, and **terminal CLI**. Paste text, run a script, get transformed output. Think "Swiss Army knife for text transformations."
 
 **Try it:** [flxify.dev](https://flxify.dev) | **Install CLI:** `npm i -g @flxify/cli`
 
 ## Features
 
-- **112 scripts** for JSON formatting, Base64 encoding, hashing, case conversion, sorting, and more
+- **113 scripts** for JSON formatting, Base64 encoding, hashing, case conversion, sorting, and more
 - **Command palette** (Cmd/Ctrl+B) with fuzzy search
 - **Syntax highlighting** with automatic language detection (JSON, HTML, CSS, Python, YAML, SQL, etc.)
 - **6 themes** — Standard Dark/Light, Cyber Neon, Nordic Frost, Monokai Pro, OLED Stealth
 - **Works offline** after first load — no server required, works from `file://` URLs
 - **100% client-side** — your data never leaves your browser
-- **VS Code extension** with the same 112 scripts
+- **VS Code extension** with the same 113 scripts
 - **Terminal CLI** (`@flxify/cli`) with Vim keybindings
 
 ## Quick Start
@@ -34,7 +34,7 @@ flxify                    # launch editor
 flxify file.txt           # open a file
 ```
 
-Vim keybindings, command palette (Ctrl+B), 6 themes (Ctrl+T), and all 112 scripts. See [tui/README.md](tui/README.md) for full docs.
+Vim keybindings, command palette (Ctrl+B), 6 themes (Ctrl+T), and all 113 scripts. See [tui/README.md](tui/README.md) for full docs.
 
 ### VS Code
 
@@ -114,7 +114,7 @@ function main(state) {
 
 ## Available Scripts
 
-See [SCRIPTS.md](SCRIPTS.md) for a complete reference of all 112 scripts organized by category.
+See [SCRIPTS.md](SCRIPTS.md) for a complete reference of all 113 scripts organized by category.
 
 ## Contributing
 

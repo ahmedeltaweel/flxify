@@ -8,7 +8,7 @@
     "Text Case": ["Upcase", "Downcase", "CamelCase", "KebabCase", "SnakeCase", "StartCase", "SpongeCase", "toggleCamelHyphen", "Deburr"],
     "Text Manipulation": ["SortLines", "NaturalSortLines", "ReverseLines", "ReverseString", "ShuffleLines", "ShuffleCharacters", "RemoveDuplicateLines", "JoinLines", "JoinLinesWithComma", "JoinLinesWithSpace", "CollapseLines", "Trim", "TrimStart", "TrimEnd", "AddSlashes", "RemoveSlashes", "ReplaceSmartQuotes", "MarkdownQuote", "Rot13", "AddLineNumbers", "RemoveLineNumbers", "SpacesToTabs", "TabsToSpaces", "SortJSON", "LineComparer", "listToHTMLList", "Wadsworth", "Defang", "Refang", "PHPUnserialize", "EscapeLineFeeds", "UnescapeLineFeeds"],
     "Generation": ["UUIDGenerator", "ULIDGenerator", "LoremIpsum", "NewBoopScript", "generateHashtag", "contrastingColor", "CreateProjectGlossaryMarkdown"],
-    "Extraction": ["ExtractURLs", "ExtractEmails", "ExtractPhoneNumbers", "CountCharacters", "CountWords", "CountLines", "CharacterFrequency", "SumAll", "CalculateSize"],
+    "Extraction": ["ExtractURLs", "ExtractEmails", "ExtractPhoneNumbers", "CountCharacters", "CountWords", "CountLines", "CharacterFrequency", "WordFrequency", "SumAll", "CalculateSize"],
     "Developer Utilities": ["JWTDecode", "RegexEscape", "EvalJavascript", "DateToTimestamp", "DateToUTC", "TimeToSecond", "TestScript"]
   },
   "_customMeta": {

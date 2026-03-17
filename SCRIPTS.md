@@ -1,6 +1,6 @@
 # Scripts Reference
 
-All 112 scripts available in Flxify, grouped by category.
+All 113 scripts available in Flxify, grouped by category.
 
 ## Formatting
 
