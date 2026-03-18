@@ -126,6 +126,11 @@
             </div>
           </div>
         </div>
+          <!-- Tour -->
+          <div class="settings-group">
+            <button id="replay-tour-btn" class="replay-tour-btn">↺ Take the tour</button>
+          </div>
+        </div>
       </div>
     </nav>
   </div>
@@ -173,20 +178,20 @@
     <span id="shortcut-hint"></span>
   </div>
 
-  <div id="onboarding-overlay" style="display:none">
-    <div id="onboarding-box">
-      <div id="onboarding-step-label"></div>
-      <div id="onboarding-title"></div>
-      <div id="onboarding-text"></div>
-      <div id="onboarding-actions">
-        <button id="onboarding-skip">Skip</button>
-        <button id="onboarding-next">Next →</button>
-      </div>
-      <div id="onboarding-dots">
-        <span class="dot active"></span>
-        <span class="dot"></span>
-        <span class="dot"></span>
-      </div>
+  <!-- Overlay (dim backdrop) and box are siblings so the box z-index is in the root stacking context -->
+  <div id="onboarding-overlay" style="display:none"></div>
+  <div id="onboarding-box" style="display:none">
+    <div id="onboarding-step-label"></div>
+    <div id="onboarding-title"></div>
+    <div id="onboarding-text"></div>
+    <div id="onboarding-actions">
+      <button id="onboarding-skip">Skip</button>
+      <button id="onboarding-next">Next →</button>
+    </div>
+    <div id="onboarding-dots">
+      <span class="dot active"></span>
+      <span class="dot"></span>
+      <span class="dot"></span>
     </div>
   </div>
 
@@ -698,6 +703,6 @@
       });
     }
   </script>
-  <script defer src="app.js"></script>
+  <script defer src="app.js?v=1773797264"></script>
 </body>
 </html>

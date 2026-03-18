@@ -877,6 +877,19 @@ body {
   padding-top: 6px;
 }
 
+.replay-tour-btn {
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-family: inherit;
+  text-align: left;
+  padding: 4px 2px;
+  cursor: pointer;
+}
+.replay-tour-btn:hover { color: var(--text-primary); }
+
 .settings-group-label {
   font-size: 10px;
   font-weight: 600;
@@ -1747,11 +1760,7 @@ body.directory-page {
   inset: 0;
   background: rgba(0, 0, 0, 0.55);
   z-index: 9000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
-#onboarding-overlay.hidden { display: none; }
 
 #onboarding-box {
   position: fixed;

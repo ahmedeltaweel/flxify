@@ -11867,7 +11867,6 @@ var activeIndex = 0;
 var filteredScripts = [];
 var activeCategory = null;
 var sidebarOpen = (function() { try { return localStorage.getItem('flxify-sidebar') !== 'closed'; } catch(e) { return true; } })();
-var onboardingStep = 0;
 
 function showPalette() {
   palette.classList.remove('hidden');
@@ -12133,118 +12132,105 @@ function initSidebar() {
 // 7c. Onboarding Tour
 // ============================================================
 
-var isMobileTour = window.innerWidth <= 768;
+var ONBOARDING_KEY = 'flxify-tour-v1';
 
-var TOUR_STEPS_DESKTOP = [
+var TOUR_STEPS = (window.innerWidth <= 768) ? [
   {
     targetId: 'editor',
     title: 'Paste your text',
-    text: 'Type or paste any text into the editor. Transformations work on your selection — or the whole document if nothing is selected.',
-    position: 'right'
-  },
-  {
-    targetId: 'category-bar',
-    title: 'Pick a tool',
-    text: 'Browse by category above, or open the <strong>side panel</strong> on the left to explore all 112 tools grouped by type.',
-    position: 'bottom'
-  },
-  {
-    targetId: null,
-    title: 'Search instantly',
-    text: 'Press <strong>Cmd+B</strong> (Mac) or <strong>Ctrl+B</strong> (Windows/Linux) to open the command palette and search all 112 tools by name.',
-    position: 'center'
-  }
-];
-
-var TOUR_STEPS_MOBILE = [
-  {
-    targetId: 'editor',
-    title: 'Paste your text',
-    text: 'Type or paste any text into the editor. Transformations work on your selection — or the whole document if nothing is selected.',
-    position: 'center'
+    text: 'Type or paste any text into the editor. Scripts work on your selection — or the whole document if nothing is selected.'
   },
   {
     targetId: 'mobile-menu-btn',
     title: 'Pick a tool',
-    text: 'Tap the <strong>☰ menu button</strong> to browse and search all 112 text transformation tools.',
-    position: 'bottom'
+    text: 'Tap the <strong>&#9776; menu button</strong> to browse and search all 112 text tools.'
   },
   {
     targetId: null,
     title: "You're all set!",
-    text: 'Select a tool and your text transforms instantly. Tap <strong>☰</strong> anytime to explore more.',
-    position: 'center'
+    text: 'Select a tool and your text transforms instantly. Tap <strong>&#9776;</strong> anytime to explore more.'
+  }
+] : [
+  {
+    targetId: 'editor',
+    title: 'Paste your text',
+    text: 'Type or paste any text into the editor. Scripts work on your selection — or the whole document if nothing is selected.'
+  },
+  {
+    targetId: 'category-bar',
+    title: 'Pick a tool',
+    text: 'Browse by category, or open the <strong>side panel</strong> on the left to explore all 112 tools grouped by type.'
+  },
+  {
+    targetId: null,
+    title: 'Search instantly',
+    text: 'Press <strong>Cmd+B</strong> (Mac) or <strong>Ctrl+B</strong> (Windows) to open the command palette and search all 112 tools.'
   }
 ];
 
-var TOUR_STEPS = isMobileTour ? TOUR_STEPS_MOBILE : TOUR_STEPS_DESKTOP;
+function runTour() {
+  var overlay  = document.getElementById('onboarding-overlay');
+  var box      = document.getElementById('onboarding-box');
+  var titleEl  = document.getElementById('onboarding-title');
+  var textEl   = document.getElementById('onboarding-text');
+  var labelEl  = document.getElementById('onboarding-step-label');
+  var nextBtn  = document.getElementById('onboarding-next');
+  var skipBtn  = document.getElementById('onboarding-skip');
+  var dots     = document.querySelectorAll('#onboarding-dots .dot');
 
-function showOnboardingStep(step) {
-  var overlay = document.getElementById('onboarding-overlay');
-  var box = document.getElementById('onboarding-box');
-  var titleEl = document.getElementById('onboarding-title');
-  var textEl = document.getElementById('onboarding-text');
-  var nextBtn = document.getElementById('onboarding-next');
-  var dots = document.querySelectorAll('#onboarding-dots .dot');
-  if (!overlay || !box) return;
+  if (!overlay || !box || !nextBtn || !skipBtn) return;
 
-  // Remove highlight from previous step
-  document.querySelectorAll('.onboarding-highlight').forEach(function(el) {
-    el.classList.remove('onboarding-highlight');
-  });
+  var step = 0;
 
-  var stepData = TOUR_STEPS[step];
-
-  var stepLabel = document.getElementById('onboarding-step-label');
-  if (stepLabel) stepLabel.textContent = 'Step ' + (step + 1) + ' of ' + TOUR_STEPS.length;
-  if (titleEl) titleEl.textContent = stepData.title;
-  textEl.innerHTML = stepData.text;
-  nextBtn.textContent = (step === TOUR_STEPS.length - 1) ? 'Get started →' : 'Next →';
-
-  dots.forEach(function(d, i) { d.classList.toggle('active', i === step); });
-
-  // Highlight target element if visible
-  if (stepData.targetId) {
-    var target = document.getElementById(stepData.targetId);
-    if (target && target.offsetParent !== null) {
-      target.classList.add('onboarding-highlight');
-    }
+  function clearHighlights() {
+    document.querySelectorAll('.onboarding-highlight').forEach(function(el) {
+      el.classList.remove('onboarding-highlight');
+    });
   }
 
-  overlay.style.display = 'flex';
-}
+  function show(s) {
+    var data = TOUR_STEPS[s];
+    clearHighlights();
+    if (labelEl) labelEl.textContent = 'Step ' + (s + 1) + ' of ' + TOUR_STEPS.length;
+    if (titleEl) titleEl.textContent = data.title;
+    if (textEl)  textEl.innerHTML    = data.text;
+    nextBtn.textContent = (s === TOUR_STEPS.length - 1) ? 'Get started →' : 'Next →';
+    dots.forEach(function(d, i) { d.classList.toggle('active', i === s); });
+    if (data.targetId) {
+      var t = document.getElementById(data.targetId);
+      if (t && t.offsetParent !== null) t.classList.add('onboarding-highlight');
+    }
+    overlay.style.display = 'block';
+    box.style.display = 'block';
+  }
 
-function dismissOnboarding() {
-  document.querySelectorAll('.onboarding-highlight').forEach(function(el) {
-    el.classList.remove('onboarding-highlight');
-  });
-  var overlay = document.getElementById('onboarding-overlay');
-  if (overlay) overlay.style.display = 'none';
-  try { localStorage.setItem('flxify-onboarded-v2', '1'); } catch(e) {}
+  function done() {
+    clearHighlights();
+    overlay.style.display = 'none';
+    box.style.display = 'none';
+    try { localStorage.setItem(ONBOARDING_KEY, '1'); } catch(e) {}
+  }
+
+  // Replace handlers cleanly every time runTour() is called
+  nextBtn.onclick = function() {
+    if (step < TOUR_STEPS.length - 1) { step++; show(step); }
+    else { done(); }
+  };
+  skipBtn.onclick = done;
+
+  show(0);
 }
 
 function initOnboarding() {
-  var alreadyOnboarded = false;
-  try { alreadyOnboarded = localStorage.getItem('flxify-onboarded-v2') === '1'; } catch(e) {}
-  if (alreadyOnboarded) return;
+  var seen = false;
+  try { seen = localStorage.getItem(ONBOARDING_KEY) === '1'; } catch(e) {}
+  if (seen) return;
+  setTimeout(runTour, 600);
+}
 
-  var nextBtn = document.getElementById('onboarding-next');
-  var skipBtn = document.getElementById('onboarding-skip');
-  if (!nextBtn || !skipBtn) return;
-
-  nextBtn.addEventListener('click', function() {
-    if (onboardingStep === TOUR_STEPS.length - 1) {
-      dismissOnboarding();
-    } else {
-      onboardingStep++;
-      showOnboardingStep(onboardingStep);
-    }
-  });
-  skipBtn.addEventListener('click', dismissOnboarding);
-
-  setTimeout(function() {
-    showOnboardingStep(0);
-  }, 600);
+function replayOnboarding() {
+  try { localStorage.removeItem(ONBOARDING_KEY); } catch(e) {}
+  runTour();
 }
 
 // ============================================================
@@ -12302,6 +12288,15 @@ console.log('Flxify loaded: ' + scripts.length + ' scripts available.');
 renderCategoryBar();
 initSidebar();
 initOnboarding();
+
+var replayBtn = document.getElementById('replay-tour-btn');
+if (replayBtn) {
+  replayBtn.addEventListener('click', function() {
+    var sd = document.getElementById('settings-dropdown');
+    if (sd) sd.classList.remove('open');
+    replayOnboarding();
+  });
+}
 
 // Auto-script detection for tool pages
 if (window.flxifyAutoScript) {
