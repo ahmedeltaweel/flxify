@@ -42,6 +42,21 @@ function parseMetadata(source, filename) {
   }
 }
 
+// ---- Load seo-data.json early (needed for category map and CATEGORIES constant) ----
+const SEO_DATA_PATH = path.join(__dirname, 'seo-data.json');
+let seoDataEarly = { _categories: {}, _customMeta: {} };
+if (fs.existsSync(SEO_DATA_PATH)) {
+  seoDataEarly = JSON.parse(fs.readFileSync(SEO_DATA_PATH, 'utf-8'));
+}
+
+// Build script file key → category name map
+const categoryMapEarly = {}; // scriptFileKey → categoryName
+for (const [catName, keys] of Object.entries(seoDataEarly._categories || {})) {
+  for (const key of keys) {
+    categoryMapEarly[key] = catName;
+  }
+}
+
 // ---- Read and validate all scripts ----
 const scriptEntries = [];
 for (const file of scriptFiles) {
@@ -114,12 +129,15 @@ var scripts = [];
 // Generate each script as a pre-compiled object with execute function
 for (const entry of scriptEntries) {
   const m = entry.metadata;
+  const scriptFileKey = entry.file.replace(/\.js$/, '');
+  const scriptCategory = categoryMapEarly[scriptFileKey] || 'Developer Utilities';
   output += `scripts.push({\n`;
   output += `  name: ${JSON.stringify(m.name || 'Unnamed')},\n`;
   output += `  description: ${JSON.stringify(m.description || '')},\n`;
   output += `  author: ${JSON.stringify(m.author || '')},\n`;
   output += `  icon: ${JSON.stringify(m.icon || '')},\n`;
   output += `  tags: ${JSON.stringify(m.tags || '')},\n`;
+  output += `  category: ${JSON.stringify(scriptCategory)},\n`;
   output += `  execute: function(require, state) {\n`;
   output += entry.source;
   output += `\n    if (typeof main === "function") main(state);\n`;
@@ -128,6 +146,12 @@ for (const entry of scriptEntries) {
 }
 
 output += `scripts.sort(function(a, b) { return a.name.localeCompare(b.name); });
+
+// ============================================================
+// 3b. Category Data (injected at build time)
+// ============================================================
+
+var CATEGORIES = CATEGORIES_JSON_PLACEHOLDER;
 
 // ============================================================
 // 4. Toast System
@@ -236,10 +260,15 @@ var searchInput = document.getElementById('search');
 var resultsList = document.getElementById('results');
 var activeIndex = 0;
 var filteredScripts = [];
+var activeCategory = null;
+var sidebarOpen = (function() { try { return localStorage.getItem('flxify-sidebar') !== 'closed'; } catch(e) { return true; } })();
+var onboardingStep = 0;
 
 function showPalette() {
   palette.classList.remove('hidden');
   searchInput.value = '';
+  renderPaletteCats();
+  renderCategoryBar();
   filterScripts('');
   searchInput.focus();
 }
@@ -285,10 +314,15 @@ function fuzzyScore(query, text) {
 }
 
 function filterScripts(query) {
+  var pool = scripts.slice();
+  // Apply category filter first
+  if (activeCategory !== null) {
+    pool = pool.filter(function(s) { return s.category === activeCategory; });
+  }
   if (!query) {
-    filteredScripts = scripts.slice();
+    filteredScripts = pool;
   } else {
-    var scored = scripts.map(function(s) {
+    var scored = pool.map(function(s) {
       var nameScore = fuzzyScore(query, s.name) * 0.9;
       var tagScore = fuzzyScore(query, s.tags) * 0.6;
       var descScore = fuzzyScore(query, s.description) * 0.2;
@@ -300,6 +334,50 @@ function filterScripts(query) {
   }
   activeIndex = 0;
   renderResults();
+}
+
+function renderCategoryBar() {
+  var bar = document.getElementById('category-bar');
+  if (!bar) return;
+  bar.innerHTML = '';
+  CATEGORIES.forEach(function(cat) {
+    var btn = document.createElement('button');
+    var isAll = cat.name === 'All';
+    var isActive = isAll ? (activeCategory === null) : (activeCategory === cat.name);
+    btn.className = 'cat-chip' + (isActive ? ' active' : '');
+    btn.setAttribute('data-cat', cat.name);
+    btn.textContent = cat.emoji + ' ' + cat.name + ' (' + cat.count + ')';
+    btn.addEventListener('click', function() {
+      openPaletteWithCategory(cat.name);
+    });
+    bar.appendChild(btn);
+  });
+}
+
+function renderPaletteCats() {
+  var pCats = document.getElementById('palette-cats');
+  if (!pCats) return;
+  pCats.innerHTML = '';
+  CATEGORIES.forEach(function(cat) {
+    var btn = document.createElement('button');
+    var isAll = cat.name === 'All';
+    var isActive = isAll ? (activeCategory === null) : (activeCategory === cat.name);
+    btn.className = 'cat-chip' + (isActive ? ' active' : '');
+    btn.setAttribute('data-cat', cat.name);
+    btn.textContent = cat.emoji + ' ' + cat.name;
+    btn.addEventListener('click', function() {
+      activeCategory = isAll ? null : cat.name;
+      renderPaletteCats();
+      renderCategoryBar();
+      filterScripts(searchInput.value);
+    });
+    pCats.appendChild(btn);
+  });
+}
+
+function openPaletteWithCategory(name) {
+  activeCategory = (name === 'All') ? null : name;
+  showPalette();
 }
 
 var animalEmojis = [
@@ -349,6 +427,219 @@ function renderResults() {
 
   var activeEl = resultsList.querySelector('.active');
   if (activeEl) activeEl.scrollIntoView({ block: 'nearest' });
+}
+
+// ============================================================
+// 7b. Sidebar
+// ============================================================
+
+function renderSidebar() {
+  var content = document.getElementById('sidebar-content');
+  if (!content) return;
+  var searchEl = document.getElementById('sidebar-search');
+  var query = searchEl ? searchEl.value.toLowerCase() : '';
+
+  // Group scripts by category
+  var groups = {};
+  scripts.forEach(function(s) {
+    var cat = s.category || 'Developer Utilities';
+    if (!groups[cat]) groups[cat] = [];
+    if (!query || s.name.toLowerCase().indexOf(query) !== -1) {
+      groups[cat].push(s);
+    }
+  });
+
+  content.innerHTML = '';
+  // Sort by CATEGORIES order
+  var catOrder = CATEGORIES.map(function(c) { return c.name; });
+  var sortedCats = Object.keys(groups).sort(function(a, b) {
+    var ia = catOrder.indexOf(a);
+    var ib = catOrder.indexOf(b);
+    if (ia === -1) ia = 999;
+    if (ib === -1) ib = 999;
+    return ia - ib;
+  });
+
+  sortedCats.forEach(function(catName) {
+    var catScripts = groups[catName];
+    if (!catScripts || catScripts.length === 0) return;
+    var catInfo = CATEGORIES.find(function(c) { return c.name === catName; }) || { emoji: '\uD83D\uDD27' };
+    var details = document.createElement('details');
+    details.setAttribute('open', '');
+    var summary = document.createElement('summary');
+    summary.textContent = catInfo.emoji + ' ' + catName + ' (' + catScripts.length + ')';
+    details.appendChild(summary);
+    var ul = document.createElement('ul');
+    catScripts.forEach(function(s) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.textContent = s.name;
+      a.href = '#';
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        executeScript(s);
+      });
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    details.appendChild(ul);
+    content.appendChild(details);
+  });
+}
+
+function initSidebar() {
+  var sidebarEl = document.getElementById('sidebar');
+  if (!sidebarEl) return;
+
+  if (sidebarOpen) {
+    document.body.classList.add('sidebar-open');
+  }
+
+  renderSidebar();
+
+  var closeBtn = document.getElementById('sidebar-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      sidebarOpen = false;
+      document.body.classList.remove('sidebar-open');
+      try { localStorage.setItem('flxify-sidebar', 'closed'); } catch(e) {}
+    });
+  }
+
+  var openTab = document.getElementById('sidebar-open-tab');
+  if (openTab) {
+    openTab.addEventListener('click', function() {
+      sidebarOpen = true;
+      document.body.classList.add('sidebar-open');
+      try { localStorage.setItem('flxify-sidebar', 'open'); } catch(e) {}
+      renderSidebar();
+    });
+  }
+
+  var searchEl = document.getElementById('sidebar-search');
+  if (searchEl) {
+    searchEl.addEventListener('input', function() {
+      renderSidebar();
+    });
+  }
+}
+
+// ============================================================
+// 7c. Onboarding Tour
+// ============================================================
+
+var isMobileTour = window.innerWidth <= 768;
+
+var TOUR_STEPS_DESKTOP = [
+  {
+    targetId: 'editor',
+    title: 'Paste your text',
+    text: 'Type or paste any text into the editor. Transformations work on your selection — or the whole document if nothing is selected.',
+    position: 'right'
+  },
+  {
+    targetId: 'category-bar',
+    title: 'Pick a tool',
+    text: 'Browse by category above, or open the <strong>side panel</strong> on the left to explore all 112 tools grouped by type.',
+    position: 'bottom'
+  },
+  {
+    targetId: null,
+    title: 'Search instantly',
+    text: 'Press <strong>Cmd+B</strong> (Mac) or <strong>Ctrl+B</strong> (Windows/Linux) to open the command palette and search all 112 tools by name.',
+    position: 'center'
+  }
+];
+
+var TOUR_STEPS_MOBILE = [
+  {
+    targetId: 'editor',
+    title: 'Paste your text',
+    text: 'Type or paste any text into the editor. Transformations work on your selection — or the whole document if nothing is selected.',
+    position: 'center'
+  },
+  {
+    targetId: 'mobile-menu-btn',
+    title: 'Pick a tool',
+    text: 'Tap the <strong>☰ menu button</strong> to browse and search all 112 text transformation tools.',
+    position: 'bottom'
+  },
+  {
+    targetId: null,
+    title: "You're all set!",
+    text: 'Select a tool and your text transforms instantly. Tap <strong>☰</strong> anytime to explore more.',
+    position: 'center'
+  }
+];
+
+var TOUR_STEPS = isMobileTour ? TOUR_STEPS_MOBILE : TOUR_STEPS_DESKTOP;
+
+function showOnboardingStep(step) {
+  var overlay = document.getElementById('onboarding-overlay');
+  var box = document.getElementById('onboarding-box');
+  var titleEl = document.getElementById('onboarding-title');
+  var textEl = document.getElementById('onboarding-text');
+  var nextBtn = document.getElementById('onboarding-next');
+  var dots = document.querySelectorAll('#onboarding-dots .dot');
+  if (!overlay || !box) return;
+
+  // Remove highlight from previous step
+  document.querySelectorAll('.onboarding-highlight').forEach(function(el) {
+    el.classList.remove('onboarding-highlight');
+  });
+
+  var stepData = TOUR_STEPS[step];
+
+  var stepLabel = document.getElementById('onboarding-step-label');
+  if (stepLabel) stepLabel.textContent = 'Step ' + (step + 1) + ' of ' + TOUR_STEPS.length;
+  if (titleEl) titleEl.textContent = stepData.title;
+  textEl.innerHTML = stepData.text;
+  nextBtn.textContent = (step === TOUR_STEPS.length - 1) ? 'Get started \u2192' : 'Next \u2192';
+
+  dots.forEach(function(d, i) { d.classList.toggle('active', i === step); });
+
+  // Highlight target element if visible
+  if (stepData.targetId) {
+    var target = document.getElementById(stepData.targetId);
+    if (target && target.offsetParent !== null) {
+      target.classList.add('onboarding-highlight');
+    }
+  }
+
+  overlay.style.display = 'flex';
+}
+
+function dismissOnboarding() {
+  document.querySelectorAll('.onboarding-highlight').forEach(function(el) {
+    el.classList.remove('onboarding-highlight');
+  });
+  var overlay = document.getElementById('onboarding-overlay');
+  if (overlay) overlay.style.display = 'none';
+  try { localStorage.setItem('flxify-onboarded-v2', '1'); } catch(e) {}
+}
+
+function initOnboarding() {
+  var alreadyOnboarded = false;
+  try { alreadyOnboarded = localStorage.getItem('flxify-onboarded-v2') === '1'; } catch(e) {}
+  if (alreadyOnboarded) return;
+
+  var nextBtn = document.getElementById('onboarding-next');
+  var skipBtn = document.getElementById('onboarding-skip');
+  if (!nextBtn || !skipBtn) return;
+
+  nextBtn.addEventListener('click', function() {
+    if (onboardingStep === TOUR_STEPS.length - 1) {
+      dismissOnboarding();
+    } else {
+      onboardingStep++;
+      showOnboardingStep(onboardingStep);
+    }
+  });
+  skipBtn.addEventListener('click', dismissOnboarding);
+
+  setTimeout(function() {
+    showOnboardingStep(0);
+  }, 600);
 }
 
 // ============================================================
@@ -402,6 +693,10 @@ palette.addEventListener('click', function(e) {
 // ============================================================
 
 console.log('Flxify loaded: ' + scripts.length + ' scripts available.');
+
+renderCategoryBar();
+initSidebar();
+initOnboarding();
 
 // Auto-script detection for tool pages
 if (window.flxifyAutoScript) {
@@ -534,6 +829,43 @@ if ('serviceWorker' in navigator) {
 
 })();
 `;
+
+// ---- Compute CATEGORIES constant and inject into output ----
+const CATEGORY_EMOJIS = {
+  'Text Manipulation': '\u270F\uFE0F',
+  'Conversion': '\uD83D\uDD04',
+  'Encoding': '\uD83D\uDD10',
+  'Extraction': '\uD83D\uDD0D',
+  'Developer Utilities': '\uD83D\uDEE0\uFE0F',
+  'Text Case': 'Aa',
+  'Generation': '\u2728',
+  'Formatting': '\uD83D\uDCC4',
+  'Hashing': '#\uFE0F\u20E3',
+  'Minification': '\uD83D\uDDDC\uFE0F'
+};
+
+// Count scripts per category using the categoryMapEarly
+const catCounts = {};
+for (const entry of scriptEntries) {
+  const key = entry.file.replace(/\.js$/, '');
+  const cat = categoryMapEarly[key] || 'Developer Utilities';
+  catCounts[cat] = (catCounts[cat] || 0) + 1;
+}
+
+// Build sorted CATEGORIES array (by count descending), with All first
+const categoriesArray = [
+  { name: 'All', emoji: '\uD83D\uDCC1', count: scriptEntries.length }
+];
+const sortedCatEntries = Object.entries(catCounts).sort((a, b) => b[1] - a[1]);
+for (const [catName, count] of sortedCatEntries) {
+  categoriesArray.push({
+    name: catName,
+    emoji: CATEGORY_EMOJIS[catName] || '\uD83D\uDD27',
+    count: count
+  });
+}
+
+output = output.replace('CATEGORIES_JSON_PLACEHOLDER', JSON.stringify(categoriesArray));
 
 fs.writeFileSync(OUTPUT, output, 'utf-8');
 console.log(`Generated app.js (${(output.length / 1024).toFixed(1)} KB)`);

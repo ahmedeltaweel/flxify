@@ -130,9 +130,21 @@
     </nav>
   </div>
 
-  <div id="editor-wrapper">
-    <div id="editor"></div>
-    <div id="editor-hint">Press <kbd id="hint-shortcut-key">Cmd+B</kbd> to open the command palette</div>
+  <div id="category-bar" role="toolbar" aria-label="Browse by category"></div>
+
+  <div id="main-layout">
+    <div id="sidebar" aria-label="Tools sidebar">
+      <div id="sidebar-search-row">
+        <input id="sidebar-search" type="text" placeholder="Filter tools..." autocomplete="off">
+        <button id="sidebar-close" title="Close sidebar" aria-label="Close sidebar">&#215;</button>
+      </div>
+      <div id="sidebar-content"></div>
+    </div>
+    <div id="editor-wrapper">
+      <button id="sidebar-open-tab" title="Open tools sidebar" aria-label="Open sidebar">&#8250;</button>
+      <div id="editor"></div>
+      <div id="editor-hint">Press <kbd id="hint-shortcut-key">Cmd+B</kbd> to open the command palette</div>
+    </div>
   </div>
 
   <div id="command-palette" class="hidden">
@@ -141,6 +153,7 @@
         <input id="search" type="text" placeholder="Type a command..." autocomplete="off" spellcheck="false">
         <button id="palette-close" type="button" aria-label="Close">&times;</button>
       </div>
+      <div id="palette-cats"></div>
       <ul id="results"></ul>
     </div>
   </div>
@@ -158,6 +171,23 @@
       </a>
     </span>
     <span id="shortcut-hint"></span>
+  </div>
+
+  <div id="onboarding-overlay" style="display:none">
+    <div id="onboarding-box">
+      <div id="onboarding-step-label"></div>
+      <div id="onboarding-title"></div>
+      <div id="onboarding-text"></div>
+      <div id="onboarding-actions">
+        <button id="onboarding-skip">Skip</button>
+        <button id="onboarding-next">Next →</button>
+      </div>
+      <div id="onboarding-dots">
+        <span class="dot active"></span>
+        <span class="dot"></span>
+        <span class="dot"></span>
+      </div>
+    </div>
   </div>
 
   <script type="module">

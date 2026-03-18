@@ -463,3 +463,15 @@ tui/
 50. **Palette text must be truncated to prevent wrapping.** Long descriptions that exceed the box inner width wrap to extra lines, breaking the 2-line-per-item layout. Truncate both name and description text to `overlayWidth() - 4` (container width minus border minus resultsBox inset) before rendering.
 
 51. **npm publish for TUI is manual.** `cd tui && npm publish --access public`. The `prepublishOnly` script copies `scripts/` and `scripts/lib/` from root into `tui/scripts/` for bundling. `tui/scripts/` is gitignored — only created during publish. The `@flxify` npm org must exist first.
+
+52. **Sidebar layout: use flex sibling, not fixed+margin.** The sidebar is now a flex sibling of `#editor-wrapper` inside `#main-layout` (a flex row). Never use `position: fixed` + `margin-left` on the top-bar to shift content — the logo shifts and the layout breaks. Only shift the content area (editor, category bar) below the top-bar.
+
+53. **Onboarding overlay z-index stacking context trap.** When a parent has `position: fixed; z-index: N`, it creates a stacking context. Children's z-index values are scoped inside that context, not the root. If highlighted elements (outside the overlay) have `z-index: 9002` in the root stacking context, they paint ABOVE the overlay's entire stacking context (z-index 9000), covering the onboarding box and swallowing clicks. Fix: give the box `position: fixed; z-index: 9003` so it participates in the root stacking context directly, and add `pointer-events: none` to `.onboarding-highlight` so highlighted elements never intercept clicks.
+
+54. **CSS class-based visibility can be stale from browser cache.** When toggling `.hidden` via `classList`, if the browser has cached an older stylesheet, the new `display: flex` rule on the un-hidden element may not apply. For critical UI show/hide, use inline styles directly: `overlay.style.display = 'flex'` / `overlay.style.display = 'none'`. This bypasses the CSS cascade entirely.
+
+55. **localStorage key versioning for onboarding resets.** When onboarding content changes significantly (step order, wording, mobile vs desktop variants), bump the localStorage key (e.g., `flxify-onboarded` → `flxify-onboarded-v2`). This resets the tour for all users so they see the updated content. Without this, users who previously completed the tour never see changes.
+
+56. **Sidebar toggle: single location.** Never split open/close into two separate buttons in different DOM locations. Users find it confusing. Pattern used: close button (`×`) lives inline with the sidebar search box; open trigger is a `›` tab on the left edge of `#editor-wrapper` (using `position: absolute; left: 0`), only visible at ≥1200px when sidebar is closed.
+
+57. **Don't apply sidebar margin-left to top-bar or status-bar.** When the sidebar opens, only `#category-bar` and `#editor-wrapper` get `margin-left: 220px`. The top-bar (logo) and status-bar stay full-width. Applying it to `#top-bar` pushes the logo toward center; applying it to `#status-bar` looks wrong.

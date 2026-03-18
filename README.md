@@ -15,6 +15,9 @@ A developer text utility tool with **113 executable scripts** accessible via a c
 - **Command palette** (Cmd/Ctrl+B) with fuzzy search
 - **Syntax highlighting** with automatic language detection (JSON, HTML, CSS, Python, YAML, SQL, etc.)
 - **6 themes** — Standard Dark/Light, Cyber Neon, Nordic Frost, Monokai Pro, OLED Stealth
+- **Category chips bar** for one-click browsing by category (Formatting, Encoding, Generators, etc.)
+- **Wide-screen sidebar** (≥1200px) with search and accordion-grouped script browser
+- **First-visit onboarding tour** — guided walkthrough of the palette, categories, and sidebar
 - **Works offline** after first load — no server required, works from `file://` URLs
 - **100% client-side** — your data never leaves your browser
 - **VS Code extension** with the same 113 scripts

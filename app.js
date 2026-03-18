@@ -6763,6 +6763,7 @@ scripts.push({
   author: "aWZHY0yQH81uOYvH",
   icon: "metamorphose",
   tags: "ascii,hex,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -6795,6 +6796,7 @@ scripts.push({
   author: "Flxify",
   icon: "list-ol",
   tags: "line,number,prefix,count,add",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -6828,6 +6830,7 @@ scripts.push({
   author: "Ivan",
   icon: "quote",
   tags: "add,slashes,escape",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -6868,6 +6871,7 @@ scripts.push({
   author: "Manuel Kunz (https://github.com/KunzManuel)",
   icon: "translation",
   tags: "string,android,ios",
+  category: "Conversion",
   execute: function(require, state) {
 /**
   {
@@ -6904,6 +6908,7 @@ scripts.push({
   author: "See Source",
   icon: "metamorphose",
   tags: "base64,btoa,decode",
+  category: "Encoding",
   execute: function(require, state) {
 /**
 	{
@@ -6934,6 +6939,7 @@ scripts.push({
   author: "See Source",
   icon: "metamorphose",
   tags: "base64,atob,encode",
+  category: "Encoding",
   execute: function(require, state) {
 /**
 	{
@@ -6964,6 +6970,7 @@ scripts.push({
   author: "Maurice",
   icon: "metamorphose",
   tags: "decimal,binary,dec,bin",
+  category: "Conversion",
   execute: function(require, state) {
 /**
  {
@@ -7007,6 +7014,7 @@ scripts.push({
   author: "Ivan",
   icon: "table",
   tags: "table,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -7041,6 +7049,7 @@ scripts.push({
   author: "Flare576",
   icon: "table",
   tags: "table,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 {
@@ -7076,6 +7085,7 @@ scripts.push({
   author: "zzz",
   icon: "counter",
   tags: "calc,size,bytes,storage",
+  category: "Extraction",
   execute: function(require, state) {
 /**
 {
@@ -7135,6 +7145,7 @@ scripts.push({
   author: "Ivan",
   icon: "camel",
   tags: "camel,case,function,lodash",
+  category: "Text Case",
   execute: function(require, state) {
 /**
 	{
@@ -7165,6 +7176,7 @@ scripts.push({
   author: "Flxify",
   icon: "counter",
   tags: "count,character,frequency,occurrences,statistics",
+  category: "Extraction",
   execute: function(require, state) {
 /**
   {
@@ -7219,6 +7231,7 @@ scripts.push({
   author: "Dennis",
   icon: "collapse",
   tags: "strip,remove,collapse,join",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
     {
@@ -7247,6 +7260,7 @@ scripts.push({
   author: "Ivan",
   icon: "counter",
   tags: "count,length,size,character",
+  category: "Extraction",
   execute: function(require, state) {
 /**
 	{
@@ -7278,6 +7292,7 @@ scripts.push({
   author: "andipaetzold",
   icon: "counter",
   tags: "count,length,size,line",
+  category: "Extraction",
   execute: function(require, state) {
 /**
 	{
@@ -7306,6 +7321,7 @@ scripts.push({
   author: "Daniel Stone",
   icon: "counter",
   tags: "count,length,size,words",
+  category: "Extraction",
   execute: function(require, state) {
 /**
   {
@@ -7332,6 +7348,7 @@ scripts.push({
   author: "Terry L. Lewis",
   icon: "colosseum",
   tags: "markdown,glossary",
+  category: "Generation",
   execute: function(require, state) {
 /**
 	{
@@ -7475,6 +7492,7 @@ scripts.push({
   author: "Joseph Ng Rong En",
   icon: "dice",
   tags: "ascii,digi",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 {
@@ -7510,6 +7528,7 @@ scripts.push({
   author: "Noah Halford",
   icon: "watch",
   tags: "date,time,calendar,unix,timestamp",
+  category: "Developer Utilities",
   execute: function(require, state) {
 /**
     {
@@ -7543,6 +7562,7 @@ scripts.push({
   author: "Ivan",
   icon: "watch",
   tags: "date,time,calendar,unix,timestamp",
+  category: "Developer Utilities",
   execute: function(require, state) {
 /**
 	{
@@ -7587,6 +7607,7 @@ scripts.push({
   author: "Ivan",
   icon: "colosseum",
   tags: "burr,special,characters,function,lodash",
+  category: "Text Case",
   execute: function(require, state) {
 /**
 	{
@@ -7617,6 +7638,7 @@ scripts.push({
   author: "Maurice",
   icon: "metamorphose",
   tags: "decimal,binary,dec,bin",
+  category: "Conversion",
   execute: function(require, state) {
 /**
  {
@@ -7660,6 +7682,7 @@ scripts.push({
   author: "Maurice",
   icon: "metamorphose",
   tags: "decimal,hexadecimal,dec,hex",
+  category: "Conversion",
   execute: function(require, state) {
 /**
  {
@@ -7702,6 +7725,7 @@ scripts.push({
   author: "Ross",
   icon: "link",
   tags: "defang,url,ioc",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -7732,6 +7756,7 @@ scripts.push({
   author: "Dan2552",
   icon: "type",
   tags: "downcase,lowercase",
+  category: "Text Case",
   execute: function(require, state) {
 /**
     {
@@ -7760,6 +7785,7 @@ scripts.push({
   author: "Flxify",
   icon: "term",
   tags: "newline,linefeed,escape,\\n,convert,line break",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -7786,6 +7812,7 @@ scripts.push({
   author: "Sebastiaan Besselsen",
   icon: "command",
   tags: "js,script,run",
+  category: "Developer Utilities",
   execute: function(require, state) {
 /**
      {
@@ -7824,6 +7851,7 @@ scripts.push({
   author: "Flxify",
   icon: "envelope",
   tags: "email,extract,address,scrape",
+  category: "Extraction",
   execute: function(require, state) {
 /**
   {
@@ -7857,6 +7885,7 @@ scripts.push({
   author: "Flxify",
   icon: "phone",
   tags: "phone,telephone,number,extract,scrape,usa,eu,international,mobile,cell",
+  category: "Extraction",
   execute: function(require, state) {
 /**
   {
@@ -7893,6 +7922,7 @@ scripts.push({
   author: "Flxify",
   icon: "link",
   tags: "url,link,extract,http,https,scrape",
+  category: "Extraction",
   execute: function(require, state) {
 /**
   {
@@ -7926,6 +7956,7 @@ scripts.push({
   author: "Paul Seelman",
   icon: "broom",
   tags: "fish_user_paths, fish, hex, ascii, path, var",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 {
@@ -7979,6 +8010,7 @@ scripts.push({
   author: "Ivan",
   icon: "broom",
   tags: "css,prettify,clean,indent",
+  category: "Formatting",
   execute: function(require, state) {
 /**
 	{
@@ -8009,6 +8041,7 @@ scripts.push({
   author: "Ivan",
   icon: "broom",
   tags: "json,prettify,clean,indent",
+  category: "Formatting",
   execute: function(require, state) {
 /**
 	{
@@ -8044,6 +8077,7 @@ scripts.push({
   author: "Ivan",
   icon: "broom",
   tags: "mysql,sql,prettify,clean,indent",
+  category: "Formatting",
   execute: function(require, state) {
 /**
 	{
@@ -8074,6 +8108,7 @@ scripts.push({
   author: "Ivan",
   icon: "broom",
   tags: "html,prettify,clean,indent",
+  category: "Formatting",
   execute: function(require, state) {
 /**
 	{
@@ -8104,6 +8139,7 @@ scripts.push({
   author: "luisfontes19",
   icon: "broom",
   tags: "string,normalize,convert,readable,unicode",
+  category: "Encoding",
   execute: function(require, state) {
 
 /**
@@ -8136,6 +8172,7 @@ scripts.push({
   author: "See Source",
   icon: "HTML",
   tags: "html,decode,web",
+  category: "Encoding",
   execute: function(require, state) {
 /**
 	{
@@ -8164,6 +8201,7 @@ scripts.push({
   author: "See Source",
   icon: "HTML",
   tags: "html,encode,web",
+  category: "Encoding",
   execute: function(require, state) {
 /**
 	{
@@ -8192,6 +8230,7 @@ scripts.push({
   author: "Ivan",
   icon: "HTML",
   tags: "html,encode,web,email",
+  category: "Encoding",
   execute: function(require, state) {
 /**
     {
@@ -8224,6 +8263,7 @@ scripts.push({
   author: "aWZHY0yQH81uOYvH",
   icon: "metamorphose",
   tags: "hex,ascii,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -8266,6 +8306,7 @@ scripts.push({
   author: "Maurice",
   icon: "metamorphose",
   tags: "decimal,hexadecimal,dec,hex",
+  category: "Conversion",
   execute: function(require, state) {
 /**
  {
@@ -8309,6 +8350,7 @@ scripts.push({
   author: "Venkat",
   icon: "color-wheel",
   tags: "hex,color,rgb,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
      {
@@ -8346,6 +8388,7 @@ scripts.push({
   author: "Manuel Kunz (https://github.com/KunzManuel)",
   icon: "translation",
   tags: "string,android,ios",
+  category: "Conversion",
   execute: function(require, state) {
 /**
   {
@@ -8386,6 +8429,7 @@ scripts.push({
   author: "Ivan",
   icon: "table",
   tags: "table,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -8426,6 +8470,7 @@ scripts.push({
   author: "Ota Mares <ota@mares.one>",
   icon: "website",
   tags: "url,query,params,json,convert,encode",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -8480,6 +8525,7 @@ scripts.push({
   author: "Ivan",
   icon: "metamorphose",
   tags: "markup,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -8513,6 +8559,7 @@ scripts.push({
   author: "Nils Sonemann",
   icon: "identification",
   tags: "decode,jwt,token",
+  category: "Developer Utilities",
   execute: function(require, state) {
 /**
   {
@@ -8564,6 +8611,7 @@ scripts.push({
   author: "riesentoaster",
   icon: "collapse",
   tags: "join",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -8590,6 +8638,7 @@ scripts.push({
   author: "riesentoaster",
   icon: "collapse",
   tags: "join, comma",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -8617,6 +8666,7 @@ scripts.push({
   author: "riesentoaster",
   icon: "collapse",
   tags: "join, space",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -8644,6 +8694,7 @@ scripts.push({
   author: "luisfontes19",
   icon: "HTML",
   tags: "json,js,object,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
     {
@@ -8678,6 +8729,7 @@ scripts.push({
   author: "Ivan",
   icon: "kebab",
   tags: "kebab,case,function,lodash",
+  category: "Text Case",
   execute: function(require, state) {
 /**
 	{
@@ -8708,6 +8760,7 @@ scripts.push({
   author: "Luis Fontes",
   icon: "type",
   tags: "string,match,text,compare,line",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
     {
@@ -8750,6 +8803,7 @@ scripts.push({
   author: "luisfontes19",
   icon: "type",
   tags: "generate,lorem,ipsum,text",
+  category: "Generation",
   execute: function(require, state) {
 /**
     {
@@ -8792,6 +8846,7 @@ scripts.push({
   author: "Ivan",
   icon: "fingerprint",
   tags: "strip,slashes,remove",
+  category: "Hashing",
   execute: function(require, state) {
 /**
 	{
@@ -8821,6 +8876,7 @@ scripts.push({
   author: "Dan2552",
   icon: "term",
   tags: "quote,markdown",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
     {
@@ -8847,6 +8903,7 @@ scripts.push({
   author: "Ivan",
   icon: "broom",
   tags: "css,minify,clean,indent",
+  category: "Minification",
   execute: function(require, state) {
 /**
 	{
@@ -8877,6 +8934,7 @@ scripts.push({
   author: "riesentoaster",
   icon: "broom",
   tags: "html,minify,clean,indent",
+  category: "Minification",
   execute: function(require, state) {
 /**
 	{
@@ -8904,6 +8962,7 @@ scripts.push({
   author: "Ivan",
   icon: "broom",
   tags: "mysql,sql,minify,clean,indent",
+  category: "Minification",
   execute: function(require, state) {
 /**
 	{
@@ -8934,6 +8993,7 @@ scripts.push({
   author: "Ivan",
   icon: "broom",
   tags: "html,minify,clean,indent",
+  category: "Minification",
   execute: function(require, state) {
 /**
 	{
@@ -8964,6 +9024,7 @@ scripts.push({
   author: "Sebastiaan Besselsen",
   icon: "sort-numbers",
   tags: "sort,natural,natsort",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
      {
@@ -8997,6 +9058,7 @@ scripts.push({
   author: "tlewis",
   icon: "quote",
   tags: "boop,state,script,debug,new,create",
+  category: "Generation",
   execute: function(require, state) {
 /**
 	{
@@ -9065,6 +9127,7 @@ scripts.push({
   author: "Rob Bogie",
   icon: "elephant",
   tags: "php,serialize,unserialize,json",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -9246,6 +9309,7 @@ scripts.push({
   author: "Ota Mares <ota@mares.one>",
   icon: "website",
   tags: "url,query,params,json,convert,decode",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -9299,6 +9363,7 @@ scripts.push({
   author: "Ross",
   icon: "link",
   tags: "refang,url,ioc",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -9329,6 +9394,7 @@ scripts.push({
   author: "Flxify",
   icon: "shield",
   tags: "regex,escape,regexp,regular,expression,special,characters",
+  category: "Developer Utilities",
   execute: function(require, state) {
 /**
   {
@@ -9358,6 +9424,7 @@ scripts.push({
   author: "andipaetzold",
   icon: "filtration",
   tags: "unique,duplicate",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
     {
@@ -9394,6 +9461,7 @@ scripts.push({
   author: "Flxify",
   icon: "eraser",
   tags: "line,number,remove,strip,clean",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -9424,6 +9492,7 @@ scripts.push({
   author: "Ivan",
   icon: "quote",
   tags: "strip,slashes,remove,unescape",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -9479,6 +9548,7 @@ scripts.push({
   author: "Thomas Bauer (https://github.com/tbauer428)",
   icon: "broom",
   tags: "smart,quotes,quotations,quotation,smart-quotes,smart-quotations",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -9508,6 +9578,7 @@ scripts.push({
   author: "@Clarko",
   icon: "flip",
   tags: "reverse,order,invert,mirror,flip,upside,down",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -9535,6 +9606,7 @@ scripts.push({
   author: "See Source",
   icon: "flip",
   tags: "flip,mirror,invert",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -9616,6 +9688,7 @@ scripts.push({
   author: "Paul Starr",
   icon: "roman",
   tags: "spoilers,encryption,plaintext",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -9649,6 +9722,7 @@ scripts.push({
   author: "",
   icon: "fingerprint",
   tags: "strip,slashes,remove",
+  category: "Hashing",
   execute: function(require, state) {
 /**
     {
@@ -9677,6 +9751,7 @@ scripts.push({
   author: "",
   icon: "fingerprint",
   tags: "strip,slashes,remove",
+  category: "Hashing",
   execute: function(require, state) {
 /**
     {
@@ -9704,6 +9779,7 @@ scripts.push({
   author: "",
   icon: "fingerprint",
   tags: "strip,slashes,remove",
+  category: "Hashing",
   execute: function(require, state) {
 /**
     {
@@ -9732,6 +9808,7 @@ scripts.push({
   author: "Christian Petersen",
   icon: "dice",
   tags: "shuffle,random,character,char",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 {
@@ -9768,6 +9845,7 @@ scripts.push({
   author: "@Clarko",
   icon: "dice",
   tags: "shuffle,random",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -9805,6 +9883,7 @@ scripts.push({
   author: "Ivan",
   icon: "snake",
   tags: "snake,case,function,lodash",
+  category: "Text Case",
   execute: function(require, state) {
 /**
 	{
@@ -9835,6 +9914,7 @@ scripts.push({
   author: "MaDnh",
   icon: "sort-characters",
   tags: "json,sort",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -9910,6 +9990,7 @@ scripts.push({
   author: "Sebastiaan Besselsen",
   icon: "sort-characters",
   tags: "sort,alphabet",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
      {
@@ -9943,6 +10024,7 @@ scripts.push({
   author: "Flxify",
   icon: "indent",
   tags: "spaces,tabs,indent,convert,whitespace",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -9989,6 +10071,7 @@ scripts.push({
   author: "Paul Seelman",
   icon: "pineapple",
   tags: "bob,sarcasm,no,this,is,patrick",
+  category: "Text Case",
   execute: function(require, state) {
 /**
 {
@@ -10028,6 +10111,7 @@ scripts.push({
   author: "Ivan",
   icon: "type",
   tags: "start,case,function,lodash",
+  category: "Text Case",
   execute: function(require, state) {
 /**
 	{
@@ -10058,6 +10142,7 @@ scripts.push({
   author: "Annie Tran",
   icon: "abacus",
   tags: "sum,calculator,addition,add",
+  category: "Extraction",
   execute: function(require, state) {
 /**
 	{
@@ -10135,6 +10220,7 @@ scripts.push({
   author: "Flxify",
   icon: "indent",
   tags: "tabs,spaces,indent,convert,whitespace",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -10171,6 +10257,7 @@ scripts.push({
   author: "Ivan",
   icon: "flask",
   tags: "test,test,one,two",
+  category: "Developer Utilities",
   execute: function(require, state) {
 /**
 	{
@@ -10231,6 +10318,7 @@ scripts.push({
   author: "PeteChu",
   icon: "watch",
   tags: "transform,convert",
+  category: "Developer Utilities",
   execute: function(require, state) {
 /**
   {
@@ -10261,6 +10349,7 @@ scripts.push({
   author: "Joshua Nozzi",
   icon: "scissors",
   tags: "trim,whitespace,empty,space",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -10289,6 +10378,7 @@ scripts.push({
   author: "Joshua Nozzi",
   icon: "scissors",
   tags: "trim,end,right,trailing,whitespace,empty,space",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -10317,6 +10407,7 @@ scripts.push({
   author: "Joshua Nozzi",
   icon: "scissors",
   tags: "trim,start,left,leading,beginning,whitespace,empty,space",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -10345,6 +10436,7 @@ scripts.push({
   author: "Flxify",
   icon: "shuffle",
   tags: "ulid,id,generate,random,sortable",
+  category: "Generation",
   execute: function(require, state) {
 /**
   {
@@ -10412,6 +10504,7 @@ scripts.push({
   author: "Ivan",
   icon: "link",
   tags: "url,decode,convert",
+  category: "Encoding",
   execute: function(require, state) {
 /**
 	{
@@ -10440,6 +10533,7 @@ scripts.push({
   author: "Ivan",
   icon: "link",
   tags: "url,encode,convert",
+  category: "Encoding",
   execute: function(require, state) {
 /**
 	{
@@ -10468,6 +10562,7 @@ scripts.push({
   author: "luisfontes19",
   icon: "percentage",
   tags: "url,decode,full",
+  category: "Encoding",
   execute: function(require, state) {
 /**
 	{
@@ -10507,6 +10602,7 @@ scripts.push({
   author: "luisfontes19",
   icon: "percentage",
   tags: "url,encode,full",
+  category: "Encoding",
   execute: function(require, state) {
 /**
     {
@@ -10546,6 +10642,7 @@ scripts.push({
   author: "Flxify",
   icon: "shuffle",
   tags: "uuid,guid,random,generate,id",
+  category: "Generation",
   execute: function(require, state) {
 /**
   {
@@ -10601,6 +10698,7 @@ scripts.push({
   author: "Flxify",
   icon: "term",
   tags: "newline,linefeed,unescape,\\n,\\r\\n,convert,line break",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
   {
@@ -10627,6 +10725,7 @@ scripts.push({
   author: "Dan2552",
   icon: "type",
   tags: "upcase,uppercase,capital,capitalize,capitalization",
+  category: "Text Case",
   execute: function(require, state) {
 /**
     {
@@ -10655,6 +10754,7 @@ scripts.push({
   author: "Ivan",
   icon: "scissors",
   tags: "snap",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 	{
@@ -10684,6 +10784,7 @@ scripts.push({
   author: "Mikael Brassman (Twitter: @spoike)",
   icon: "globe",
   tags: "wkb,convert,wkt,binary,hex,wkb2wkt",
+  category: "Conversion",
   execute: function(require, state) {
 /**
   {
@@ -10867,6 +10968,7 @@ scripts.push({
   author: "Mikael Brassman (Twitter: @spoike)",
   icon: "globe",
   tags: "wkb,convert,wkt,binary,little endian,hex,wkt2wkb",
+  category: "Conversion",
   execute: function(require, state) {
 /**
   {
@@ -11090,6 +11192,7 @@ scripts.push({
   author: "Flxify",
   icon: "counter",
   tags: "count,word,frequency,occurrences,statistics",
+  category: "Extraction",
   execute: function(require, state) {
 /**
   {
@@ -11152,6 +11255,7 @@ scripts.push({
   author: "Ivan",
   icon: "metamorphose",
   tags: "markup,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -11187,6 +11291,7 @@ scripts.push({
   author: "Sunny Walker",
   icon: "color-wheel",
   tags: "contrast,color,wcag",
+  category: "Generation",
   execute: function(require, state) {
 /**
 {
@@ -11264,6 +11369,7 @@ scripts.push({
   author: "xshoji",
   icon: "term",
   tags: "csv,tsv,md,markdown",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 {
@@ -11324,6 +11430,7 @@ scripts.push({
   author: "Armand Salle",
   icon: "metamorphose",
   tags: "hashtag,word",
+  category: "Generation",
   execute: function(require, state) {
 /**
 {
@@ -11371,6 +11478,7 @@ scripts.push({
   author: "jtolj",
   icon: "elephant",
   tags: "js,php,convert",
+  category: "Conversion",
   execute: function(require, state) {
 /**
 	{
@@ -11437,6 +11545,7 @@ scripts.push({
   author: "Christian Heilmann",
   icon: "table",
   tags: "HTML,Lists",
+  category: "Text Manipulation",
   execute: function(require, state) {
 /**
 {
@@ -11479,6 +11588,7 @@ scripts.push({
   author: "luisfontes19",
   icon: "color-wheel",
   tags: "rgb,hex,convert,color",
+  category: "Conversion",
   execute: function(require, state) {
 /**
   {
@@ -11522,6 +11632,7 @@ scripts.push({
   author: "luisfontes19",
   icon: "broom",
   tags: "string,unicode,convert,escape",
+  category: "Encoding",
   execute: function(require, state) {
 
 /**
@@ -11556,6 +11667,7 @@ scripts.push({
   author: "Christian Heilmann",
   icon: "table",
   tags: "camelcase,hyphencase,syntax,codestandards",
+  category: "Text Case",
   execute: function(require, state) {
 /**
 {
@@ -11603,6 +11715,7 @@ scripts.push({
   author: "Quddus George",
   icon: "table",
   tags: "tab, tsv, json, table",
+  category: "Conversion",
   execute: function(require, state) {
 /**
   {
@@ -11638,6 +11751,12 @@ function main(state) {
 });
 
 scripts.sort(function(a, b) { return a.name.localeCompare(b.name); });
+
+// ============================================================
+// 3b. Category Data (injected at build time)
+// ============================================================
+
+var CATEGORIES = [{"name":"All","emoji":"📁","count":113},{"name":"Text Manipulation","emoji":"✏️","count":32},{"name":"Conversion","emoji":"🔄","count":25},{"name":"Encoding","emoji":"🔐","count":11},{"name":"Extraction","emoji":"🔍","count":10},{"name":"Text Case","emoji":"Aa","count":9},{"name":"Generation","emoji":"✨","count":7},{"name":"Developer Utilities","emoji":"🛠️","count":7},{"name":"Formatting","emoji":"📄","count":4},{"name":"Hashing","emoji":"#️⃣","count":4},{"name":"Minification","emoji":"🗜️","count":4}];
 
 // ============================================================
 // 4. Toast System
@@ -11746,10 +11865,15 @@ var searchInput = document.getElementById('search');
 var resultsList = document.getElementById('results');
 var activeIndex = 0;
 var filteredScripts = [];
+var activeCategory = null;
+var sidebarOpen = (function() { try { return localStorage.getItem('flxify-sidebar') !== 'closed'; } catch(e) { return true; } })();
+var onboardingStep = 0;
 
 function showPalette() {
   palette.classList.remove('hidden');
   searchInput.value = '';
+  renderPaletteCats();
+  renderCategoryBar();
   filterScripts('');
   searchInput.focus();
 }
@@ -11795,10 +11919,15 @@ function fuzzyScore(query, text) {
 }
 
 function filterScripts(query) {
+  var pool = scripts.slice();
+  // Apply category filter first
+  if (activeCategory !== null) {
+    pool = pool.filter(function(s) { return s.category === activeCategory; });
+  }
   if (!query) {
-    filteredScripts = scripts.slice();
+    filteredScripts = pool;
   } else {
-    var scored = scripts.map(function(s) {
+    var scored = pool.map(function(s) {
       var nameScore = fuzzyScore(query, s.name) * 0.9;
       var tagScore = fuzzyScore(query, s.tags) * 0.6;
       var descScore = fuzzyScore(query, s.description) * 0.2;
@@ -11810,6 +11939,50 @@ function filterScripts(query) {
   }
   activeIndex = 0;
   renderResults();
+}
+
+function renderCategoryBar() {
+  var bar = document.getElementById('category-bar');
+  if (!bar) return;
+  bar.innerHTML = '';
+  CATEGORIES.forEach(function(cat) {
+    var btn = document.createElement('button');
+    var isAll = cat.name === 'All';
+    var isActive = isAll ? (activeCategory === null) : (activeCategory === cat.name);
+    btn.className = 'cat-chip' + (isActive ? ' active' : '');
+    btn.setAttribute('data-cat', cat.name);
+    btn.textContent = cat.emoji + ' ' + cat.name + ' (' + cat.count + ')';
+    btn.addEventListener('click', function() {
+      openPaletteWithCategory(cat.name);
+    });
+    bar.appendChild(btn);
+  });
+}
+
+function renderPaletteCats() {
+  var pCats = document.getElementById('palette-cats');
+  if (!pCats) return;
+  pCats.innerHTML = '';
+  CATEGORIES.forEach(function(cat) {
+    var btn = document.createElement('button');
+    var isAll = cat.name === 'All';
+    var isActive = isAll ? (activeCategory === null) : (activeCategory === cat.name);
+    btn.className = 'cat-chip' + (isActive ? ' active' : '');
+    btn.setAttribute('data-cat', cat.name);
+    btn.textContent = cat.emoji + ' ' + cat.name;
+    btn.addEventListener('click', function() {
+      activeCategory = isAll ? null : cat.name;
+      renderPaletteCats();
+      renderCategoryBar();
+      filterScripts(searchInput.value);
+    });
+    pCats.appendChild(btn);
+  });
+}
+
+function openPaletteWithCategory(name) {
+  activeCategory = (name === 'All') ? null : name;
+  showPalette();
 }
 
 var animalEmojis = [
@@ -11859,6 +12032,219 @@ function renderResults() {
 
   var activeEl = resultsList.querySelector('.active');
   if (activeEl) activeEl.scrollIntoView({ block: 'nearest' });
+}
+
+// ============================================================
+// 7b. Sidebar
+// ============================================================
+
+function renderSidebar() {
+  var content = document.getElementById('sidebar-content');
+  if (!content) return;
+  var searchEl = document.getElementById('sidebar-search');
+  var query = searchEl ? searchEl.value.toLowerCase() : '';
+
+  // Group scripts by category
+  var groups = {};
+  scripts.forEach(function(s) {
+    var cat = s.category || 'Developer Utilities';
+    if (!groups[cat]) groups[cat] = [];
+    if (!query || s.name.toLowerCase().indexOf(query) !== -1) {
+      groups[cat].push(s);
+    }
+  });
+
+  content.innerHTML = '';
+  // Sort by CATEGORIES order
+  var catOrder = CATEGORIES.map(function(c) { return c.name; });
+  var sortedCats = Object.keys(groups).sort(function(a, b) {
+    var ia = catOrder.indexOf(a);
+    var ib = catOrder.indexOf(b);
+    if (ia === -1) ia = 999;
+    if (ib === -1) ib = 999;
+    return ia - ib;
+  });
+
+  sortedCats.forEach(function(catName) {
+    var catScripts = groups[catName];
+    if (!catScripts || catScripts.length === 0) return;
+    var catInfo = CATEGORIES.find(function(c) { return c.name === catName; }) || { emoji: '🔧' };
+    var details = document.createElement('details');
+    details.setAttribute('open', '');
+    var summary = document.createElement('summary');
+    summary.textContent = catInfo.emoji + ' ' + catName + ' (' + catScripts.length + ')';
+    details.appendChild(summary);
+    var ul = document.createElement('ul');
+    catScripts.forEach(function(s) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.textContent = s.name;
+      a.href = '#';
+      a.addEventListener('click', function(e) {
+        e.preventDefault();
+        executeScript(s);
+      });
+      li.appendChild(a);
+      ul.appendChild(li);
+    });
+    details.appendChild(ul);
+    content.appendChild(details);
+  });
+}
+
+function initSidebar() {
+  var sidebarEl = document.getElementById('sidebar');
+  if (!sidebarEl) return;
+
+  if (sidebarOpen) {
+    document.body.classList.add('sidebar-open');
+  }
+
+  renderSidebar();
+
+  var closeBtn = document.getElementById('sidebar-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', function() {
+      sidebarOpen = false;
+      document.body.classList.remove('sidebar-open');
+      try { localStorage.setItem('flxify-sidebar', 'closed'); } catch(e) {}
+    });
+  }
+
+  var openTab = document.getElementById('sidebar-open-tab');
+  if (openTab) {
+    openTab.addEventListener('click', function() {
+      sidebarOpen = true;
+      document.body.classList.add('sidebar-open');
+      try { localStorage.setItem('flxify-sidebar', 'open'); } catch(e) {}
+      renderSidebar();
+    });
+  }
+
+  var searchEl = document.getElementById('sidebar-search');
+  if (searchEl) {
+    searchEl.addEventListener('input', function() {
+      renderSidebar();
+    });
+  }
+}
+
+// ============================================================
+// 7c. Onboarding Tour
+// ============================================================
+
+var isMobileTour = window.innerWidth <= 768;
+
+var TOUR_STEPS_DESKTOP = [
+  {
+    targetId: 'editor',
+    title: 'Paste your text',
+    text: 'Type or paste any text into the editor. Transformations work on your selection — or the whole document if nothing is selected.',
+    position: 'right'
+  },
+  {
+    targetId: 'category-bar',
+    title: 'Pick a tool',
+    text: 'Browse by category above, or open the <strong>side panel</strong> on the left to explore all 112 tools grouped by type.',
+    position: 'bottom'
+  },
+  {
+    targetId: null,
+    title: 'Search instantly',
+    text: 'Press <strong>Cmd+B</strong> (Mac) or <strong>Ctrl+B</strong> (Windows/Linux) to open the command palette and search all 112 tools by name.',
+    position: 'center'
+  }
+];
+
+var TOUR_STEPS_MOBILE = [
+  {
+    targetId: 'editor',
+    title: 'Paste your text',
+    text: 'Type or paste any text into the editor. Transformations work on your selection — or the whole document if nothing is selected.',
+    position: 'center'
+  },
+  {
+    targetId: 'mobile-menu-btn',
+    title: 'Pick a tool',
+    text: 'Tap the <strong>☰ menu button</strong> to browse and search all 112 text transformation tools.',
+    position: 'bottom'
+  },
+  {
+    targetId: null,
+    title: "You're all set!",
+    text: 'Select a tool and your text transforms instantly. Tap <strong>☰</strong> anytime to explore more.',
+    position: 'center'
+  }
+];
+
+var TOUR_STEPS = isMobileTour ? TOUR_STEPS_MOBILE : TOUR_STEPS_DESKTOP;
+
+function showOnboardingStep(step) {
+  var overlay = document.getElementById('onboarding-overlay');
+  var box = document.getElementById('onboarding-box');
+  var titleEl = document.getElementById('onboarding-title');
+  var textEl = document.getElementById('onboarding-text');
+  var nextBtn = document.getElementById('onboarding-next');
+  var dots = document.querySelectorAll('#onboarding-dots .dot');
+  if (!overlay || !box) return;
+
+  // Remove highlight from previous step
+  document.querySelectorAll('.onboarding-highlight').forEach(function(el) {
+    el.classList.remove('onboarding-highlight');
+  });
+
+  var stepData = TOUR_STEPS[step];
+
+  var stepLabel = document.getElementById('onboarding-step-label');
+  if (stepLabel) stepLabel.textContent = 'Step ' + (step + 1) + ' of ' + TOUR_STEPS.length;
+  if (titleEl) titleEl.textContent = stepData.title;
+  textEl.innerHTML = stepData.text;
+  nextBtn.textContent = (step === TOUR_STEPS.length - 1) ? 'Get started →' : 'Next →';
+
+  dots.forEach(function(d, i) { d.classList.toggle('active', i === step); });
+
+  // Highlight target element if visible
+  if (stepData.targetId) {
+    var target = document.getElementById(stepData.targetId);
+    if (target && target.offsetParent !== null) {
+      target.classList.add('onboarding-highlight');
+    }
+  }
+
+  overlay.style.display = 'flex';
+}
+
+function dismissOnboarding() {
+  document.querySelectorAll('.onboarding-highlight').forEach(function(el) {
+    el.classList.remove('onboarding-highlight');
+  });
+  var overlay = document.getElementById('onboarding-overlay');
+  if (overlay) overlay.style.display = 'none';
+  try { localStorage.setItem('flxify-onboarded-v2', '1'); } catch(e) {}
+}
+
+function initOnboarding() {
+  var alreadyOnboarded = false;
+  try { alreadyOnboarded = localStorage.getItem('flxify-onboarded-v2') === '1'; } catch(e) {}
+  if (alreadyOnboarded) return;
+
+  var nextBtn = document.getElementById('onboarding-next');
+  var skipBtn = document.getElementById('onboarding-skip');
+  if (!nextBtn || !skipBtn) return;
+
+  nextBtn.addEventListener('click', function() {
+    if (onboardingStep === TOUR_STEPS.length - 1) {
+      dismissOnboarding();
+    } else {
+      onboardingStep++;
+      showOnboardingStep(onboardingStep);
+    }
+  });
+  skipBtn.addEventListener('click', dismissOnboarding);
+
+  setTimeout(function() {
+    showOnboardingStep(0);
+  }, 600);
 }
 
 // ============================================================
@@ -11912,6 +12298,10 @@ palette.addEventListener('click', function(e) {
 // ============================================================
 
 console.log('Flxify loaded: ' + scripts.length + ' scripts available.');
+
+renderCategoryBar();
+initSidebar();
+initOnboarding();
 
 // Auto-script detection for tool pages
 if (window.flxifyAutoScript) {
