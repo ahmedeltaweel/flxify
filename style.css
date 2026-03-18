@@ -1746,6 +1746,11 @@ body.directory-page {
   color: var(--text-primary);
 }
 
+#sidebar-content li a.sidebar-item-active {
+  background: var(--palette-selected);
+  color: var(--text-primary);
+}
+
 @media (min-width: 1200px) {
   body.sidebar-open #sidebar { display: flex; }
   body:not(.sidebar-open) #sidebar-open-tab { display: block; }
