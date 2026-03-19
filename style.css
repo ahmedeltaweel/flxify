@@ -1587,6 +1587,29 @@ body.directory-page {
 
 #category-bar::-webkit-scrollbar { display: none; }
 
+/* Collapsed state: completely hide the bar */
+#category-bar.cat-bar-hidden { display: none; }
+
+/* Category bar toggle button (in top-bar nav) */
+.cat-bar-toggle-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: var(--text-secondary);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: color 0.15s ease, background 0.15s ease;
+  flex-shrink: 0;
+}
+.cat-bar-toggle-btn:hover { background: var(--bg-input); color: var(--text-primary); }
+.cat-bar-toggle-btn.bar-collapsed { opacity: 0.45; }
+.cat-bar-toggle-btn.bar-collapsed:hover { opacity: 1; color: var(--text-primary); }
+
 .cat-chip {
   display: inline-flex;
   align-items: center;
@@ -1941,8 +1964,9 @@ body.directory-page {
 
   .cat-chip { min-height: 36px; }
 
-  /* Hide category bar and sidebar on mobile */
+  /* Hide category bar, toggle, and sidebar on mobile */
   #category-bar { display: none; }
+  .cat-bar-toggle-btn { display: none; }
   #sidebar { display: none !important; }
 
   /* Onboarding: full width on mobile */

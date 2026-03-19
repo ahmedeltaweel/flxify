@@ -11,6 +11,13 @@
 
 const fs = require('fs');
 const path = require('path');
+const crypto = require('crypto');
+
+// ---- Cache-busting: compute 8-char SHA-256 hex hash of a file's content ----
+function contentHash(filePath) {
+  const content = fs.readFileSync(filePath);
+  return crypto.createHash('sha256').update(content).digest('hex').slice(0, 8);
+}
 
 const SCRIPTS_DIR = path.join(__dirname, 'scripts');
 const LIB_DIR = path.join(SCRIPTS_DIR, 'lib');
@@ -752,6 +759,39 @@ console.log('Flxify loaded: ' + scripts.length + ' scripts available.');
 
 renderCategoryBar();
 initSidebar();
+
+// Category bar toggle
+(function() {
+  var CAT_BAR_KEY = 'flxify-cat-bar';
+  var bar = document.getElementById('category-bar');
+  var btn = document.getElementById('cat-bar-toggle');
+  if (!bar || !btn) return;
+
+  function applyCatBarState(collapsed) {
+    if (collapsed) {
+      bar.classList.add('cat-bar-hidden');
+      btn.classList.add('bar-collapsed');
+      btn.title = 'Show categories';
+      btn.setAttribute('aria-label', 'Show category bar');
+    } else {
+      bar.classList.remove('cat-bar-hidden');
+      btn.classList.remove('bar-collapsed');
+      btn.title = 'Hide categories';
+      btn.setAttribute('aria-label', 'Hide category bar');
+    }
+    try { localStorage.setItem(CAT_BAR_KEY, collapsed ? '1' : '0'); } catch(e) {}
+  }
+
+  // Initialize from localStorage (default: expanded)
+  var stored = '0';
+  try { stored = localStorage.getItem(CAT_BAR_KEY) || '0'; } catch(e) {}
+  applyCatBarState(stored === '1');
+
+  btn.addEventListener('click', function() {
+    applyCatBarState(!bar.classList.contains('cat-bar-hidden'));
+  });
+})();
+
 initOnboarding();
 
 var replayBtn = document.getElementById('replay-tour-btn');
@@ -887,8 +927,8 @@ if (dirSearch) {
   });
 }
 
-// Service worker registration
-if ('serviceWorker' in navigator) {
+// Service worker registration (HTTP/HTTPS only — file:// has no SW support)
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   navigator.serviceWorker.register('/service-worker.js').catch(function() {});
 }
 
@@ -934,6 +974,17 @@ output = output.replace('CATEGORIES_JSON_PLACEHOLDER', JSON.stringify(categories
 
 fs.writeFileSync(OUTPUT, output, 'utf-8');
 console.log(`Generated app.js (${(output.length / 1024).toFixed(1)} KB)`);
+
+// ---- Cache-busting: compute content hashes and rewrite index.html ----
+const appHash = contentHash(path.join(__dirname, 'app.js'));
+const cssHash = contentHash(path.join(__dirname, 'style.css'));
+console.log(`Cache hashes — app.js: ${appHash}, style.css: ${cssHash}`);
+
+let mainIndexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
+mainIndexHtml = mainIndexHtml.replace(/src="app\.js(?:\?[^"]*)?"/, `src="app.js?v=${appHash}"`);
+mainIndexHtml = mainIndexHtml.replace(/href="style\.css(?:\?[^"]*)?"/, `href="style.css?v=${cssHash}"`);
+fs.writeFileSync(path.join(__dirname, 'index.html'), mainIndexHtml);
+console.log('  Rewrote index.html with cache-busting hashes');
 
 // ============================================================
 // SEO Page Generation
@@ -1388,6 +1439,22 @@ ${directorySections}
 
 fs.writeFileSync(path.join(TOOLS_DIR, 'index.html'), directoryPage, 'utf-8');
 console.log('  Generated tools/index.html (directory page)');
+
+// ---- Apply cache-busting hashes to all tool pages ----
+function rewriteToolPage(filePath) {
+  let html = fs.readFileSync(filePath, 'utf8');
+  html = html.replace(/href="([^"]*style\.css)(?:\?[^"]*)?"/, (m, p1) => `href="${p1}?v=${cssHash}"`);
+  html = html.replace(/src="([^"]*app\.js)(?:\?[^"]*)?"/, (m, p1) => `src="${p1}?v=${appHash}"`);
+  fs.writeFileSync(filePath, html);
+}
+// Rewrite directory index
+rewriteToolPage(path.join(TOOLS_DIR, 'index.html'));
+// Rewrite each tool slug page
+fs.readdirSync(TOOLS_DIR).forEach(slug => {
+  const toolIndex = path.join(TOOLS_DIR, slug, 'index.html');
+  if (fs.existsSync(toolIndex)) rewriteToolPage(toolIndex);
+});
+console.log(`  Applied cache-busting hashes to tools/ pages`);
 
 // ---- Generate sitemap.xml ----
 const today = new Date().toISOString().split('T')[0];

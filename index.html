@@ -49,7 +49,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=53aaab60">
   <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);var f=localStorage.getItem('flxify-font')||'';var s=parseInt(localStorage.getItem('flxify-font-size'),10)||14;document.documentElement.style.setProperty('--editor-font-family',f||"'SF Mono','Fira Code','Consolas','Monaco','Menlo',monospace");document.documentElement.style.setProperty('--editor-font-size',s+'px');})();</script>
 </head>
 <body>
@@ -71,6 +71,14 @@
         <svg width="20" height="8" viewBox="0 0 18 7" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M0 0h18v6H9V7H5V6H0V0zm1 5h2V2h1v3h1V1H1v4zm5-4v5h2V5h2V1H6zm2 1h1v2H8V2zm3-1v4h2V2h1v3h1V2h1v3h1V1h-6z" fill="currentColor"/></svg>
       </a>
       <div class="top-bar-separator"></div>
+      <!-- Category bar toggle -->
+      <button id="cat-bar-toggle" class="cat-bar-toggle-btn" aria-label="Hide category bar" title="Hide categories">
+        <svg width="14" height="14" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true">
+          <rect x="0" y="2" width="16" height="2" rx="1"/>
+          <rect x="0" y="7" width="16" height="2" rx="1"/>
+          <rect x="0" y="12" width="16" height="2" rx="1"/>
+        </svg>
+      </button>
       <!-- Settings dropdown: consolidates font family, font size, and theme -->
       <div id="settings-panel" class="settings-panel">
         <button id="settings-toggle" class="settings-toggle-btn" aria-label="Open settings" title="Settings">
@@ -703,6 +711,6 @@
       });
     }
   </script>
-  <script defer src="app.js?v=1773797264"></script>
+  <script defer src="app.js?v=e4a449ca"></script>
 </body>
 </html>

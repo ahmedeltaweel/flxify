@@ -12357,6 +12357,39 @@ console.log('Flxify loaded: ' + scripts.length + ' scripts available.');
 
 renderCategoryBar();
 initSidebar();
+
+// Category bar toggle
+(function() {
+  var CAT_BAR_KEY = 'flxify-cat-bar';
+  var bar = document.getElementById('category-bar');
+  var btn = document.getElementById('cat-bar-toggle');
+  if (!bar || !btn) return;
+
+  function applyCatBarState(collapsed) {
+    if (collapsed) {
+      bar.classList.add('cat-bar-hidden');
+      btn.classList.add('bar-collapsed');
+      btn.title = 'Show categories';
+      btn.setAttribute('aria-label', 'Show category bar');
+    } else {
+      bar.classList.remove('cat-bar-hidden');
+      btn.classList.remove('bar-collapsed');
+      btn.title = 'Hide categories';
+      btn.setAttribute('aria-label', 'Hide category bar');
+    }
+    try { localStorage.setItem(CAT_BAR_KEY, collapsed ? '1' : '0'); } catch(e) {}
+  }
+
+  // Initialize from localStorage (default: expanded)
+  var stored = '0';
+  try { stored = localStorage.getItem(CAT_BAR_KEY) || '0'; } catch(e) {}
+  applyCatBarState(stored === '1');
+
+  btn.addEventListener('click', function() {
+    applyCatBarState(!bar.classList.contains('cat-bar-hidden'));
+  });
+})();
+
 initOnboarding();
 
 var replayBtn = document.getElementById('replay-tour-btn');
@@ -12492,8 +12525,8 @@ if (dirSearch) {
   });
 }
 
-// Service worker registration
-if ('serviceWorker' in navigator) {
+// Service worker registration (HTTP/HTTPS only — file:// has no SW support)
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
   navigator.serviceWorker.register('/service-worker.js').catch(function() {});
 }
 
