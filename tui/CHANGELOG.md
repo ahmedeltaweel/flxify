@@ -1,5 +1,21 @@
 # Changelog — @flxify/cli
 
+## [1.4.0] — 2026-03-22
+
+### New Scripts
+- **Cron to Human** — Paste a cron expression, run the script, get a human-readable description plus the next 5 scheduled run times.
+- **Explain Regex** — Paste a regex pattern, run the script, get an annotated token-by-token breakdown of what each part means.
+
+### New CLI Subcommands
+- **`flxify cron <expr>`** — Print a human-readable cron explanation and next 5 dates to stdout, then exit. Example: `flxify cron "*/5 * * * *"`
+- **`flxify regex <pattern>`** — Print a token breakdown of a regex pattern to stdout, then exit. Example: `flxify regex "^[a-z]+\d{2,4}$"`
+- Both subcommands also support running without arguments to launch the interactive TUI with the script pre-queued.
+- Both subcommands accept multi-word expressions (e.g. `flxify cron 0 9 * * 1-5` without quoting).
+
+### Internal
+- 8 new tests added (662 total): CLI subcommand output, @-alias handling, error exit codes.
+- Total scripts now at 115
+
 ## [1.3.0] — 2026-03-17
 
 ### New Features

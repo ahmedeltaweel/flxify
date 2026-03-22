@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.8.0] - 2026-03-22
+
+### Added
+- **Cron to Human** — Converts a cron expression (5-field or @-alias) to a human-readable description plus the next 5 scheduled run times. Paste any cron string and run the script to decode it instantly.
+- **Explain Regex** — Breaks down a regular expression into an annotated list of tokens: anchors, wildcards, shorthands, character classes, groups, lookaheads, lookbehinds, quantifiers, alternation, and literals. Supports `/pattern/flags` format.
+- **Cron hover provider** — Hover over any cron expression in any file to see the human-readable schedule and next 5 run times inline, without leaving the editor.
+- Total scripts now at 114
+
 ## [0.7.0] - 2026-03-17
 
 ### Fixed

@@ -9,7 +9,7 @@
     "Text Manipulation": ["SortLines", "NaturalSortLines", "ReverseLines", "ReverseString", "ShuffleLines", "ShuffleCharacters", "RemoveDuplicateLines", "JoinLines", "JoinLinesWithComma", "JoinLinesWithSpace", "CollapseLines", "Trim", "TrimStart", "TrimEnd", "AddSlashes", "RemoveSlashes", "ReplaceSmartQuotes", "MarkdownQuote", "Rot13", "AddLineNumbers", "RemoveLineNumbers", "SpacesToTabs", "TabsToSpaces", "SortJSON", "LineComparer", "listToHTMLList", "Wadsworth", "Defang", "Refang", "PHPUnserialize", "EscapeLineFeeds", "UnescapeLineFeeds"],
     "Generation": ["UUIDGenerator", "ULIDGenerator", "LoremIpsum", "NewBoopScript", "generateHashtag", "contrastingColor", "CreateProjectGlossaryMarkdown"],
     "Extraction": ["ExtractURLs", "ExtractEmails", "ExtractPhoneNumbers", "CountCharacters", "CountWords", "CountLines", "CharacterFrequency", "WordFrequency", "SumAll", "CalculateSize"],
-    "Developer Utilities": ["JWTDecode", "RegexEscape", "EvalJavascript", "DateToTimestamp", "DateToUTC", "TimeToSecond", "TestScript"]
+    "Developer Utilities": ["JWTDecode", "RegexEscape", "EvalJavascript", "DateToTimestamp", "DateToUTC", "TimeToSecond", "TestScript", "CronToHuman", "ExplainRegex"]
   },
   "_customMeta": {
     "FormatJSON": {
@@ -161,6 +161,16 @@
       "title": "Extract Phone Numbers from Text Online | Flxify",
       "metaDescription": "Extract and list all phone numbers from any text. Supports US, UK, EU, and international formats. Free, private, runs in your browser.",
       "keywords": ["extract phone numbers", "find phone numbers in text", "phone number extractor", "scrape phone numbers", "US phone number regex", "international phone format"]
+    },
+    "CronToHuman": {
+      "title": "Cron Expression Explainer - Decode Crontab Schedules Online",
+      "metaDescription": "Convert cron expressions to human-readable descriptions and see the next 5 scheduled run times. Free online crontab decoder. 100% client-side.",
+      "keywords": ["cron expression explainer", "crontab decoder", "cron to human readable", "cron schedule viewer", "explain cron expression", "next cron run time"]
+    },
+    "ExplainRegex": {
+      "title": "Regex Explainer - Break Down Regular Expressions Online",
+      "metaDescription": "Break down any regular expression into an explained list of tokens with types and meanings. Free online regex parser. 100% client-side.",
+      "keywords": ["regex explainer", "explain regular expression", "regex breakdown", "regex token parser", "regex analyzer", "understand regex"]
     }
   }
 }

@@ -1,6 +1,6 @@
 # Flxify
 
-> **113+ text transformation scripts for developers.** Format JSON, encode Base64, generate UUIDs, hash text, convert cases, sort lines, and more — without leaving your editor.
+> **115+ text transformation scripts for developers.** Format JSON, encode Base64, generate UUIDs, hash text, convert cases, sort lines, and more — without leaving your editor.
 
 Flxify is the Swiss Army knife for text transformations in VS Code. Select text, pick a script, done.
 
@@ -19,7 +19,7 @@ You can also open the Command Palette (`Cmd+Shift+P`) and type **"Flxify: Run Sc
 
 ## Features
 
-### 113+ Built-in Scripts
+### 115+ Built-in Scripts
 
 | Category | Examples |
 |----------|---------|
@@ -32,7 +32,7 @@ You can also open the Command Palette (`Cmd+Shift+P`) and type **"Flxify: Run Sc
 | **Text Manipulation** | Sort Lines, Reverse Lines, Remove Duplicates, Join Lines, Trim, Collapse Whitespace |
 | **Generation** | UUID Generator, Lorem Ipsum |
 | **Extraction** | Extract Emails, Extract URLs, Extract Phone Numbers |
-| **Developer Utilities** | Regex Escape, ROT13, Timestamp Conversions, Markdown Quote, Line Numbers |
+| **Developer Utilities** | Regex Escape, ROT13, Timestamp Conversions, Cron to Human, Explain Regex |
 
 ### Multi-Cursor Support
 

@@ -1,6 +1,6 @@
 # Scripts Reference
 
-All 113 scripts available in Flxify, grouped by category.
+All 115 scripts available in Flxify, grouped by category.
 
 ## Formatting
 
@@ -164,4 +164,6 @@ All 113 scripts available in Flxify, grouped by category.
 | Date to UTC | Converts date strings or Unix timestamps to UTC format |
 | Time to seconds | Converts time duration (hh:mm:ss) to total seconds |
 | Test Script | Developer test script demonstrating syntax highlighting and features |
+| Cron to Human | Converts a cron expression to a human-readable description with next 5 run times |
+| Explain Regex | Breaks down a regular expression into an explained list of tokens |
 

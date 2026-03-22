@@ -181,6 +181,67 @@ interface FlxifyQuickPickItem extends vscode.QuickPickItem {
 }
 
 // ============================================================
+// Cron Hover Helpers
+// ============================================================
+
+interface CronMatch {
+	expression: string;
+	start: number;
+	end: number;
+}
+
+/**
+ * Find a cron expression at or near the given character position in a line.
+ * Looks for 5 whitespace-separated fields that look like cron fields,
+ * or a @-alias keyword. Returns the match whose range includes charPos.
+ */
+function findCronAtPosition(line: string, charPos: number): CronMatch | null {
+	// Strategy 1: check for @-alias (single token)
+	const aliasPattern = /@(?:yearly|annually|monthly|weekly|daily|midnight|hourly)/gi;
+	let aliasMatch: RegExpExecArray | null;
+	while ((aliasMatch = aliasPattern.exec(line)) !== null) {
+		const start = aliasMatch.index;
+		const end = start + aliasMatch[0].length;
+		if (charPos >= start && charPos <= end) {
+			return { expression: aliasMatch[0], start, end };
+		}
+	}
+
+	// Strategy 2: scan for 5-field cron expression
+	// Split by whitespace, tracking positions
+	const tokens: Array<{ token: string; start: number; end: number }> = [];
+	const tokenPattern = /\S+/g;
+	let tokenMatch: RegExpExecArray | null;
+	while ((tokenMatch = tokenPattern.exec(line)) !== null) {
+		tokens.push({
+			token: tokenMatch[0],
+			start: tokenMatch.index,
+			end: tokenMatch.index + tokenMatch[0].length
+		});
+	}
+
+	// A cron field looks like: *, */N, N, N-M, N,M, or combinations
+	// We accept anything that matches digits, *, /, -, , (permissive to handle edge cases)
+	const isCronField = (s: string) => /^[\d*,\/\-]+$/.test(s) || /^[@\w]+$/.test(s);
+
+	// Find all sequences of 5 consecutive tokens that look like cron fields
+	for (let i = 0; i <= tokens.length - 5; i++) {
+		const group = tokens.slice(i, i + 5);
+		if (group.every(t => isCronField(t.token))) {
+			const start = group[0].start;
+			const end = group[4].end;
+			// Check if charPos is within this group's range
+			if (charPos >= start && charPos <= end) {
+				const expression = group.map(t => t.token).join(' ');
+				return { expression, start, end };
+			}
+		}
+	}
+
+	return null;
+}
+
+// ============================================================
 // 6. Extension Activation
 // ============================================================
 
@@ -270,6 +331,54 @@ export function activate(context: vscode.ExtensionContext) {
 	});
 
 	context.subscriptions.push(disposable);
+
+	// ============================================================
+	// 8. Cron Expression Hover Provider
+	// ============================================================
+	// When hovering over a cron expression in any file, show the
+	// human-readable description and next 5 run times.
+
+	// Load the cron-explain lib module via the existing require shim
+	const cronExplainMod = flxifyRequire('@flxify/cron-explain');
+
+	if (cronExplainMod) {
+		const cronHoverProvider = vscode.languages.registerHoverProvider(
+			{ scheme: 'file', language: '*' },
+			{
+				provideHover(document: vscode.TextDocument, position: vscode.Position): vscode.Hover | null {
+					const line = document.lineAt(position.line).text;
+
+					// Try to find a cron expression around the cursor position
+					const cronMatch = findCronAtPosition(line, position.character);
+					if (!cronMatch) { return null; }
+
+					try {
+						const result = cronExplainMod.explain(cronMatch.expression);
+						const markdown = new vscode.MarkdownString();
+						markdown.isTrusted = true;
+						markdown.appendMarkdown(`**Cron:** \`${cronMatch.expression}\`\n\n`);
+						markdown.appendMarkdown(`**Schedule:** ${result.description}\n\n`);
+						markdown.appendMarkdown(`**Next 5 occurrences:**\n\n`);
+						for (let i = 0; i < result.nextDates.length; i++) {
+							const d = new Date(result.nextDates[i]);
+							markdown.appendMarkdown(`${i + 1}. ${d.toLocaleString()}\n\n`);
+						}
+						markdown.appendMarkdown(`---\n*Flxify Cron Visualizer*`);
+
+						const range = new vscode.Range(
+							position.line, cronMatch.start,
+							position.line, cronMatch.end
+						);
+						return new vscode.Hover(markdown, range);
+					} catch {
+						return null; // Invalid cron expression — no hover
+					}
+				}
+			}
+		);
+
+		context.subscriptions.push(cronHoverProvider);
+	}
 }
 
 // ============================================================

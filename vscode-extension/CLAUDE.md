@@ -2,7 +2,7 @@
 
 ## What Is This?
 
-A VS Code extension (currently v0.5.0) that brings all 111 Flxify text transformation scripts into the editor. Users select text, press Cmd+Shift+B, pick a script from a QuickPick menu, and the text is transformed in place. Scripts are shared ("universal") between the web app and the extension — the same `.js` files work in both contexts. Published at https://marketplace.visualstudio.com/items?itemName=flxify.flxify
+A VS Code extension (currently v0.7.0) that brings all 113 Flxify text transformation scripts into the editor. Users select text, press Cmd+Shift+B, pick a script from a QuickPick menu, and the text is transformed in place. Scripts are shared ("universal") between the web app and the extension — the same `.js` files work in both contexts. Published at https://marketplace.visualstudio.com/items?itemName=flxify.flxify
 
 ## Architecture
 
@@ -57,6 +57,8 @@ The command iterates `editor.selections` inside a single `editor.edit()` call. T
 | `icon.png` | 128x128 marketplace icon |
 
 ## Key Gotchas
+
+0. **Sub-agents (plan-developer, qa-plan-validator) can't use Bash in this directory.** The `.claude/settings.local.json` Bash permissions don't cover `vscode-extension/` commands. When an agent is blocked, take over implementation directly.
 
 1. **Scripts run in non-strict mode.** Some use implicit globals like `buf = ""`. Do NOT add `'use strict'` to the Function wrapper.
 
@@ -154,6 +156,7 @@ Alternative (skip login): `npx @vscode/vsce publish --pat <YOUR_PAT>`
 | 0.5.0 | Added Extract Phone Numbers script, total 111 scripts |
 | 0.6.0 | Added Character Frequency script, total 112 scripts |
 | 0.7.0 | Bug fixes: toUnicode 4-digit padding, ReverseString trailing newline, GenerateHashtag description |
+| 0.8.0 | Added Cron to Human and Explain Regex scripts, cron hover provider, total 114 scripts |
 
 ## Web-Only Features (NOT in Extension)
 

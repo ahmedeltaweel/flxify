@@ -1,6 +1,6 @@
 # @flxify/cli
 
-A terminal-based text utility with **113 transformation scripts**, **Vim keybindings**, and a **command palette** — the same power as [flxify.dev](https://flxify.dev), right in your terminal.
+A terminal-based text utility with **115 transformation scripts**, **Vim keybindings**, and a **command palette** — the same power as [flxify.dev](https://flxify.dev), right in your terminal.
 
 [![npm version](https://img.shields.io/npm/v/@flxify/cli)](https://www.npmjs.com/package/@flxify/cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../LICENSE)
@@ -21,8 +21,9 @@ flxify --theme cyber-neon      # Launch with a specific theme
 
 ## Features
 
-- **113 scripts** — JSON formatting, Base64, hashing, case conversion, sorting, JWT decode, and more
+- **115 scripts** — JSON formatting, Base64, hashing, case conversion, sorting, JWT decode, cron explainer, regex explainer, and more
 - **Command palette** (Ctrl+B) with fuzzy search across all scripts
+- **CLI subcommands** — `flxify cron "*/5 * * * *"` and `flxify regex "^[a-z]+"` for quick non-interactive explanations
 - **Vim keybindings** — Normal, Insert, Visual, and Visual-Line modes
 - **6 themes** — Standard Dark/Light, Cyber Neon, Nordic Frost, Monokai Pro, OLED Stealth
 - **Word wrap** — `:set wrap` / `:set nowrap` to toggle soft wrap for long lines
@@ -80,14 +81,30 @@ Theme preference is saved to `~/.config/flxify/config.json`.
 ```
 Usage:
   flxify [options] [file]
+  flxify cron [expr]
+  flxify regex [pattern]
 
 Options:
   -h, --help            Show help
   -v, --version         Print version
   -t, --theme <name>    Set theme on startup
 
+Subcommands:
+  cron [expr]           Explain a cron expression (or open interactive mode)
+  regex [pattern]       Explain a regex pattern (or open interactive mode)
+
 Arguments:
   [file]                File path to open
+```
+
+### Subcommand Examples
+
+```bash
+flxify cron "*/5 * * * *"    # Every 5 minutes + next 5 run times
+flxify cron "@daily"          # Daily schedule + next 5 run times
+flxify cron 0 9 "* * 1-5"    # Multi-word expressions work too
+flxify regex "^[a-z]+\d{2,4}$"  # Token-by-token regex breakdown
+flxify regex "/test/gi"           # Extracts flags automatically
 ```
 
 ## How Scripts Work

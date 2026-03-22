@@ -252,6 +252,448 @@ function require(modulePath) {
   flxifyModules["base64"] = module.exports;
 })();
 
+// --- cron-explain ---
+(function() {
+  var module = { exports: {} };
+  var exports = module.exports;
+  (function(exports, module) {
+// scripts/lib/cron-explain.js
+// Usage: var cronExplain = require('@flxify/cron-explain');
+// Pure-JS CJS module. No 'use strict'. No Node built-ins. No npm packages.
+
+var DAY_NAMES = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+var DAY_SHORT = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+var MONTH_NAMES = ['January', 'February', 'March', 'April', 'May', 'June',
+                   'July', 'August', 'September', 'October', 'November', 'December'];
+var MONTH_SHORT = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                   'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+var DOW_MAP = { sun: 0, mon: 1, tue: 2, wed: 3, thu: 4, fri: 5, sat: 6 };
+var MON_MAP = { jan: 1, feb: 2, mar: 3, apr: 4, may: 5, jun: 6,
+                jul: 7, aug: 8, sep: 9, oct: 10, nov: 11, dec: 12 };
+
+var ALIASES = {
+  '@yearly':    '0 0 1 1 *',
+  '@annually':  '0 0 1 1 *',
+  '@monthly':   '0 0 1 * *',
+  '@weekly':    '0 0 * * 0',
+  '@daily':     '0 0 * * *',
+  '@midnight':  '0 0 * * *',
+  '@hourly':    '0 * * * *'
+};
+
+function pad2(n) {
+  return n < 10 ? '0' + n : '' + n;
+}
+
+function resolveDow(s) {
+  // 7 = Sunday (same as 0)
+  var n = parseInt(s, 10);
+  if (!isNaN(n)) return n === 7 ? 0 : n;
+  var mapped = DOW_MAP[s.toLowerCase()];
+  if (mapped !== undefined) return mapped;
+  throw new Error('Invalid day-of-week name: ' + s);
+}
+
+function resolveMon(s) {
+  var n = parseInt(s, 10);
+  if (!isNaN(n)) return n;
+  var mapped = MON_MAP[s.toLowerCase()];
+  if (mapped !== undefined) return mapped;
+  throw new Error('Invalid month name: ' + s);
+}
+
+// Expand a single field string to an array of matching integers.
+// resolver: function(token) -> integer
+// min/max: allowed range for validation
+function expandField(field, min, max, resolver) {
+  if (field === '*') return '*';
+
+  var values = [];
+
+  var parts = field.split(',');
+  for (var pi = 0; pi < parts.length; pi++) {
+    var part = parts[pi];
+
+    if (part.indexOf('/') !== -1) {
+      // Step: */N or M-N/S or M/S
+      var slashIdx = part.indexOf('/');
+      var rangePart = part.slice(0, slashIdx);
+      var step = parseInt(part.slice(slashIdx + 1), 10);
+      if (isNaN(step) || step < 1) throw new Error('Invalid step in field: ' + field);
+
+      var rangeStart, rangeEnd;
+      if (rangePart === '*') {
+        rangeStart = min;
+        rangeEnd = max;
+      } else if (rangePart.indexOf('-') !== -1) {
+        var dashIdx = rangePart.indexOf('-');
+        rangeStart = resolver(rangePart.slice(0, dashIdx));
+        rangeEnd = resolver(rangePart.slice(dashIdx + 1));
+      } else {
+        rangeStart = resolver(rangePart);
+        rangeEnd = max;
+      }
+      for (var v = rangeStart; v <= rangeEnd; v += step) {
+        if (values.indexOf(v) === -1) values.push(v);
+      }
+    } else if (part.indexOf('-') !== -1) {
+      // Range: M-N
+      var dashIdx2 = part.indexOf('-');
+      var rangeA = resolver(part.slice(0, dashIdx2));
+      var rangeB = resolver(part.slice(dashIdx2 + 1));
+      for (var rv = rangeA; rv <= rangeB; rv++) {
+        if (values.indexOf(rv) === -1) values.push(rv);
+      }
+    } else {
+      // Single value
+      var single = resolver(part);
+      if (values.indexOf(single) === -1) values.push(single);
+    }
+  }
+
+  values.sort(function(a, b) { return a - b; });
+
+  // Validate range
+  for (var vi = 0; vi < values.length; vi++) {
+    if (values[vi] < min || values[vi] > max) {
+      throw new Error('Value ' + values[vi] + ' out of range [' + min + '-' + max + '] in field: ' + field);
+    }
+  }
+
+  return values;
+}
+
+function parseExpr(expr) {
+  var e = expr.trim();
+
+  // Handle aliases
+  if (ALIASES[e.toLowerCase()]) {
+    e = ALIASES[e.toLowerCase()];
+  }
+
+  var fields = e.split(/\s+/);
+  if (fields.length !== 5) {
+    throw new Error('Cron expression must have exactly 5 fields (got ' + fields.length + '): ' + expr);
+  }
+
+  var minuteField  = fields[0];
+  var hourField    = fields[1];
+  var domField     = fields[2];
+  var monthField   = fields[3];
+  var dowField     = fields[4];
+
+  var parsed = {
+    minute:     expandField(minuteField,  0, 59, function(s) { return parseInt(s, 10); }),
+    hour:       expandField(hourField,    0, 23, function(s) { return parseInt(s, 10); }),
+    dayOfMonth: expandField(domField,     1, 31, function(s) { return parseInt(s, 10); }),
+    month:      expandField(monthField,   1, 12, resolveMon),
+    dayOfWeek:  expandField(dowField,     0,  6, resolveDow)
+  };
+
+  // Validate numeric-only fields
+  function validateNumeric(val, min, max, name) {
+    if (val === '*') return;
+    for (var i = 0; i < val.length; i++) {
+      if (val[i] < min || val[i] > max) {
+        throw new Error(name + ' value ' + val[i] + ' is out of range [' + min + '-' + max + ']');
+      }
+    }
+  }
+  validateNumeric(parsed.minute, 0, 59, 'Minute');
+  validateNumeric(parsed.hour, 0, 23, 'Hour');
+  validateNumeric(parsed.dayOfMonth, 1, 31, 'Day-of-month');
+  validateNumeric(parsed.month, 1, 12, 'Month');
+  validateNumeric(parsed.dayOfWeek, 0, 6, 'Day-of-week');
+
+  return parsed;
+}
+
+function matchesField(field, value) {
+  if (field === '*') return true;
+  for (var i = 0; i < field.length; i++) {
+    if (field[i] === value) return true;
+  }
+  return false;
+}
+
+// Find next value >= current in sorted array, or first value (wrapping).
+// Returns { value, wrapped }
+function nextInArray(arr, current) {
+  for (var i = 0; i < arr.length; i++) {
+    if (arr[i] >= current) return { value: arr[i], wrapped: false };
+  }
+  return { value: arr[0], wrapped: true };
+}
+
+// Get sorted list from field (or range min..max if wildcard)
+function fieldValues(field, min, max) {
+  if (field === '*') {
+    var arr = [];
+    for (var i = min; i <= max; i++) arr.push(i);
+    return arr;
+  }
+  return field;
+}
+
+// Jump-ahead next-date calculator.
+// Avoids iterating minute-by-minute for all cases.
+function computeNextDates(parsed, from, count) {
+  var dates = [];
+  // Start 1 minute in the future from 'from'
+  var d = new Date(from.getTime());
+  // Round up to next full minute
+  d.setSeconds(0, 0);
+  d.setMinutes(d.getMinutes() + 1);
+
+  var maxIterations = 1000000; // Safety cap
+  var iterations = 0;
+
+  var minuteVals = fieldValues(parsed.minute, 0, 59);
+  var hourVals   = fieldValues(parsed.hour,   0, 23);
+
+  while (dates.length < count && iterations < maxIterations) {
+    iterations++;
+
+    var curYear  = d.getUTCFullYear();
+    var curMonth = d.getUTCMonth() + 1; // 1-12
+    var curDay   = d.getUTCDate();
+    var curHour  = d.getUTCHours();
+    var curMin   = d.getUTCMinutes();
+
+    // ---- Check month ----
+    if (!matchesField(parsed.month, curMonth)) {
+      // Jump to start of next matching month
+      var nm = nextInArray(fieldValues(parsed.month, 1, 12), curMonth);
+      if (nm.wrapped) {
+        d = new Date(Date.UTC(curYear + 1, nm.value - 1, 1, 0, 0, 0));
+      } else {
+        d = new Date(Date.UTC(curYear, nm.value - 1, 1, 0, 0, 0));
+      }
+      continue;
+    }
+
+    // ---- Check day of month AND day of week ----
+    // Standard cron: if both DOM and DOW are restricted, EITHER can match (OR semantics).
+    // If one is *, only the other applies.
+    var domWild = parsed.dayOfMonth === '*';
+    var dowWild = parsed.dayOfWeek === '*';
+    var curDow = d.getUTCDay(); // 0=Sun
+
+    var domMatches = domWild || matchesField(parsed.dayOfMonth, curDay);
+    var dowMatches = dowWild || matchesField(parsed.dayOfWeek, curDow);
+
+    var dayMatches;
+    if (domWild && dowWild) {
+      dayMatches = true;
+    } else if (domWild) {
+      dayMatches = dowMatches;
+    } else if (dowWild) {
+      dayMatches = domMatches;
+    } else {
+      // Both specified — OR semantics
+      dayMatches = domMatches || dowMatches;
+    }
+
+    if (!dayMatches) {
+      // Jump to next day
+      d = new Date(Date.UTC(curYear, curMonth - 1, curDay + 1, 0, 0, 0));
+      continue;
+    }
+
+    // ---- Check hour ----
+    var nh = nextInArray(hourVals, curHour);
+    if (nh.value > curHour) {
+      // Jump to that hour, minute = first minute in list
+      d = new Date(Date.UTC(curYear, curMonth - 1, curDay, nh.value, minuteVals[0], 0));
+      continue;
+    } else if (nh.wrapped) {
+      // No more hours today — jump to next day
+      d = new Date(Date.UTC(curYear, curMonth - 1, curDay + 1, 0, 0, 0));
+      continue;
+    }
+    // nh.value === curHour
+
+    // ---- Check minute ----
+    var nm2 = nextInArray(minuteVals, curMin);
+    if (nm2.wrapped) {
+      // No more minutes this hour — jump to next hour
+      var nextH = nextInArray(hourVals, curHour + 1);
+      if (nextH.wrapped) {
+        // No more hours today
+        d = new Date(Date.UTC(curYear, curMonth - 1, curDay + 1, 0, 0, 0));
+      } else {
+        d = new Date(Date.UTC(curYear, curMonth - 1, curDay, nextH.value, minuteVals[0], 0));
+      }
+      continue;
+    }
+
+    // We have a match!
+    var matchDate = new Date(Date.UTC(curYear, curMonth - 1, curDay, curHour, nm2.value, 0));
+    dates.push(matchDate.toISOString());
+
+    // Advance to next minute
+    d = new Date(Date.UTC(curYear, curMonth - 1, curDay, curHour, nm2.value + 1, 0));
+  }
+
+  return dates;
+}
+
+function buildDescription(parsed, originalFields) {
+  var minF = parsed.minute;
+  var hourF = parsed.hour;
+  var domF = parsed.dayOfMonth;
+  var monF = parsed.month;
+  var dowF = parsed.dayOfWeek;
+
+  // Check for wildcard fields in the original expression
+  var isWild = function(f) { return f === '*'; };
+
+  // Every minute
+  if (isWild(minF) && isWild(hourF) && isWild(domF) && isWild(monF) && isWild(dowF)) {
+    return 'Every minute';
+  }
+
+  // Every N minutes (*/N pattern) with everything else wildcard
+  if (originalFields && originalFields[0] && originalFields[0].indexOf('*/') === 0 &&
+      isWild(hourF) && isWild(domF) && isWild(monF) && isWild(dowF)) {
+    var step = parseInt(originalFields[0].slice(2), 10);
+    if (step === 1) return 'Every minute';
+    return 'Every ' + step + ' minutes';
+  }
+
+  // Every hour (minute=0 or exact, hour=*)
+  if (isWild(hourF) && isWild(domF) && isWild(monF) && isWild(dowF)) {
+    if (minF !== '*' && minF.length === 1 && minF[0] === 0) {
+      return 'Every hour';
+    }
+    if (minF !== '*' && minF.length === 1) {
+      return 'Every hour at minute ' + minF[0];
+    }
+  }
+
+  // Build time string
+  var timeStr = '';
+  if (hourF !== '*' && minF !== '*') {
+    var hours = hourF;
+    var mins = minF;
+    // List of times
+    var timeParts = [];
+    for (var hi = 0; hi < hours.length; hi++) {
+      for (var mi = 0; mi < mins.length; mi++) {
+        timeParts.push(pad2(hours[hi]) + ':' + pad2(mins[mi]));
+      }
+    }
+    if (timeParts.length <= 4) {
+      timeStr = timeParts.join(' and ');
+    } else {
+      timeStr = timeParts[0] + ' and ' + (timeParts.length - 1) + ' more times';
+    }
+  } else if (hourF !== '*' && minF === '*') {
+    timeStr = 'every minute of hour(s) ' + hourF.join(', ');
+  } else if (hourF === '*' && minF !== '*') {
+    timeStr = 'at minute ' + minF.join(', ');
+  }
+
+  var parts = [];
+
+  // Day/time part
+  if (dowF !== '*') {
+    // Day-of-week schedule
+    var dowVals = dowF;
+    var weekdays = [1, 2, 3, 4, 5];
+    var isWeekdays = dowVals.length === 5 &&
+      weekdays.every(function(w, i) { return dowVals[i] === w; });
+
+    var weekend = [0, 6];
+    var isWeekend = dowVals.length === 2 &&
+      weekend.every(function(w, i) { return dowVals[i] === w; });
+
+    if (isWeekdays) {
+      parts.push('Every weekday (Mon-Fri)');
+    } else if (isWeekend) {
+      parts.push('Every weekend (Sat-Sun)');
+    } else if (dowVals.length === 1) {
+      parts.push('Every ' + DAY_NAMES[dowVals[0]]);
+    } else {
+      var dayStrs = dowVals.map(function(d) { return DAY_SHORT[d]; });
+      parts.push('Every ' + dayStrs.join(', '));
+    }
+  } else if (domF !== '*') {
+    // Day-of-month schedule
+    var domVals = domF;
+    if (domVals.length === 1) {
+      parts.push('On day ' + domVals[0] + ' of every month');
+    } else {
+      parts.push('On days ' + domVals.join(', ') + ' of every month');
+    }
+  } else {
+    parts.push('Every day');
+  }
+
+  // Month restriction
+  if (monF !== '*') {
+    var monVals = monF;
+    if (monVals.length === 1) {
+      parts.push('in ' + MONTH_SHORT[monVals[0] - 1]);
+    } else {
+      var monStrs = monVals.map(function(m) { return MONTH_SHORT[m - 1]; });
+      parts.push('in ' + monStrs.join(', '));
+    }
+  }
+
+  if (timeStr) {
+    parts.push('at ' + timeStr);
+  }
+
+  return parts.join(' ');
+}
+
+module.exports = {
+  explain: function(expr, options) {
+    var opts = options || {};
+    var count = (opts.count !== undefined) ? opts.count : 5;
+    var from = opts.from || new Date();
+
+    var e = (expr || '').trim();
+    if (!e) throw new Error('Cron expression cannot be empty');
+
+    // Get original fields before alias expansion (for step detection)
+    var originalExpr = e;
+    var aliasKey = e.toLowerCase();
+    if (ALIASES[aliasKey]) {
+      originalExpr = ALIASES[aliasKey];
+    }
+    var originalFields = originalExpr.split(/\s+/);
+
+    var parsed;
+    try {
+      parsed = parseExpr(e);
+    } catch (err) {
+      throw err;
+    }
+
+    var description = buildDescription(parsed, originalFields);
+    var nextDates = count > 0 ? computeNextDates(parsed, from, count) : [];
+
+    return {
+      description: description,
+      nextDates: nextDates,
+      parsed: {
+        minute:     parsed.minute,
+        hour:       parsed.hour,
+        dayOfMonth: parsed.dayOfMonth,
+        month:      parsed.month,
+        dayOfWeek:  parsed.dayOfWeek
+      }
+    };
+  }
+};
+
+  }).call(module.exports, module.exports, module);
+  flxifyModules["cron-explain"] = module.exports;
+})();
+
 // --- hashes ---
 (function() {
   var module = { exports: {} };
@@ -6430,6 +6872,404 @@ License: MIT
   flxifyModules["papaparse"] = module.exports;
 })();
 
+// --- regex-explain ---
+(function() {
+  var module = { exports: {} };
+  var exports = module.exports;
+  (function(exports, module) {
+// scripts/lib/regex-explain.js
+// Usage: var regexExplain = require('@flxify/regex-explain');
+// Pure-JS CJS module. No 'use strict'. No Node built-ins. No npm packages.
+
+// Hand-written scanner/tokenizer for regular expressions.
+// Produces { parts: Array<{token, type, meaning}>, flags: string }
+
+var SHORTHAND_MAP = {
+  'd': { type: 'shorthand', meaning: 'Digit (0-9)' },
+  'D': { type: 'shorthand', meaning: 'Non-digit' },
+  'w': { type: 'shorthand', meaning: 'Word character (a-z, A-Z, 0-9, _)' },
+  'W': { type: 'shorthand', meaning: 'Non-word character' },
+  's': { type: 'shorthand', meaning: 'Whitespace character' },
+  'S': { type: 'shorthand', meaning: 'Non-whitespace character' },
+  'b': { type: 'anchor',    meaning: 'Word boundary' },
+  'B': { type: 'anchor',    meaning: 'Non-word boundary' },
+  'n': { type: 'escape',    meaning: 'Newline' },
+  't': { type: 'escape',    meaning: 'Tab' },
+  'r': { type: 'escape',    meaning: 'Carriage return' },
+  '\\': { type: 'escape',   meaning: 'Literal backslash' }
+};
+
+function makeToken(token, type, meaning) {
+  return { token: token, type: type, meaning: meaning };
+}
+
+function scanCharacterClass(src, startIdx) {
+  // Called when we've seen '['. Scan until matching ']'.
+  // Handles \] inside.
+  var i = startIdx; // position after '['
+  var negated = false;
+  if (i < src.length && src[i] === '^') {
+    negated = true;
+    i++;
+  }
+  var inner = '';
+  while (i < src.length) {
+    var ch = src[i];
+    if (ch === '\\' && i + 1 < src.length) {
+      inner += ch + src[i + 1];
+      i += 2;
+    } else if (ch === ']') {
+      i++; // consume ']'
+      break;
+    } else {
+      inner += ch;
+      i++;
+    }
+  }
+  var fullToken = '[' + (negated ? '^' : '') + inner + ']';
+
+  // Build meaning
+  var meaning;
+  if (negated) {
+    // Describe contents
+    var contents = describeClassContents(inner);
+    meaning = 'None of: ' + contents;
+  } else {
+    var contents2 = describeClassContents(inner);
+    // Check if it's purely a range
+    if (/^[^\]\\]-[^\]\\]$/.test(inner) || isRangeOnly(inner)) {
+      var parts2 = inner.split('-');
+      meaning = 'Range: ' + inner.charAt(0) + ' to ' + inner.charAt(inner.length - 1);
+    } else {
+      meaning = 'One of: ' + contents2;
+    }
+  }
+
+  return { token: fullToken, endIdx: i, type: 'character-class', meaning: meaning };
+}
+
+function isRangeOnly(inner) {
+  // e.g. "a-z", "0-9", "A-Z"
+  return /^[a-zA-Z0-9]-[a-zA-Z0-9]$/.test(inner);
+}
+
+function describeClassContents(inner) {
+  if (!inner) return '(empty)';
+  // Replace escape sequences
+  var result = inner
+    .replace(/\\n/g, 'newline')
+    .replace(/\\t/g, 'tab')
+    .replace(/\\r/g, 'carriage return')
+    .replace(/\\d/g, '0-9')
+    .replace(/\\w/g, 'a-zA-Z0-9_')
+    .replace(/\\s/g, 'whitespace')
+    .replace(/\\\\/g, '\\');
+  // Check for ranges
+  if (isRangeOnly(inner)) {
+    return inner.charAt(0) + ' to ' + inner.charAt(inner.length - 1);
+  }
+  return result;
+}
+
+function scanQuantifier(src, i) {
+  // Called after consuming the atom. src[i] might be *, +, ?, {
+  if (i >= src.length) return null;
+  var ch = src[i];
+  var token, meaning, endIdx;
+
+  if (ch === '*') {
+    token = '*';
+    meaning = 'Zero or more';
+    endIdx = i + 1;
+  } else if (ch === '+') {
+    token = '+';
+    meaning = 'One or more';
+    endIdx = i + 1;
+  } else if (ch === '?') {
+    token = '?';
+    meaning = 'Zero or one';
+    endIdx = i + 1;
+  } else if (ch === '{') {
+    // {n}, {n,}, {n,m}
+    var j = i + 1;
+    var numStr = '';
+    while (j < src.length && src[j] >= '0' && src[j] <= '9') {
+      numStr += src[j++];
+    }
+    if (j >= src.length || (src[j] !== '}' && src[j] !== ',')) {
+      return null; // Not a valid quantifier
+    }
+    if (src[j] === '}') {
+      token = '{' + numStr + '}';
+      meaning = 'Exactly ' + numStr;
+      endIdx = j + 1;
+    } else {
+      // {n,} or {n,m}
+      j++; // skip ','
+      var numStr2 = '';
+      while (j < src.length && src[j] >= '0' && src[j] <= '9') {
+        numStr2 += src[j++];
+      }
+      if (j >= src.length || src[j] !== '}') {
+        return null;
+      }
+      if (numStr2 === '') {
+        token = '{' + numStr + ',}';
+        meaning = numStr + ' or more';
+      } else {
+        token = '{' + numStr + ',' + numStr2 + '}';
+        meaning = 'Between ' + numStr + ' and ' + numStr2;
+      }
+      endIdx = j + 1;
+    }
+  } else {
+    return null;
+  }
+
+  // Check for lazy modifier
+  if (endIdx < src.length && src[endIdx] === '?') {
+    token += '?';
+    meaning += ' (lazy)';
+    endIdx++;
+  }
+
+  return { token: token, type: 'quantifier', meaning: meaning, endIdx: endIdx };
+}
+
+function scanGroup(src, startIdx, groupCounter) {
+  // Called when we've seen '('. Determine group type from what follows.
+  var i = startIdx; // position after '('
+  var groupType, meaning, type;
+
+  if (src[i] === '?' && i + 1 < src.length) {
+    var nextCh = src[i + 1];
+    if (nextCh === ':') {
+      groupType = 'non-capturing';
+      type = 'group';
+      meaning = 'Non-capturing group';
+      i += 2; // skip '?:'
+    } else if (nextCh === '=') {
+      groupType = 'lookahead-pos';
+      type = 'lookahead';
+      meaning = 'Positive lookahead';
+      i += 2; // skip '?='
+    } else if (nextCh === '!') {
+      groupType = 'lookahead-neg';
+      type = 'lookahead';
+      meaning = 'Negative lookahead';
+      i += 2; // skip '?!'
+    } else if (nextCh === '<' && i + 2 < src.length) {
+      var ch3 = src[i + 2];
+      if (ch3 === '=') {
+        groupType = 'lookbehind-pos';
+        type = 'lookbehind';
+        meaning = 'Positive lookbehind';
+        i += 3; // skip '?<='
+      } else if (ch3 === '!') {
+        groupType = 'lookbehind-neg';
+        type = 'lookbehind';
+        meaning = 'Negative lookbehind';
+        i += 3; // skip '?<!'
+      } else {
+        // Named group (?<name>...)
+        groupType = 'named-capturing';
+        type = 'group';
+        groupCounter.count++;
+        var nameEnd = src.indexOf('>', i + 2);
+        var gname = nameEnd !== -1 ? src.slice(i + 2, nameEnd) : '';
+        meaning = 'Capturing group ' + groupCounter.count + ' (named: ' + gname + ')';
+        i = nameEnd !== -1 ? nameEnd + 1 : i + 2;
+      }
+    } else {
+      // Unknown (?...) — treat as non-capturing
+      groupType = 'non-capturing';
+      type = 'group';
+      meaning = 'Non-capturing group';
+      i += 2;
+    }
+  } else {
+    // Regular capturing group
+    groupType = 'capturing';
+    type = 'group';
+    groupCounter.count++;
+    meaning = 'Capturing group ' + groupCounter.count;
+  }
+
+  return { groupType: groupType, type: type, meaning: meaning, innerStartIdx: i };
+}
+
+function tokenize(pattern, groupCounter) {
+  var parts = [];
+  var i = 0;
+  var n = pattern.length;
+
+  while (i < n) {
+    var ch = pattern[i];
+
+    if (ch === '^') {
+      parts.push(makeToken('^', 'anchor', 'Start of string'));
+      i++;
+    } else if (ch === '$') {
+      parts.push(makeToken('$', 'anchor', 'End of string'));
+      i++;
+    } else if (ch === '.') {
+      parts.push(makeToken('.', 'wildcard', 'Any character except newline'));
+      i++;
+      // Check for quantifier
+      var q = scanQuantifier(pattern, i);
+      if (q) { parts.push(makeToken(q.token, q.type, q.meaning)); i = q.endIdx; }
+    } else if (ch === '|') {
+      parts.push(makeToken('|', 'alternation', 'Or'));
+      i++;
+    } else if (ch === '\\') {
+      if (i + 1 >= n) {
+        // Trailing backslash — treat as literal
+        parts.push(makeToken('\\', 'escape', 'Literal backslash'));
+        i++;
+      } else {
+        var escaped = pattern[i + 1];
+        var info = SHORTHAND_MAP[escaped];
+        if (info) {
+          parts.push(makeToken('\\' + escaped, info.type, info.meaning));
+        } else {
+          parts.push(makeToken('\\' + escaped, 'escape', "Literal '" + escaped + "'"));
+        }
+        i += 2;
+        // Shorthands can have quantifiers
+        var q2 = scanQuantifier(pattern, i);
+        if (q2) { parts.push(makeToken(q2.token, q2.type, q2.meaning)); i = q2.endIdx; }
+      }
+    } else if (ch === '[') {
+      var classResult = scanCharacterClass(pattern, i + 1);
+      parts.push(makeToken(classResult.token, classResult.type, classResult.meaning));
+      i = classResult.endIdx;
+      // Character classes can have quantifiers
+      var q3 = scanQuantifier(pattern, i);
+      if (q3) { parts.push(makeToken(q3.token, q3.type, q3.meaning)); i = q3.endIdx; }
+    } else if (ch === '(') {
+      var groupResult = scanGroup(pattern, i + 1, groupCounter);
+      parts.push(makeToken('(' + pattern.slice(i + 1, groupResult.innerStartIdx), groupResult.type, groupResult.meaning));
+      // Recursively tokenize the group contents until we find the matching ')'
+      var innerStart = groupResult.innerStartIdx;
+      var depth = 1;
+      var innerEnd = innerStart;
+      while (innerEnd < n && depth > 0) {
+        if (pattern[innerEnd] === '\\') {
+          innerEnd += 2;
+        } else if (pattern[innerEnd] === '[') {
+          // Skip character class
+          innerEnd++;
+          while (innerEnd < n && pattern[innerEnd] !== ']') {
+            if (pattern[innerEnd] === '\\') innerEnd++;
+            innerEnd++;
+          }
+          innerEnd++; // skip ']'
+        } else if (pattern[innerEnd] === '(') {
+          depth++;
+          innerEnd++;
+        } else if (pattern[innerEnd] === ')') {
+          depth--;
+          if (depth > 0) innerEnd++;
+          else break;
+        } else {
+          innerEnd++;
+        }
+      }
+      var innerContent = pattern.slice(innerStart, innerEnd);
+      // Recursively tokenize inner content
+      var innerParts = tokenize(innerContent, groupCounter);
+      for (var ip = 0; ip < innerParts.length; ip++) {
+        parts.push(innerParts[ip]);
+      }
+      // Close group token
+      parts.push(makeToken(')', 'group', 'End of group'));
+      i = innerEnd + 1; // skip past ')'
+      // Groups can have quantifiers
+      var q4 = scanQuantifier(pattern, i);
+      if (q4) { parts.push(makeToken(q4.token, q4.type, q4.meaning)); i = q4.endIdx; }
+    } else if (ch === ')') {
+      // Unmatched close paren — skip
+      i++;
+    } else if (ch === '*' || ch === '+' || ch === '?' || ch === '{') {
+      // Quantifier without preceding atom (e.g. at start or after another quantifier)
+      var qStandalone = scanQuantifier(pattern, i);
+      if (qStandalone) {
+        parts.push(makeToken(qStandalone.token, qStandalone.type, qStandalone.meaning));
+        i = qStandalone.endIdx;
+      } else {
+        // Treat as literal
+        parts.push(makeToken(ch, 'literal', "Literal '" + ch + "'"));
+        i++;
+      }
+    } else {
+      // Literal character — accumulate consecutive literals
+      var litStart = i;
+      while (i < n) {
+        var c = pattern[i];
+        if (c === '^' || c === '$' || c === '.' || c === '|' ||
+            c === '\\' || c === '[' || c === '(' || c === ')' ||
+            c === '*' || c === '+' || c === '?' || c === '{') {
+          break;
+        }
+        // Check if next char would be a quantifier for THIS char (don't merge)
+        if (i > litStart) {
+          var nextC = pattern[i];
+          // If we're about to encounter a quantifier, stop before this char
+          // so the last literal can get a quantifier separately
+          if (nextC === '*' || nextC === '+' || nextC === '?' || nextC === '{') {
+            break;
+          }
+        }
+        i++;
+      }
+      // If we accumulated more than one literal, each is its own token
+      // Actually, treat each literal char separately so quantifiers bind correctly
+      // Rewind and emit one at a time
+      i = litStart;
+      var litCh = pattern[i];
+      parts.push(makeToken(litCh, 'literal', "Literal '" + litCh + "'"));
+      i++;
+      var q5 = scanQuantifier(pattern, i);
+      if (q5) { parts.push(makeToken(q5.token, q5.type, q5.meaning)); i = q5.endIdx; }
+    }
+  }
+
+  return parts;
+}
+
+module.exports = {
+  explain: function(pattern) {
+    if (pattern === null || pattern === undefined) {
+      return { parts: [], flags: '' };
+    }
+
+    var src = String(pattern);
+    var flags = '';
+
+    // Handle /pattern/flags format
+    if (src.length >= 2 && src[0] === '/') {
+      var lastSlash = src.lastIndexOf('/');
+      if (lastSlash > 0) {
+        flags = src.slice(lastSlash + 1);
+        src = src.slice(1, lastSlash);
+      }
+    }
+
+    if (!src) {
+      return { parts: [], flags: flags };
+    }
+
+    var groupCounter = { count: 0 };
+    var parts = tokenize(src, groupCounter);
+
+    return { parts: parts, flags: flags };
+  }
+};
+
+  }).call(module.exports, module.exports, module);
+  flxifyModules["regex-explain"] = module.exports;
+})();
+
 // --- vkBeautify ---
 (function() {
   var module = { exports: {} };
@@ -7487,6 +8327,56 @@ The "includeSamples" parameter is optional and defaults to [false].
 });
 
 scripts.push({
+  name: "Cron to Human",
+  description: "Converts a cron expression to a human-readable description with next 5 run times",
+  author: "Flxify",
+  icon: "clock",
+  tags: "cron,schedule,crontab,time,job,human,readable,explain,next,dates",
+  category: "Developer Utilities",
+  execute: function(require, state) {
+/**
+  {
+    "api": 1,
+    "name": "Cron to Human",
+    "description": "Converts a cron expression to a human-readable description with next 5 run times",
+    "author": "Flxify",
+    "icon": "clock",
+    "tags": "cron,schedule,crontab,time,job,human,readable,explain,next,dates"
+  }
+**/
+
+var cronExplain = require('@flxify/cron-explain');
+
+function main(state) {
+  var input = state.text.trim();
+  if (!input) {
+    state.postError('Please enter a cron expression (e.g. "*/5 * * * *")');
+    return;
+  }
+
+  try {
+    var result = cronExplain.explain(input, { count: 5 });
+    var lines = [];
+    lines.push('Expression: ' + input);
+    lines.push('');
+    lines.push('Description: ' + result.description);
+    lines.push('');
+    lines.push('Next 5 occurrences:');
+    for (var i = 0; i < result.nextDates.length; i++) {
+      var d = new Date(result.nextDates[i]);
+      lines.push('  ' + (i + 1) + '. ' + d.toLocaleString());
+    }
+    state.text = lines.join('\n');
+  } catch (e) {
+    state.postError(e.message || 'Invalid cron expression');
+  }
+}
+
+    if (typeof main === "function") main(state);
+  }
+});
+
+scripts.push({
   name: "Digi to ASCII",
   description: "Converts space or comma-separated ASCII codes to text characters",
   author: "Joseph Ng Rong En",
@@ -7839,6 +8729,60 @@ function main(input) {
     }
 
     input.text = script + "\n\n// Result:\n\n" + output;
+}
+
+    if (typeof main === "function") main(state);
+  }
+});
+
+scripts.push({
+  name: "Explain Regex",
+  description: "Breaks down a regular expression into an explained list of tokens",
+  author: "Flxify",
+  icon: "magnifying-glass",
+  tags: "regex,regexp,regular,expression,explain,breakdown,parse,tokens,pattern",
+  category: "Developer Utilities",
+  execute: function(require, state) {
+/**
+  {
+    "api": 1,
+    "name": "Explain Regex",
+    "description": "Breaks down a regular expression into an explained list of tokens",
+    "author": "Flxify",
+    "icon": "magnifying-glass",
+    "tags": "regex,regexp,regular,expression,explain,breakdown,parse,tokens,pattern"
+  }
+**/
+
+var regexExplain = require('@flxify/regex-explain');
+
+function main(state) {
+  var input = state.text.trim();
+  if (!input) {
+    state.postError('Please enter a regex pattern (e.g. "^[a-z]+\\d{2,4}$")');
+    return;
+  }
+
+  try {
+    var result = regexExplain.explain(input);
+    var lines = [];
+    lines.push('Pattern: ' + input);
+    if (result.flags) {
+      lines.push('Flags: ' + result.flags);
+    }
+    lines.push('');
+    lines.push('Breakdown:');
+    for (var i = 0; i < result.parts.length; i++) {
+      var part = result.parts[i];
+      lines.push('  ' + part.token + '  (' + part.type + ')  ' + part.meaning);
+    }
+    if (result.parts.length === 0) {
+      lines.push('  (empty pattern)');
+    }
+    state.text = lines.join('\n');
+  } catch (e) {
+    state.postError(e.message || 'Could not parse regex pattern');
+  }
 }
 
     if (typeof main === "function") main(state);
@@ -11756,7 +12700,7 @@ scripts.sort(function(a, b) { return a.name.localeCompare(b.name); });
 // 3b. Category Data (injected at build time)
 // ============================================================
 
-var CATEGORIES = [{"name":"All","emoji":"📁","count":113},{"name":"Text Manipulation","emoji":"✏️","count":32},{"name":"Conversion","emoji":"🔄","count":25},{"name":"Encoding","emoji":"🔐","count":11},{"name":"Extraction","emoji":"🔍","count":10},{"name":"Text Case","emoji":"Aa","count":9},{"name":"Generation","emoji":"✨","count":7},{"name":"Developer Utilities","emoji":"🛠️","count":7},{"name":"Formatting","emoji":"📄","count":4},{"name":"Hashing","emoji":"#️⃣","count":4},{"name":"Minification","emoji":"🗜️","count":4}];
+var CATEGORIES = [{"name":"All","emoji":"📁","count":115},{"name":"Text Manipulation","emoji":"✏️","count":32},{"name":"Conversion","emoji":"🔄","count":25},{"name":"Encoding","emoji":"🔐","count":11},{"name":"Extraction","emoji":"🔍","count":10},{"name":"Text Case","emoji":"Aa","count":9},{"name":"Developer Utilities","emoji":"🛠️","count":9},{"name":"Generation","emoji":"✨","count":7},{"name":"Formatting","emoji":"📄","count":4},{"name":"Hashing","emoji":"#️⃣","count":4},{"name":"Minification","emoji":"🗜️","count":4}];
 
 // ============================================================
 // 4. Toast System
