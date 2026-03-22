@@ -1296,6 +1296,7 @@ ${entry.faqs.map(f => `      <div class="faq-item">
   <script>window.flxifyAutoScript = ${JSON.stringify(entry.name)};</script>
   <script type="module">${toolCmScript}</script>
   <script defer src="../../app.js"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="1a9bdb79-00be-4188-a436-e0fd30e81f6a"></script>
 </body>
 </html>`;
 
@@ -1434,6 +1435,7 @@ ${directorySections}
 
   <div id="toast"></div>
   <script defer src="../app.js"></script>
+  <script defer src="https://cloud.umami.is/script.js" data-website-id="1a9bdb79-00be-4188-a436-e0fd30e81f6a"></script>
 </body>
 </html>`;
 
