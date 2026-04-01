@@ -12764,6 +12764,221 @@ BoopState.prototype.postInfo = function(msg) { showToast(msg, 'info'); };
 BoopState.prototype.insert = function(text) { this._insertText = text; };
 
 // ============================================================
+// 5b. Tab State Manager
+// ============================================================
+
+var TABS_STORAGE_KEY = 'flxify-tabs';
+var LEGACY_STORAGE_KEY = 'flxify-editor-content';
+var TAB_MAX = 20;
+
+function TabState(id, label, content) {
+  this.id = id;
+  this.label = label || 'Untitled';
+  this.content = content || '';
+  this.cursorAnchor = 0;
+  this.cursorHead = 0;
+  this.scrollTop = 0;
+  this.scrollLeft = 0;
+  this.languageId = 'none';
+}
+
+var TabManager = {
+  tabs: [],
+  activeTabId: null,
+  nextId: 1,
+
+  addTab: function(label) {
+    if (this.tabs.length >= TAB_MAX) {
+      showToast('Maximum of ' + TAB_MAX + ' tabs reached.', 'info');
+      return null;
+    }
+    this.nextId++;
+    var id = 'tab-' + this.nextId;
+    var tabLabel = label || 'Untitled';
+    var tab = new TabState(id, tabLabel, '');
+    this.tabs.push(tab);
+    this.switchTab(id);
+    return tab;
+  },
+
+  removeTab: function(id) {
+    if (this.tabs.length <= 1) return; // last tab, cannot close
+    var idx = this.tabs.findIndex(function(t) { return t.id === id; });
+    if (idx === -1) return;
+    var wasActive = this.activeTabId === id;
+    this.tabs.splice(idx, 1);
+    if (wasActive) {
+      // Switch to neighbor: prefer next, else prev
+      var newIdx = Math.min(idx, this.tabs.length - 1);
+      this.activeTabId = this.tabs[newIdx].id;
+      this.loadTab(this.tabs[newIdx]);
+    }
+    this.saveTabs();
+  },
+
+  switchTab: function(id) {
+    if (this.activeTabId !== null && window.cmEditor) {
+      this.snapshotCurrentTab();
+    }
+    this.activeTabId = id;
+    var tab = this.getActiveTab();
+    if (tab && window.cmEditor) {
+      this.loadTab(tab);
+    }
+    this.saveTabs();
+  },
+
+  renameTab: function(id, newLabel) {
+    var tab = this.tabs.find(function(t) { return t.id === id; });
+    if (tab) {
+      tab.label = newLabel || 'Untitled';
+      this.saveTabs();
+    }
+  },
+
+  getActiveTab: function() {
+    var id = this.activeTabId;
+    return this.tabs.find(function(t) { return t.id === id; }) || null;
+  },
+
+  snapshotCurrentTab: function() {
+    var tab = this.getActiveTab();
+    if (!tab || !window.cmEditor) return;
+    var cm = window.cmEditor;
+    tab.content = cm.state.doc.toString();
+    tab.cursorAnchor = cm.state.selection.main.anchor;
+    tab.cursorHead = cm.state.selection.main.head;
+    // Capture scroll position from the scroller element
+    var scroller = cm.scrollDOM;
+    if (scroller) {
+      tab.scrollTop = scroller.scrollTop;
+      tab.scrollLeft = scroller.scrollLeft;
+    }
+    // Capture current language id from global tracking variable
+    if (window.flxifyGetCurrentLangId) {
+      tab.languageId = window.flxifyGetCurrentLangId();
+    }
+  },
+
+  loadTab: function(tab) {
+    if (!window.cmEditor) return;
+    var cm = window.cmEditor;
+    var docLen = cm.state.doc.length;
+    var anchor = Math.min(tab.cursorAnchor || 0, docLen);
+    var head = Math.min(tab.cursorHead || 0, docLen);
+
+    // Compute new content length to clamp cursor
+    var newLen = tab.content.length;
+    anchor = Math.min(anchor, newLen);
+    head = Math.min(head, newLen);
+
+    // Replace entire document content + restore cursor
+    cm.dispatch({
+      changes: { from: 0, to: docLen, insert: tab.content },
+      selection: { anchor: Math.min(anchor, tab.content.length), head: Math.min(head, tab.content.length) }
+    });
+
+    // Restore scroll after a microtask so CM has rendered
+    var savedScrollTop = tab.scrollTop || 0;
+    var savedScrollLeft = tab.scrollLeft || 0;
+    setTimeout(function() {
+      var scroller = cm.scrollDOM;
+      if (scroller) {
+        scroller.scrollTop = savedScrollTop;
+        scroller.scrollLeft = savedScrollLeft;
+      }
+    }, 0);
+
+    // Reconfigure language if we have a stored languageId
+    if (window.flxifyLanguageConf && window.flxifyLanguageExtension) {
+      var langId = tab.languageId || 'none';
+      if (window.flxifySetCurrentLangId) window.flxifySetCurrentLangId(langId);
+      cm.dispatch({
+        effects: window.flxifyLanguageConf.reconfigure(langId !== 'none' ? window.flxifyLanguageExtension(langId) : [])
+      });
+    }
+  },
+
+  _saveNow: function() {
+    try {
+      var self = this;
+      var data = {
+        tabs: self.tabs.map(function(t) {
+          return {
+            id: t.id,
+            label: t.label,
+            content: t.content,
+            cursorAnchor: t.cursorAnchor,
+            cursorHead: t.cursorHead,
+            scrollTop: t.scrollTop,
+            scrollLeft: t.scrollLeft,
+            languageId: t.languageId
+          };
+        }),
+        activeTabId: self.activeTabId,
+        nextId: self.nextId
+      };
+      localStorage.setItem(TABS_STORAGE_KEY, JSON.stringify(data));
+    } catch (e) {
+      console.warn('Could not save tabs to localStorage:', e);
+    }
+  },
+
+  saveTabs: function() {
+    clearTimeout(this._saveTimeout);
+    var self = this;
+    this._saveTimeout = setTimeout(function() {
+      self._saveNow();
+    }, 300);
+  },
+
+  loadTabs: function() {
+    // Try loading from new flxify-tabs key
+    try {
+      var raw = localStorage.getItem(TABS_STORAGE_KEY);
+      if (raw) {
+        var data = JSON.parse(raw);
+        if (data && Array.isArray(data.tabs) && data.tabs.length > 0) {
+          this.tabs = data.tabs.map(function(t) {
+            var tab = new TabState(t.id, t.label, t.content || '');
+            tab.cursorAnchor = t.cursorAnchor || 0;
+            tab.cursorHead = t.cursorHead || 0;
+            tab.scrollTop = t.scrollTop || 0;
+            tab.scrollLeft = t.scrollLeft || 0;
+            tab.languageId = t.languageId || 'none';
+            return tab;
+          });
+          this.activeTabId = data.activeTabId || this.tabs[0].id;
+          this.nextId = data.nextId || (this.tabs.length + 1);
+          // Verify active tab still exists
+          if (!this.tabs.find(function(t) { return t.id === this.activeTabId; }, this)) {
+            this.activeTabId = this.tabs[0].id;
+          }
+          return true;
+        }
+      }
+    } catch (e) {
+      console.warn('Could not restore tabs from localStorage:', e);
+    }
+
+    // Migrate from legacy flxify-editor-content key
+    var legacyContent = '';
+    try {
+      var lc = localStorage.getItem(LEGACY_STORAGE_KEY);
+      if (typeof lc === 'string') legacyContent = lc;
+      // Remove legacy key after migration
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+    } catch (e) {}
+
+    var firstTab = new TabState('tab-1', 'Untitled', legacyContent);
+    this.tabs = [firstTab];
+    this.activeTabId = firstTab.id;
+    this.nextId = 2;
+    return false;
+  }
+};
+
+// ============================================================
 // 6. Script Executor
 // ============================================================
 
@@ -13123,10 +13338,130 @@ function initSidebar() {
 }
 
 // ============================================================
+// 7b2. Tab Bar Rendering
+// ============================================================
+
+function renderTabBar() {
+  var bar = document.getElementById('tab-bar');
+  if (!bar) return;
+
+  // Remove existing tab items (keep #tab-add-btn and #tab-spacer)
+  var existingTabs = bar.querySelectorAll('.tab-item');
+  existingTabs.forEach(function(el) { el.parentNode.removeChild(el); });
+
+  var addBtn = document.getElementById('tab-add-btn');
+  var spacer = document.getElementById('tab-spacer');
+
+  TabManager.tabs.forEach(function(tab) {
+    var item = document.createElement('div');
+    item.className = 'tab-item' + (tab.id === TabManager.activeTabId ? ' tab-active' : '');
+    item.setAttribute('role', 'tab');
+    item.setAttribute('aria-selected', tab.id === TabManager.activeTabId ? 'true' : 'false');
+    item.dataset.tabId = tab.id;
+
+    var labelSpan = document.createElement('span');
+    labelSpan.className = 'tab-label';
+    labelSpan.textContent = tab.label;
+    labelSpan.title = tab.label;
+
+    // Double-click to rename
+    labelSpan.addEventListener('dblclick', function(e) {
+      e.stopPropagation();
+      startTabRename(tab.id, labelSpan);
+    });
+
+    var closeBtn = document.createElement('button');
+    closeBtn.className = 'tab-close';
+    closeBtn.title = 'Close tab';
+    closeBtn.setAttribute('aria-label', 'Close tab');
+    closeBtn.innerHTML = '&#215;';
+    closeBtn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      TabManager.removeTab(tab.id);
+      renderTabBar();
+    });
+
+    // Only show close if more than one tab
+    if (TabManager.tabs.length <= 1) {
+      closeBtn.style.display = 'none';
+    }
+
+    item.appendChild(labelSpan);
+    item.appendChild(closeBtn);
+
+    item.addEventListener('click', function() {
+      if (tab.id !== TabManager.activeTabId) {
+        TabManager.switchTab(tab.id);
+        renderTabBar();
+      }
+    });
+
+    // Insert before add button
+    bar.insertBefore(item, addBtn);
+  });
+
+  // Scroll active tab into view
+  var activeItem = bar.querySelector('.tab-item.tab-active');
+  if (activeItem) activeItem.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'nearest' });
+}
+
+function startTabRename(tabId, labelSpan) {
+  var tab = TabManager.tabs.find(function(t) { return t.id === tabId; });
+  if (!tab) return;
+
+  var original = tab.label;
+  labelSpan.contentEditable = 'true';
+  labelSpan.focus();
+
+  // Select all text in the label
+  var range = document.createRange();
+  range.selectNodeContents(labelSpan);
+  var sel = window.getSelection();
+  sel.removeAllRanges();
+  sel.addRange(range);
+
+  function confirm() {
+    labelSpan.contentEditable = 'false';
+    var newLabel = labelSpan.textContent.trim();
+    if (newLabel) {
+      TabManager.renameTab(tabId, newLabel);
+    } else {
+      labelSpan.textContent = original;
+    }
+    renderTabBar();
+  }
+
+  function cancel() {
+    labelSpan.contentEditable = 'false';
+    labelSpan.textContent = original;
+  }
+
+  labelSpan.addEventListener('keydown', function onKey(e) {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      labelSpan.removeEventListener('keydown', onKey);
+      labelSpan.removeEventListener('blur', onBlur);
+      confirm();
+    } else if (e.key === 'Escape') {
+      e.preventDefault();
+      labelSpan.removeEventListener('keydown', onKey);
+      labelSpan.removeEventListener('blur', onBlur);
+      cancel();
+    }
+  });
+
+  function onBlur() {
+    labelSpan.removeEventListener('blur', onBlur);
+    confirm();
+  }
+  labelSpan.addEventListener('blur', onBlur);
+}
+
+// ============================================================
 // 7c. Onboarding Tour
 // ============================================================
 
-var ONBOARDING_KEY = 'flxify-tour-v1';
+var ONBOARDING_KEY = 'flxify-tour-v2';
 
 var TOUR_STEPS = (window.innerWidth <= 768) ? [
   {
@@ -13156,6 +13491,11 @@ var TOUR_STEPS = (window.innerWidth <= 768) ? [
     text: 'Browse by category, or open the <strong>side panel</strong> on the left to explore all 112 tools grouped by type.'
   },
   {
+    targetId: 'tab-bar',
+    title: 'Multiple Tabs',
+    text: 'Open multiple files with <strong>Option+B</strong> (Mac) or <strong>Alt+B</strong> (Windows). Switch between them — each tab keeps its own content and cursor position.'
+  },
+  {
     targetId: null,
     title: 'Search instantly',
     text: 'Press <strong>Cmd+B</strong> (Mac) or <strong>Ctrl+B</strong> (Windows) to open the command palette and search all 112 tools.'
@@ -13170,9 +13510,21 @@ function runTour() {
   var labelEl  = document.getElementById('onboarding-step-label');
   var nextBtn  = document.getElementById('onboarding-next');
   var skipBtn  = document.getElementById('onboarding-skip');
-  var dots     = document.querySelectorAll('#onboarding-dots .dot');
 
   if (!overlay || !box || !nextBtn || !skipBtn) return;
+
+  // Rebuild dots to match TOUR_STEPS.length (mobile=3, desktop=4)
+  var dotsContainer = document.getElementById('onboarding-dots');
+  if (dotsContainer) {
+    dotsContainer.innerHTML = '';
+    for (var di = 0; di < TOUR_STEPS.length; di++) {
+      var dotEl = document.createElement('span');
+      dotEl.className = 'dot' + (di === 0 ? ' active' : '');
+      dotsContainer.appendChild(dotEl);
+    }
+  }
+  // Re-query dots after rebuild so the NodeList is live
+  var dots = document.querySelectorAll('#onboarding-dots .dot');
 
   var step = 0;
 
@@ -13227,6 +13579,24 @@ function replayOnboarding() {
   runTour();
 }
 
+// ── New-tab hint dismiss ──
+var NEW_TAB_HINT_KEY = 'flxify-new-tab-hint-dismissed';
+
+function dismissNewTabHint() {
+  var hint = document.getElementById('new-tab-hint');
+  if (!hint) return;
+  hint.classList.add('hidden');
+  try { localStorage.setItem(NEW_TAB_HINT_KEY, '1'); } catch(e) {}
+}
+
+function initNewTabHint() {
+  var hint = document.getElementById('new-tab-hint');
+  if (!hint) return; // not present on tool/SEO pages
+  var dismissed = false;
+  try { dismissed = localStorage.getItem(NEW_TAB_HINT_KEY) === '1'; } catch(e) {}
+  if (dismissed) hint.classList.add('hidden');
+}
+
 // ============================================================
 // 8. Event Listeners
 // ============================================================
@@ -13235,6 +13605,46 @@ document.addEventListener('keydown', function(e) {
   if ((e.metaKey || e.ctrlKey) && e.key === 'b') {
     e.preventDefault();
     togglePalette();
+  }
+
+  // Tab keyboard shortcuts (only on main app page with tab bar)
+  var tabBar = document.getElementById('tab-bar');
+  if (!tabBar) return;
+
+  // New tab: Option+B (Mac) / Alt+B (Windows)
+  var isNewTab = e.altKey && !e.metaKey && !e.ctrlKey && (e.key === 'b' || e.key === 'B' || e.key === '∫');
+  if (isNewTab) {
+    e.preventDefault();
+    TabManager.addTab();
+    renderTabBar();
+    dismissNewTabHint();
+  }
+
+  if ((e.metaKey || e.ctrlKey) && e.shiftKey) {
+    if (e.key === 'W' || e.key === 'w') {
+      // Close active tab
+      e.preventDefault();
+      if (TabManager.tabs.length > 1) {
+        TabManager.removeTab(TabManager.activeTabId);
+        renderTabBar();
+      }
+    } else if (e.key === '[') {
+      // Previous tab
+      e.preventDefault();
+      var tabs = TabManager.tabs;
+      var idx = tabs.findIndex(function(t) { return t.id === TabManager.activeTabId; });
+      var prevIdx = (idx - 1 + tabs.length) % tabs.length;
+      TabManager.switchTab(tabs[prevIdx].id);
+      renderTabBar();
+    } else if (e.key === ']') {
+      // Next tab
+      e.preventDefault();
+      var tabs = TabManager.tabs;
+      var idx = tabs.findIndex(function(t) { return t.id === TabManager.activeTabId; });
+      var nextIdx = (idx + 1) % tabs.length;
+      TabManager.switchTab(tabs[nextIdx].id);
+      renderTabBar();
+    }
   }
 });
 
@@ -13335,6 +13745,7 @@ initSidebar();
 })();
 
 initOnboarding();
+initNewTabHint();
 
 var replayBtn = document.getElementById('replay-tour-btn');
 if (replayBtn) {
@@ -13451,6 +13862,91 @@ function applyCMThemeOnReady() {
   }
 }
 applyCMThemeOnReady();
+
+// ── Tab Manager initialization (homepage only — tool pages have no #tab-bar) ──
+(function() {
+  var tabBar = document.getElementById('tab-bar');
+  if (!tabBar || window.flxifyAutoScript) return; // skip on tool pages
+
+  var addBtn = document.getElementById('tab-add-btn');
+
+  // Load persisted tabs (or migrate from legacy key)
+  TabManager.loadTabs();
+
+  // Wire the add button
+  if (addBtn) {
+    addBtn.addEventListener('click', function() {
+      TabManager.addTab();
+      renderTabBar();
+      dismissNewTabHint();
+    });
+  }
+
+  // Initialize once CM6 editor is ready
+  function initTabManager() {
+    var activeTab = TabManager.getActiveTab();
+    if (activeTab) {
+      // Load the active tab's content into the editor
+      // (The editor was initialized with savedContent from legacy key in index.html,
+      //  but TabManager may have different content from its own persistence.
+      //  We replace the editor content with the active tab's content.)
+      var cm = window.cmEditor;
+      if (cm) {
+        var currentContent = cm.state.doc.toString();
+        // Only replace if tab content differs (avoid unnecessary dispatch on first load)
+        if (activeTab.content !== currentContent) {
+          cm.dispatch({
+            changes: { from: 0, to: cm.state.doc.length, insert: activeTab.content },
+            selection: {
+              anchor: Math.min(activeTab.cursorAnchor || 0, activeTab.content.length),
+              head: Math.min(activeTab.cursorHead || 0, activeTab.content.length)
+            }
+          });
+          // Restore scroll
+          setTimeout(function() {
+            var scroller = cm.scrollDOM;
+            if (scroller) {
+              scroller.scrollTop = activeTab.scrollTop || 0;
+              scroller.scrollLeft = activeTab.scrollLeft || 0;
+            }
+          }, 0);
+        }
+      }
+    }
+    renderTabBar();
+  }
+
+  if (window.cmReady) {
+    initTabManager();
+  } else {
+    window.addEventListener('cm-ready', initTabManager);
+  }
+
+  // Periodically sync active tab content from the editor
+  // (CM6 updateListener in index.html fires saveContent; we complement it
+  //  by keeping the TabManager in sync so tab switches preserve edits.)
+  window.addEventListener('cm-ready', function() {
+    var cm = window.cmEditor;
+    if (!cm) return;
+    setInterval(function() {
+      var activeTab = TabManager.getActiveTab();
+      if (!activeTab) return;
+      var currentContent = cm.state.doc.toString();
+      if (activeTab.content !== currentContent) {
+        activeTab.content = currentContent;
+        activeTab.cursorAnchor = cm.state.selection.main.anchor;
+        activeTab.cursorHead = cm.state.selection.main.head;
+        TabManager.saveTabs();
+      }
+    }, 500);
+  });
+
+  // Save all tab state immediately before page unload
+  window.addEventListener('beforeunload', function() {
+    TabManager.snapshotCurrentTab();
+    TabManager._saveNow();
+  });
+})();
 
 // Directory search filter
 var dirSearch = document.getElementById('directory-search');

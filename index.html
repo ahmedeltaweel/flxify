@@ -49,7 +49,7 @@
   }
   </script>
 
-  <link rel="stylesheet" href="style.css?v=53aaab60">
+  <link rel="stylesheet" href="style.css?v=f47a611b">
   <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);var f=localStorage.getItem('flxify-font')||'';var s=parseInt(localStorage.getItem('flxify-font-size'),10)||14;document.documentElement.style.setProperty('--editor-font-family',f||"'SF Mono','Fira Code','Consolas','Monaco','Menlo',monospace");document.documentElement.style.setProperty('--editor-font-size',s+'px');})();</script>
 </head>
 <body>
@@ -154,9 +154,16 @@
       <div id="sidebar-content"></div>
     </div>
     <div id="editor-wrapper">
+      <div id="tab-bar" role="tablist" aria-label="Editor tabs">
+        <button id="tab-add-btn" title="New tab" aria-label="New tab">&#43;</button>
+        <div id="tab-spacer"></div>
+      </div>
       <button id="sidebar-open-tab" title="Open tools sidebar" aria-label="Open sidebar">&#8250;</button>
       <div id="editor"></div>
       <div id="editor-hint">Press <kbd id="hint-shortcut-key">Cmd+B</kbd> to open the command palette</div>
+      <div id="new-tab-hint">
+        <kbd id="new-tab-hint-key">Option+B</kbd> new tab
+      </div>
     </div>
   </div>
 
@@ -200,6 +207,7 @@
       <span class="dot active"></span>
       <span class="dot"></span>
       <span class="dot"></span>
+      <span class="dot"></span>
     </div>
   </div>
 
@@ -228,6 +236,8 @@
     // Set hint text
     document.getElementById('hint-shortcut-key').textContent = modKey + '+B';
     document.getElementById('shortcut-hint').textContent = modKey + '+B  \u00B7  Command Palette';
+    var newTabHintKey = document.getElementById('new-tab-hint-key');
+    if (newTabHintKey) newTabHintKey.textContent = isMac ? 'Option+B' : 'Alt+B';
 
     // Theme compartment for dynamic switching
     const themeConf = new Compartment();
@@ -593,6 +603,13 @@
     window.flxifyLightTheme = [lightEditorTheme, syntaxHighlighting(defaultHighlightStyle)];
     window.flxifyDarkTheme = [darkEditorTheme];
 
+    // Expose language detection utilities for tab manager (app.js)
+    window.flxifyLanguageConf = languageConf;
+    window.flxifyLanguageExtension = languageExtension;
+    window.flxifyDetectLanguageId = detectLanguageId;
+    window.flxifyGetCurrentLangId = function() { return currentLangId; };
+    window.flxifySetCurrentLangId = function(id) { currentLangId = id; };
+
     // Update hint text for mobile
     const isMobile = window.matchMedia('(max-width: 768px)').matches;
     const hintShortcut = document.getElementById('hint-shortcut-key');
@@ -711,7 +728,7 @@
       });
     }
   </script>
-  <script defer src="app.js?v=6e057257"></script>
+  <script defer src="app.js?v=42c7c484"></script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1a9bdb79-00be-4188-a436-e0fd30e81f6a"></script>
 </body>
 </html>

@@ -197,6 +197,14 @@ function main(state) {
 
 36. **Sidebar keyboard navigation — use a closure-local index, not a global.** Declare `var sidebarActiveIdx = -1` inside `initSidebar()`. `↑`/`↓` cycles `<a>` items + `scrollIntoView`, `Enter` clicks, `Esc` clears input + `renderSidebar()`. `input` event resets index to `-1` on each keystroke.
 
+37. **`Cmd/Ctrl+Shift+T` conflicts with Chrome on ALL platforms.** Chrome uses this to reopen closed tabs. The browser intercepts it before `preventDefault()` can fire. Use `Option/Alt+B` for new tab shortcut instead.
+
+38. **macOS Option key produces Unicode characters.** `Option+N` = tilde (~), `Option+B` = integral sign (∫). When handling `altKey` shortcuts on Mac, also match the produced character in `e.key` (e.g., `e.key === '∫'`).
+
+39. **`beforeunload` is essential for tab persistence.** The 500ms sync interval + 300ms debounced save can miss saves on page close. Add a `beforeunload` handler that calls `snapshotCurrentTab()` + `_saveNow()` synchronously.
+
+40. **Tab label counter must not use monotonic ID.** `nextId` persists in localStorage and grows forever even after tabs are closed. For "Untitled" labels, just use "Untitled" without numbering, or scan existing labels for the highest N.
+
 ## Development Workflow
 
 - **To modify app runtime code:** Edit the template string inside `build_app.js`, then run `node build_app.js`
@@ -256,6 +264,23 @@ Themes: `standard-light`, `standard-dark`, `cyber-neon`, `nordic-frost`, `monoka
 - Standard Light/Dark reuse existing CM6 themes; other 4 have custom `EditorView.theme()` + `HighlightStyle.define()` in `index.html`
 - CM6 imports for custom themes: `HighlightStyle` from `@codemirror/language@6`, `tags` from `@lezer/highlight@1`
 - **Persistence:** `localStorage('flxify-theme')`, default `'standard-dark'`
+
+## Multi-Tab / Workspace System
+
+The web app supports multiple editor tabs. Architecture: single CM6 instance (`window.cmEditor`) with state swapping — `TabState` stores content, cursor, scroll, and language per tab; `TabManager` swaps state in/out on tab switch.
+
+**Key files:**
+- `build_app.js` template: `TabState`, `TabManager`, `renderTabBar()`, keyboard shortcuts
+- `index.html`: `#tab-bar` element (first child of `#editor-wrapper`), 5 language-related window globals
+- `style.css`: 12 tab CSS variables per theme, flex layout for editor-wrapper
+
+**localStorage:** `flxify-tabs` key stores `{ tabs, activeTabId, nextId }`. `beforeunload` handler does synchronous save via `_saveNow()`. Migrates from legacy `flxify-editor-content` key. 20-tab cap.
+
+**Keyboard shortcuts:** `Option/Alt+B` (new tab), `Cmd/Ctrl+Shift+W` (close), `Cmd/Ctrl+Shift+[/]` (prev/next). Double-click tab label to rename.
+
+**Tool pages:** `#tab-bar` is NOT in the tool page template. Tab init skipped when `window.flxifyAutoScript` is set.
+
+**Discoverability:** Bottom-right `#new-tab-hint` shows shortcut, auto-dismissed via `flxify-new-tab-hint-dismissed` localStorage key. Onboarding tour step 3 (desktop) covers tabs.
 
 ## Agent Workflow
 
