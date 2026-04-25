@@ -1474,11 +1474,17 @@ console.log(`Generated app.js (${(output.length / 1024).toFixed(1)} KB)`);
 // ---- Cache-busting: compute content hashes and rewrite index.html ----
 const appHash = contentHash(path.join(__dirname, 'app.js'));
 const cssHash = contentHash(path.join(__dirname, 'style.css'));
-console.log(`Cache hashes — app.js: ${appHash}, style.css: ${cssHash}`);
+const buildHash = crypto.createHash('sha256').update(appHash + cssHash).digest('hex').slice(0, 8);
+console.log(`Cache hashes — app.js: ${appHash}, style.css: ${cssHash}, build: ${buildHash}`);
+
+// Write version.json for stale-page detection
+fs.writeFileSync(path.join(__dirname, 'version.json'), JSON.stringify({ v: buildHash }));
+console.log('  Generated version.json');
 
 let mainIndexHtml = fs.readFileSync(path.join(__dirname, 'index.html'), 'utf8');
 mainIndexHtml = mainIndexHtml.replace(/src="app\.js(?:\?[^"]*)?"/, `src="app.js?v=${appHash}"`);
 mainIndexHtml = mainIndexHtml.replace(/href="style\.css(?:\?[^"]*)?"/, `href="style.css?v=${cssHash}"`);
+mainIndexHtml = mainIndexHtml.replace(/data-build="[^"]*"/, `data-build="${buildHash}"`);
 fs.writeFileSync(path.join(__dirname, 'index.html'), mainIndexHtml);
 console.log('  Rewrote index.html with cache-busting hashes');
 
@@ -1679,6 +1685,7 @@ for (const entry of seoEntries) {
 
   <link rel="stylesheet" href="../../style.css">
   <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script data-build="${buildHash}">(function(){if(location.protocol==='file:')return;var b=document.querySelector('script[data-build]').getAttribute('data-build');if(!b)return;fetch('../../version.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){if(d.v!==b){if(sessionStorage.getItem('flxify-reload')===d.v)return;sessionStorage.setItem('flxify-reload',d.v);location.reload();}}).catch(function(){})})();</script>
 </head>
 <body class="tool-page">
   <div id="top-bar">
@@ -1873,6 +1880,7 @@ const directoryPage = `<!DOCTYPE html>
 
   <link rel="stylesheet" href="../style.css">
   <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script data-build="${buildHash}">(function(){if(location.protocol==='file:')return;var b=document.querySelector('script[data-build]').getAttribute('data-build');if(!b)return;fetch('../version.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){if(d.v!==b){if(sessionStorage.getItem('flxify-reload')===d.v)return;sessionStorage.setItem('flxify-reload',d.v);location.reload();}}).catch(function(){})})();</script>
 </head>
 <body class="directory-page">
   <div id="top-bar">
