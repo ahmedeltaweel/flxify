@@ -29,9 +29,9 @@
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Is the Remove Line Numbers tool free?","acceptedAnswer":{"@type":"Answer","text":"Yes, Remove Line Numbers on Flxify is completely free to use with no limits or sign-up required."}},{"@type":"Question","name":"Is my data safe when using Remove Line Numbers?","acceptedAnswer":{"@type":"Answer","text":"All processing happens in your browser. Your data never leaves your device and is never sent to any server."}},{"@type":"Question","name":"Can I use Remove Line Numbers offline?","acceptedAnswer":{"@type":"Answer","text":"After the initial page load, the tool works offline. All processing is done client-side with no server dependency."}}]}</script>
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"HowTo","name":"How to use Remove Line Numbers","step":[{"@type":"HowToStep","position":1,"text":"Open the Remove Line Numbers tool on Flxify"},{"@type":"HowToStep","position":2,"text":"Paste or type your text into the editor"},{"@type":"HowToStep","position":3,"text":"Press Cmd+B (or Ctrl+B) and select \"Remove Line Numbers\" from the command palette"},{"@type":"HowToStep","position":4,"text":"View the transformed result in the editor"},{"@type":"HowToStep","position":5,"text":"Copy the output for your use"}]}</script>
 
-  <link rel="stylesheet" href="../../style.css?v=f47a611b">
+  <link rel="stylesheet" href="../../style.css?v=5961b239">
   <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
-  <script data-build="cc0ffb50">(function(){if(location.protocol==='file:')return;var b=document.querySelector('script[data-build]').getAttribute('data-build');if(!b)return;fetch('../../version.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){if(d.v!==b){if(sessionStorage.getItem('flxify-reload')===d.v)return;sessionStorage.setItem('flxify-reload',d.v);location.reload();}}).catch(function(){})})();</script>
+  <script data-build="bef6d963">(function(){if(location.protocol==='file:')return;var b=document.querySelector('script[data-build]').getAttribute('data-build');if(!b)return;fetch('../../version.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){if(d.v!==b){if(sessionStorage.getItem('flxify-reload')===d.v)return;sessionStorage.setItem('flxify-reload',d.v);location.reload();}}).catch(function(){})})();</script>
 </head>
 <body class="tool-page">
   <div id="top-bar">
@@ -339,6 +339,43 @@
       { tag: tags.link, color: '#0066ff', textDecoration: 'underline' },
     ]);
     window.flxifyOledStealthTheme = [oledStealthEditorTheme, syntaxHighlighting(oledStealthHighlight)];
+
+    // ── Solar Flare CM6 Theme ──
+    const solarFlareEditorTheme = EditorView.theme({
+      '&': { backgroundColor: '#1a0f0a', color: '#ffb454' },
+      '.cm-gutters': { backgroundColor: '#14090a', border: 'none', paddingRight: '8px' },
+      '.cm-lineNumbers .cm-gutterElement': { color: '#5a3a26' },
+      '.cm-activeLine': { backgroundColor: 'rgba(255, 180, 84, 0.05)' },
+      '.cm-activeLineGutter': { backgroundColor: 'rgba(255, 180, 84, 0.06)' },
+      '.cm-selectionBackground': { backgroundColor: 'rgba(255, 122, 61, 0.22) !important' },
+      '&.cm-focused .cm-selectionBackground': { backgroundColor: 'rgba(255, 122, 61, 0.40) !important' },
+      '.cm-content': { caretColor: '#ff7a3d' },
+      '.cm-cursor': { borderLeftColor: '#ff7a3d' },
+      '.cm-matchingBracket': { backgroundColor: 'rgba(255, 122, 61, 0.25)', color: '#ffb454' }
+    }, { dark: true });
+    const solarFlareHighlight = HighlightStyle.define([
+      { tag: tags.keyword, color: '#ff7a3d', fontWeight: 'bold' },
+      { tag: tags.string, color: '#a8d96f' },
+      { tag: tags.number, color: '#d27aff' },
+      { tag: tags.comment, color: '#6b4423', fontStyle: 'italic' },
+      { tag: tags.propertyName, color: '#e8c170' },
+      { tag: tags.variableName, color: '#ffb454' },
+      { tag: tags.function(tags.variableName), color: '#ffd166' },
+      { tag: tags.definition(tags.variableName), color: '#ffb454' },
+      { tag: tags.typeName, color: '#ff9a5c' },
+      { tag: tags.operator, color: '#ff7a3d' },
+      { tag: tags.punctuation, color: '#d99a4a' },
+      { tag: tags.tagName, color: '#ff7a3d' },
+      { tag: tags.attributeName, color: '#e8c170' },
+      { tag: tags.attributeValue, color: '#a8d96f' },
+      { tag: tags.bool, color: '#d27aff' },
+      { tag: tags.null, color: '#6b4423' },
+      { tag: tags.regexp, color: '#a8d96f' },
+      { tag: tags.heading, color: '#ff7a3d', fontWeight: 'bold' },
+      { tag: tags.link, color: '#ff9a5c', textDecoration: 'underline' },
+      { tag: tags.invalid, color: '#ff5454' },
+    ]);
+    window.flxifySolarFlareTheme = [solarFlareEditorTheme, syntaxHighlighting(solarFlareHighlight)];
 
     // Read saved theme preference
     const savedTheme = (() => {
@@ -675,7 +712,7 @@
       });
     }
   </script>
-  <script defer src="../../app.js?v=42c7c484"></script>
+  <script defer src="../../app.js?v=8d9fb442"></script>
   <script defer src="https://cloud.umami.is/script.js" data-website-id="1a9bdb79-00be-4188-a436-e0fd30e81f6a"></script>
 </body>
 </html>

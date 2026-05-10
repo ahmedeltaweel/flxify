@@ -1246,7 +1246,8 @@ var cmThemeMap = {
   'cyber-neon': function() { return window.flxifyCyberNeonTheme; },
   'nordic-frost': function() { return window.flxifyNordicFrostTheme; },
   'monokai-pro': function() { return window.flxifyMonokaiProTheme; },
-  'oled-stealth': function() { return window.flxifyOledStealthTheme; }
+  'oled-stealth': function() { return window.flxifyOledStealthTheme; },
+  'solar-flare': function() { return window.flxifySolarFlareTheme; }
 };
 
 function applyTheme(themeKey) {
