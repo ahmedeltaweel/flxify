@@ -1,6 +1,6 @@
 # @flxify/cli
 
-A terminal-based text utility with **115 transformation scripts**, **Vim keybindings**, and a **command palette** — the same power as [flxify.dev](https://flxify.dev), right in your terminal.
+A terminal-based text utility with **119 transformation scripts**, **Vim keybindings**, and a **command palette** — the same power as [flxify.dev](https://flxify.dev), right in your terminal.
 
 [![npm version](https://img.shields.io/npm/v/@flxify/cli)](https://www.npmjs.com/package/@flxify/cli)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](../LICENSE)
@@ -21,7 +21,7 @@ flxify --theme cyber-neon      # Launch with a specific theme
 
 ## Features
 
-- **115 scripts** — JSON formatting, Base64, hashing, case conversion, sorting, JWT decode, cron explainer, regex explainer, and more
+- **119 scripts** — JSON formatting, Base64, hashing, case conversion, sorting, JWT decode, cron explainer, regex explainer, and more
 - **Command palette** (Ctrl+B) with fuzzy search across all scripts
 - **CLI subcommands** — `flxify cron "*/5 * * * *"` and `flxify regex "^[a-z]+"` for quick non-interactive explanations
 - **Vim keybindings** — Normal, Insert, Visual, and Visual-Line modes

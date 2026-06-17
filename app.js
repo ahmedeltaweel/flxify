@@ -12369,6 +12369,115 @@ function convertToPrettyMarkdownTableFormat(input) {
 });
 
 scripts.push({
+  name: "Extract Code Blocks",
+  description: "Extracts all fenced code blocks from markdown, stripping the ``` fences and joining the code",
+  author: "Flxify",
+  icon: "📋",
+  tags: "markdown,code,extract,ai,blocks,fence,backtick,join",
+  category: "Developer Utilities",
+  execute: function(require, state) {
+/**
+  {
+    "api": 1,
+    "name": "Extract Code Blocks",
+    "description": "Extracts all fenced code blocks from markdown, stripping the ``` fences and joining the code",
+    "author": "Flxify",
+    "icon": "📋",
+    "tags": "markdown,code,extract,ai,blocks,fence,backtick,join"
+  }
+**/
+
+function main(state) {
+  var text = state.text;
+  var blocks = [];
+  var regex = /```(?:[^\n`]*)?\n([\s\S]*?)```/g;
+  var match;
+  while ((match = regex.exec(text)) !== null) {
+    var content = match[1].replace(/\n$/, '');
+    if (content.trim()) blocks.push(content);
+  }
+  if (blocks.length === 0) {
+    state.postError('No fenced code blocks found');
+    return;
+  }
+  state.text = blocks.join('\n\n');
+  state.postInfo('Extracted ' + blocks.length + ' code block' + (blocks.length === 1 ? '' : 's'));
+}
+
+    if (typeof main === "function") main(state);
+  }
+});
+
+scripts.push({
+  name: "Generate Table of Contents",
+  description: "Parses markdown headings and generates a linked, indented table of contents",
+  author: "Flxify",
+  icon: "📑",
+  tags: "markdown,toc,table,contents,headings,links,generate,outline,navigation",
+  category: "Developer Utilities",
+  execute: function(require, state) {
+/**
+  {
+    "api": 1,
+    "name": "Generate Table of Contents",
+    "description": "Parses markdown headings and generates a linked, indented table of contents",
+    "author": "Flxify",
+    "icon": "📑",
+    "tags": "markdown,toc,table,contents,headings,links,generate,outline,navigation"
+  }
+**/
+
+function main(state) {
+  var text = state.text;
+  var lines = text.split('\n');
+  var toc = [];
+  var seenAnchors = {};
+
+  lines.forEach(function(line) {
+    var match = line.match(/^(#{1,6})\s+(.+)$/);
+    if (!match) return;
+    var level = match[1].length;
+    var title = match[2].trim().replace(/\*\*(.+?)\*\*/g, '$1').replace(/`(.+?)`/g, '$1');
+
+    var base = title.toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+
+    // Deduplicate anchors (GitHub style: append -1, -2 etc)
+    var anchor = base;
+    if (seenAnchors[anchor] !== undefined) {
+      seenAnchors[anchor]++;
+      anchor = base + '-' + seenAnchors[anchor];
+    } else {
+      seenAnchors[anchor] = 0;
+    }
+
+    var indent = '  '.repeat(level - 1);
+    toc.push(indent + '- [' + title + '](#' + anchor + ')');
+  });
+
+  if (toc.length === 0) {
+    state.postError('No markdown headings found');
+    return;
+  }
+
+  var tocText = '## Table of Contents\n\n' + toc.join('\n');
+
+  if (state.isSelection) {
+    state.text = tocText;
+  } else {
+    state.insert(tocText + '\n\n');
+  }
+  state.postInfo('Generated ToC with ' + toc.length + ' entries');
+}
+
+    if (typeof main === "function") main(state);
+  }
+});
+
+scripts.push({
   name: "Generate hashtag",
   description: "Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld)",
   author: "Armand Salle",
@@ -12410,6 +12519,47 @@ function main(input) {
   } catch (e) {
     input.postError(e.message);
   }
+}
+
+    if (typeof main === "function") main(state);
+  }
+});
+
+scripts.push({
+  name: "Inject Heading Anchors",
+  description: "Adds HTML anchor IDs to markdown headings for deep linking and AI navigation",
+  author: "Flxify",
+  icon: "⚓",
+  tags: "markdown,anchors,headings,ids,links,html,inject,deep link,navigation,ai",
+  category: "Developer Utilities",
+  execute: function(require, state) {
+/**
+  {
+    "api": 1,
+    "name": "Inject Heading Anchors",
+    "description": "Adds HTML anchor IDs to markdown headings for deep linking and AI navigation",
+    "author": "Flxify",
+    "icon": "⚓",
+    "tags": "markdown,anchors,headings,ids,links,html,inject,deep link,navigation,ai"
+  }
+**/
+
+function main(state) {
+  var count = 0;
+  var result = state.text.replace(/^(#{1,6}) (.+)$/gm, function(_, hashes, title) {
+    var clean = title.trim().replace(/\*\*(.+?)\*\*/g, '$1').replace(/`(.+?)`/g, '$1');
+    var id = clean.toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-')
+      .replace(/-+/g, '-')
+      .replace(/^-|-$/g, '');
+    // Skip if anchor already present
+    if (title.includes('<a id=')) return hashes + ' ' + title;
+    count++;
+    return hashes + ' <a id="' + id + '"></a>' + title.trim();
+  });
+  state.text = result;
+  state.postInfo('Injected ' + count + ' anchor' + (count === 1 ? '' : 's'));
 }
 
     if (typeof main === "function") main(state);
@@ -12571,6 +12721,75 @@ function main(state) {
 });
 
 scripts.push({
+  name: "Strip AI Fluff",
+  description: "Removes conversational filler phrases from AI responses, leaving only the technical content",
+  author: "Flxify",
+  icon: "✂️",
+  tags: "ai,strip,clean,fluff,chatgpt,claude,assistant,remove,intro,outro,filler",
+  category: "Developer Utilities",
+  execute: function(require, state) {
+/**
+  {
+    "api": 1,
+    "name": "Strip AI Fluff",
+    "description": "Removes conversational filler phrases from AI responses, leaving only the technical content",
+    "author": "Flxify",
+    "icon": "✂️",
+    "tags": "ai,strip,clean,fluff,chatgpt,claude,assistant,remove,intro,outro,filler"
+  }
+**/
+
+function main(state) {
+  var fluffPatterns = [
+    /^(sure[,!.]?\s|certainly[,!.]?\s|of course[,!.]?\s|absolutely[,!.]?\s|gladly[,!.]?\s)/i,
+    /^(here'?s?|here are|here is)\b/i,
+    /^i'?v?e?\s+(created|written|prepared|provided|put together|drafted|made)\b/i,
+    /^(let me know|feel free to|if you (have|need)|please (let me|don'?t hesitate))/i,
+    /^(i hope this (helps|is helpful|is what you|works)|hope this helps)/i,
+    /^(as requested|as you requested|as per your request|as per your instructions)/i,
+    /^(great question[!.]?|that'?s?\s+(a\s+)?(great|good|excellent|interesting) question)/i,
+    /^(you'?re welcome|happy to help|glad (I could|to) help|my pleasure)/i,
+    /^(below (is|are) (the|a|an)|the following (is|are))\b/i,
+    /^(this (script|code|function|solution|snippet|example) (will|should|does|is designed to|can))\b/i,
+    /^(note[:\s]|please note[:\s]|keep in mind[:\s])/i,
+    /^(to (summarize|recap|sum up|conclude)[,:])/i,
+    /^(in (summary|conclusion)[,:])/i,
+    /^i'?m (happy|glad|pleased) to\b/i,
+    /\b(let me know if (you|there'?s|I can))[.!]?$/i,
+    /\b(if you (have any|need any|want any|require any|need further) (questions?|help|assistance|clarification))[.!]?$/i,
+    /\b(don'?t hesitate to (ask|reach out|contact))[.!]?$/i,
+    /\b(feel free to (ask|reach out|let me know))[.!]?$/i,
+    /\b(i hope (this|that) (helps?|is helpful|works? for you|answers? your question))[.!]?$/i,
+  ];
+
+  var lines = state.text.split('\n');
+  var result = lines.filter(function(line) {
+    var trimmed = line.trim();
+    if (!trimmed) return true;
+    return !fluffPatterns.some(function(p) { return p.test(trimmed); });
+  });
+
+  // Trim leading/trailing blank lines
+  while (result.length && !result[0].trim()) result.shift();
+  while (result.length && !result[result.length - 1].trim()) result.pop();
+
+  var original = lines.filter(function(l) { return l.trim(); }).length;
+  var kept = result.filter(function(l) { return l.trim(); }).length;
+  var removed = original - kept;
+
+  state.text = result.join('\n');
+  if (removed > 0) {
+    state.postInfo('Removed ' + removed + ' fluff line' + (removed === 1 ? '' : 's'));
+  } else {
+    state.postInfo('No fluff detected');
+  }
+}
+
+    if (typeof main === "function") main(state);
+  }
+});
+
+scripts.push({
   name: "To Unicode Escaped String",
   description: "Converts text to Unicode escape sequences (\\uXXXX format)",
   author: "luisfontes19",
@@ -12700,7 +12919,7 @@ scripts.sort(function(a, b) { return a.name.localeCompare(b.name); });
 // 3b. Category Data (injected at build time)
 // ============================================================
 
-var CATEGORIES = [{"name":"All","emoji":"📁","count":115},{"name":"Text Manipulation","emoji":"✏️","count":32},{"name":"Conversion","emoji":"🔄","count":25},{"name":"Encoding","emoji":"🔐","count":11},{"name":"Extraction","emoji":"🔍","count":10},{"name":"Text Case","emoji":"Aa","count":9},{"name":"Developer Utilities","emoji":"🛠️","count":9},{"name":"Generation","emoji":"✨","count":7},{"name":"Formatting","emoji":"📄","count":4},{"name":"Hashing","emoji":"#️⃣","count":4},{"name":"Minification","emoji":"🗜️","count":4}];
+var CATEGORIES = [{"name":"All","emoji":"📁","count":119},{"name":"Text Manipulation","emoji":"✏️","count":32},{"name":"Conversion","emoji":"🔄","count":25},{"name":"Developer Utilities","emoji":"🛠️","count":13},{"name":"Encoding","emoji":"🔐","count":11},{"name":"Extraction","emoji":"🔍","count":10},{"name":"Text Case","emoji":"Aa","count":9},{"name":"Generation","emoji":"✨","count":7},{"name":"Formatting","emoji":"📄","count":4},{"name":"Hashing","emoji":"#️⃣","count":4},{"name":"Minification","emoji":"🗜️","count":4}];
 
 // ============================================================
 // 4. Toast System
@@ -12984,6 +13203,7 @@ var TabManager = {
 
 function executeScript(script) {
   var cm = window.cmEditor;
+
   var fullText = cm.state.doc.toString();
   var selFrom = cm.state.selection.main.from;
   var selTo = cm.state.selection.main.to;
@@ -13789,7 +14009,8 @@ var cmThemeMap = {
   'nordic-frost': function() { return window.flxifyNordicFrostTheme; },
   'monokai-pro': function() { return window.flxifyMonokaiProTheme; },
   'oled-stealth': function() { return window.flxifyOledStealthTheme; },
-  'solar-flare': function() { return window.flxifySolarFlareTheme; }
+  'solar-flare': function() { return window.flxifySolarFlareTheme; },
+  'neon-glass': function() { return window.flxifyNeonGlassTheme; }
 };
 
 function applyTheme(themeKey) {
@@ -13806,7 +14027,6 @@ function applyTheme(themeKey) {
       });
     }
   }
-
   // Update dropdown button label and dot
   var label = document.querySelector('.theme-label');
   var dot = document.querySelector('#theme-toggle .theme-dot');
@@ -13848,8 +14068,8 @@ if (themeToggle && themeDropdown) {
 }
 
 // Load saved theme on init
-var savedTheme = 'standard-dark';
-try { savedTheme = localStorage.getItem('flxify-theme') || 'standard-dark'; } catch(e) {}
+var savedTheme = 'neon-glass';
+try { savedTheme = localStorage.getItem('flxify-theme') || 'neon-glass'; } catch(e) {}
 document.documentElement.setAttribute('data-theme', savedTheme);
 
 // Apply CM6 theme when editor is ready

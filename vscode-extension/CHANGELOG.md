@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.9.0] - 2026-06-17
+
+### Added
+- **Extract Code Blocks** — Extracts all fenced code blocks from markdown text, stripping ``` fences and joining the code. Useful for cleaning up AI responses.
+- **Strip AI Fluff** — Removes conversational filler phrases from AI responses ("Sure, here is...", "Let me know if you need anything else!"), leaving only the technical content.
+- **Generate Table of Contents** — Parses markdown headings and auto-generates a linked, indented table of contents with GitHub-style anchors.
+- **Inject Heading Anchors** — Adds HTML anchor IDs to markdown headings for deep linking and AI navigation.
+- Total scripts now at 119
+
 ## [0.8.0] - 2026-03-22
 
 ### Added

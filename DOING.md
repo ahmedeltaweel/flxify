@@ -2,12 +2,6 @@
 
 ## Planned
 
-### Multi Editor Spaces
-
-The ability to have multiple files as spaces and switch between them.
-
-### "AI Intent" (Natural Language Operations)
-
 ### make TUI in vim and nano mode
 
 - Nano keybindings mode — prompt on first launch, switchable per session

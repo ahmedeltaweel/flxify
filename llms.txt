@@ -1,0 +1,172 @@
+# Flxify
+
+> Free online developer text utilities. 119 tools, 100% client-side. Your data never leaves your browser.
+
+Flxify is a web-based toolkit for developers. Paste text into the editor, select a tool from the command palette (Cmd+B), and get instant results. No backend, no accounts, no data collection.
+
+## Usage
+
+- Homepage: https://flxify.dev
+- All tools directory: https://flxify.dev/tools/
+- VS Code Extension: https://marketplace.visualstudio.com/items?itemName=flxify.flxify
+- CLI (npm): https://www.npmjs.com/package/@flxify/cli
+
+## Key facts
+
+- 119 tools across 8 categories
+- Works offline after first load (CodeMirror cached by browser)
+- Open source: https://github.com/ahmedeltaweel/flxify
+- Author: Ahmed El Taweel
+
+## Optional: llms-full.txt
+
+https://flxify.dev/llms-full.txt — Full tool directory with descriptions and example inputs.
+
+## Conversion
+
+- [Android Strings to iOS Localizables](https://flxify.dev/tools/android-strings-to-ios-localizables/): Converts Android strings.xml format to iOS Localizable.strings format Free online android strings to ios localizables tool. 100% client-side, your data nev...
+- [ASCII To Hex](https://flxify.dev/tools/ascii-to-hex/): Converts ASCII text to hexadecimal representation Free online ascii to hex tool. 100% client-side, your data never leaves your browser.
+- [Binary to Decimal](https://flxify.dev/tools/binary-to-decimal/): Converts binary numbers to decimal, processing each line separately Free online binary to decimal tool. 100% client-side, your data never leaves your browser.
+- [Convert to pretty markdown table](https://flxify.dev/tools/convert-to-pretty-markdown-table/): Converts CSV, TSV, or markdown tables to formatted markdown table with aligned columns Free online convert to pretty markdown table tool. 100% client-side,...
+- [CSV to JSON](https://flxify.dev/tools/csv-to-json/): Convert CSV data to JSON format online for free. Transform spreadsheet data to JSON arrays. 100% client-side processing.
+- [CSV to JSON (headerless)](https://flxify.dev/tools/csv-to-json-headerless/): Converts CSV to JSON array of arrays without using headers Free online csv to json (headerless) tool. 100% client-side, your data never leaves your browser.
+- [Decimal to Binary](https://flxify.dev/tools/decimal-to-binary/): Converts decimal numbers to binary, processing each line separately Free online decimal to binary tool. 100% client-side, your data never leaves your browser.
+- [Decimal to Hex](https://flxify.dev/tools/decimal-to-hex/): Converts decimal numbers to hexadecimal, processing each line separately Free online decimal to hex tool. 100% client-side, your data never leaves your browser.
+- [Digi to ASCII](https://flxify.dev/tools/digi-to-ascii/): Converts space or comma-separated ASCII codes to text characters Free online digi to ascii tool. 100% client-side, your data never leaves your browser.
+- [Fish PATH Hex Converter](https://flxify.dev/tools/fish-path-hex-converter/): Escapes special characters to hex for Fish shell PATH variables Free online fish path hex converter tool. 100% client-side, your data never leaves your browser.
+- [Hex To ASCII](https://flxify.dev/tools/hex-to-ascii/): Converts hexadecimal representation to ASCII text Free online hex to ascii tool. 100% client-side, your data never leaves your browser.
+- [Hex to Dec](https://flxify.dev/tools/hex-to-dec/): Converts hexadecimal numbers to decimal, processing each line separately Free online hex to dec tool. 100% client-side, your data never leaves your browser.
+- [Hex to RGB](https://flxify.dev/tools/hex-to-rgb/): Converts hex color codes to RGB format (e.g., #FF5733 to 255,87,51) Free online hex to rgb tool. 100% client-side, your data never leaves your browser.
+- [iOS Localizables to Android Strings](https://flxify.dev/tools/ios-localizables-to-android-strings/): Converts iOS Localizable.strings format to Android strings.xml format Free online ios localizables to android strings tool. 100% client-side, your data nev...
+- [JS Object to JSON](https://flxify.dev/tools/js-object-to-json/): Converts JavaScript object literals to valid JSON format Free online js object to json tool. 100% client-side, your data never leaves your browser.
+- [JS To PHP](https://flxify.dev/tools/js-to-php/): Converts JavaScript objects or arrays to PHP array syntax Free online js to php tool. 100% client-side, your data never leaves your browser.
+- [JSON to CSV](https://flxify.dev/tools/json-to-csv/): Converts JSON array of objects to CSV format with headers Free online json to csv tool. 100% client-side, your data never leaves your browser.
+- [JSON to Query String](https://flxify.dev/tools/json-to-query-string/): Converts JSON object to URL query string parameters Free online json to query string tool. 100% client-side, your data never leaves your browser.
+- [JSON to YAML](https://flxify.dev/tools/json-to-yaml/): Convert JSON to YAML format online for free. Transform JSON data to YAML for Kubernetes, Docker, and config files. Client-side processing.
+- [Query String to JSON](https://flxify.dev/tools/query-string-to-json/): Converts URL query string parameters to JSON object Free online query string to json tool. 100% client-side, your data never leaves your browser.
+- [RGB to Hex](https://flxify.dev/tools/rgb-to-hex/): Converts RGB color values to hex format (e.g., 255,87,51 to #FF5733) Free online rgb to hex tool. 100% client-side, your data never leaves your browser.
+- [TSV to JSON](https://flxify.dev/tools/tsv-to-json/): Converts tab-separated values to JSON array of objects Free online tsv to json tool. 100% client-side, your data never leaves your browser.
+- [Well-Known Binary to Text](https://flxify.dev/tools/well-known-binary-to-text/): Converts hex-encoded Well-Known Binary (WKB) to Well-Known Text (WKT) format Free online well-known binary to text tool. 100% client-side, your data never ...
+- [Well-Known Text to Binary](https://flxify.dev/tools/well-known-text-to-binary/): Converts Well-Known Text (WKT) to hex-encoded Well-Known Binary (WKB) format Free online well-known text to binary tool. 100% client-side, your data never ...
+- [YAML to JSON](https://flxify.dev/tools/yaml-to-json/): Convert YAML to JSON format online for free. Transform YAML config files to JSON data. 100% client-side processing.
+
+## Developer Utilities
+
+- [Cron to Human](https://flxify.dev/tools/cron-to-human/): Convert cron expressions to human-readable descriptions and see the next 5 scheduled run times. Free online crontab decoder. 100% client-side.
+- [Date to Timestamp](https://flxify.dev/tools/date-to-timestamp/): Converts readable date strings to Unix timestamp (seconds since epoch) Free online date to timestamp tool. 100% client-side, your data never leaves your br...
+- [Date to UTC](https://flxify.dev/tools/date-to-utc/): Converts date strings or Unix timestamps to UTC format Free online date to utc tool. 100% client-side, your data never leaves your browser.
+- [Eval Javascript](https://flxify.dev/tools/eval-javascript/): Evaluate JavaScript code online for free. Run JS expressions and see results instantly. 100% client-side execution.
+- [Explain Regex](https://flxify.dev/tools/explain-regex/): Break down any regular expression into an explained list of tokens with types and meanings. Free online regex parser. 100% client-side.
+- [Extract Code Blocks](https://flxify.dev/tools/extract-code-blocks/): Extract all fenced code blocks from markdown text, stripping the ``` fences and joining the code. Perfect for cleaning up AI responses.
+- [Generate Table of Contents](https://flxify.dev/tools/generate-table-of-contents/): Parse markdown headings and auto-generate a linked, indented table of contents. Supports #, ##, and ### headings with GitHub-style anchors.
+- [Inject Heading Anchors](https://flxify.dev/tools/inject-heading-anchors/): Add HTML anchor IDs to markdown headings for deep linking. Lets you reference specific sections when sharing docs with AI assistants.
+- [JWT Decode](https://flxify.dev/tools/jwt-decode/): Decode and inspect JWT tokens online for free. View header, payload, and signature. 100% client-side, tokens stay private.
+- [Regex Escape](https://flxify.dev/tools/regex-escape/): Escape regex special characters online for free. Prepare strings for safe use in regular expressions. 100% client-side.
+- [Strip AI Fluff](https://flxify.dev/tools/strip-ai-fluff/): Remove intro/outro filler phrases from AI responses like 'Sure, here is...' or 'Let me know if you need anything else', leaving only the technical content.
+- [Test Script](https://flxify.dev/tools/test-script/): Developer test script demonstrating syntax highlighting and features Free online test script tool. 100% client-side, your data never leaves your browser.
+- [Time to seconds](https://flxify.dev/tools/time-to-seconds/): Converts time duration (hh:mm:ss) to total seconds Free online time to seconds tool. 100% client-side, your data never leaves your browser.
+
+## Encoding
+
+- [Base64 Decode](https://flxify.dev/tools/base64-decode/): Decode Base64 encoded text online for free. Fast Base64 decoding tool. 100% client-side, your data never leaves your browser.
+- [Base64 Encode](https://flxify.dev/tools/base64-encode/): Encode text to Base64 online for free. Fast, secure Base64 encoding tool. 100% client-side, your data never leaves your browser.
+- [From string from unicode scaped](https://flxify.dev/tools/from-string-from-unicode-scaped/): Decodes Unicode escape sequences (\uXXXX) to readable text Free online from string from unicode scaped tool. 100% client-side, your data never leaves your ...
+- [HTML Decode](https://flxify.dev/tools/html-decode/): Decode HTML entities to characters online for free. Unescape HTML encoded text instantly. 100% client-side.
+- [HTML Encode](https://flxify.dev/tools/html-encode/): Encode HTML special characters to entities online for free. Escape HTML for safe display. 100% client-side.
+- [HTML Encode all characters](https://flxify.dev/tools/html-encode-all-characters/): Encodes every character to HTML numeric entities for obfuscation Free online html encode all characters tool. 100% client-side, your data never leaves your...
+- [To Unicode Escaped String](https://flxify.dev/tools/to-unicode-escaped-string/): Converts text to Unicode escape sequences (\uXXXX format) Free online to unicode escaped string tool. 100% client-side, your data never leaves your browser.
+- [URL Decode](https://flxify.dev/tools/url-decode/): URL decode percent-encoded text online for free. Decode URL-encoded strings instantly. 100% client-side processing.
+- [URL Encode](https://flxify.dev/tools/url-encode/): URL encode text online for free. Percent-encode special characters for safe URLs. 100% client-side processing.
+- [URL Entities Decode](https://flxify.dev/tools/url-entities-decode/): Decodes percent-encoded characters (e.g., %48%65%6C%6C%6F to Hello) Free online url entities decode tool. 100% client-side, your data never leaves your browser.
+- [URL Entity Encode](https://flxify.dev/tools/url-entity-encode/): Encodes every character to percent-encoded format Free online url entity encode tool. 100% client-side, your data never leaves your browser.
+
+## Extraction
+
+- [Calculate Size (Bytes)](https://flxify.dev/tools/calculate-size-bytes/): Calculates UTF-8 byte size of text and displays in bytes, KB, or MB Free online calculate size (bytes) tool. 100% client-side, your data never leaves your ...
+- [Character Frequency](https://flxify.dev/tools/character-frequency/): Count occurrences of each character in text Free online character frequency tool. 100% client-side, your data never leaves your browser.
+- [Count Characters](https://flxify.dev/tools/count-characters/): Counts the total number of characters in text Free online count characters tool. 100% client-side, your data never leaves your browser.
+- [Count Lines](https://flxify.dev/tools/count-lines/): Counts the total number of lines in text Free online count lines tool. 100% client-side, your data never leaves your browser.
+- [Count Words](https://flxify.dev/tools/count-words/): Counts the total number of words in text Free online count words tool. 100% client-side, your data never leaves your browser.
+- [Extract Emails](https://flxify.dev/tools/extract-emails/): Extracts all unique email addresses from text, one per line Free online extract emails tool. 100% client-side, your data never leaves your browser.
+- [Extract Phone Numbers](https://flxify.dev/tools/extract-phone-numbers/): Extract and list all phone numbers from any text. Supports US, UK, EU, and international formats. Free, private, runs in your browser.
+- [Extract URLs](https://flxify.dev/tools/extract-urls/): Extracts all unique HTTP/HTTPS URLs from text, one per line Free online extract urls tool. 100% client-side, your data never leaves your browser.
+- [Sum All](https://flxify.dev/tools/sum-all/): Sums all numbers in text and displays calculation with total Free online sum all tool. 100% client-side, your data never leaves your browser.
+- [Word Frequency](https://flxify.dev/tools/word-frequency/): Count occurrences of each word in text Free online word frequency tool. 100% client-side, your data never leaves your browser.
+
+## Formatting
+
+- [Format CSS](https://flxify.dev/tools/format-css/): Format and beautify CSS code online for free. Pretty-print CSS with proper indentation. 100% client-side processing.
+- [Format JSON](https://flxify.dev/tools/format-json/): Format and beautify JSON data online for free. Pretty-print JSON with proper indentation. 100% client-side, your data never leaves your browser.
+- [Format SQL](https://flxify.dev/tools/format-sql/): Format and beautify SQL queries online for free. Pretty-print SQL with proper indentation. 100% client-side processing.
+- [Format XML](https://flxify.dev/tools/format-xml/): Format and beautify XML data online for free. Pretty-print XML with proper indentation. 100% client-side processing.
+
+## Generation
+
+- [Contrasting Color](https://flxify.dev/tools/contrasting-color/): Determines best contrasting text color (black/white) for hex colors with WCAG ratios Free online contrasting color tool. 100% client-side, your data never ...
+- [Create Project Glossary Markdown File](https://flxify.dev/tools/create-project-glossary-markdown-file/): Generates a markdown glossary template with A-Z sections for project documentation Free online create project glossary markdown file tool. 100% client-side...
+- [Generate hashtag](https://flxify.dev/tools/generate-hashtag/): Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld) Free online generate hashtag tool. 100% client-side, your data never leaves your br...
+- [Lorem Ipsum](https://flxify.dev/tools/lorem-ipsum/): Generate Lorem Ipsum placeholder text online for free. Create dummy text for designs and layouts. 100% client-side.
+- [New Boop Script](https://flxify.dev/tools/new-boop-script/): Inserts a template for creating new Flxify scripts Free online new boop script tool. 100% client-side, your data never leaves your browser.
+- [ULID Generator](https://flxify.dev/tools/ulid-generator/): Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) online for free. Time-sortable, Crockford Base32 encoded. 100% client-side.
+- [UUID Generator](https://flxify.dev/tools/uuid-generator/): Generate random v4 UUIDs online for free. Create single or bulk UUIDs instantly. 100% client-side generation.
+
+## Hashing
+
+- [MD5 Checksum](https://flxify.dev/tools/md5-checksum/): Generate MD5 hash checksums online for free. Calculate MD5 digest of any text instantly. 100% client-side processing.
+- [SHA1 Hash](https://flxify.dev/tools/sha1-hash/): Generates SHA1 hash of text in hexadecimal format Free online sha1 hash tool. 100% client-side, your data never leaves your browser.
+- [SHA256 Hash](https://flxify.dev/tools/sha256-hash/): Generate SHA-256 hash online for free. Calculate secure hash digest of any text. 100% client-side processing.
+- [SHA512 Hash](https://flxify.dev/tools/sha512-hash/): Generates SHA512 hash of text in hexadecimal format Free online sha512 hash tool. 100% client-side, your data never leaves your browser.
+
+## Minification
+
+- [Minify CSS](https://flxify.dev/tools/minify-css/): Removes whitespace and comments to compress CSS Free online minify css tool. 100% client-side, your data never leaves your browser.
+- [Minify JSON](https://flxify.dev/tools/minify-json/): Minify and compress JSON data online for free. Remove whitespace and reduce file size. 100% client-side processing.
+- [Minify SQL](https://flxify.dev/tools/minify-sql/): Removes whitespace and comments to compress SQL queries Free online minify sql tool. 100% client-side, your data never leaves your browser.
+- [Minify XML](https://flxify.dev/tools/minify-xml/): Removes whitespace and comments to compress XML and HTML Free online minify xml tool. 100% client-side, your data never leaves your browser.
+
+## Text Case
+
+- [Camel Case](https://flxify.dev/tools/camel-case/): Convert text to camelCase format online for free. Transform variable names and identifiers. 100% client-side processing.
+- [Deburr](https://flxify.dev/tools/deburr/): Removes accents and diacritics, converting to basic Latin characters Free online deburr tool. 100% client-side, your data never leaves your browser.
+- [Downcase](https://flxify.dev/tools/downcase/): Converts all text to lowercase Free online downcase tool. 100% client-side, your data never leaves your browser.
+- [Kebab Case](https://flxify.dev/tools/kebab-case/): Convert text to kebab-case format online for free. Transform text for CSS classes and URL slugs. Client-side processing.
+- [Snake Case](https://flxify.dev/tools/snake-case/): Convert text to snake_case format online for free. Transform variable names for Python, Ruby, and more. Client-side.
+- [Sponge Case](https://flxify.dev/tools/sponge-case/): Randomly alternates uppercase and lowercase letters for sarcastic mocking Free online sponge case tool. 100% client-side, your data never leaves your browser.
+- [Start Case](https://flxify.dev/tools/start-case/): Converts text to Start Case, capitalizing the first letter of each word Free online start case tool. 100% client-side, your data never leaves your browser.
+- [Toggle Camel and Hyphen](https://flxify.dev/tools/toggle-camel-and-hyphen/): Toggles between camelCase and hyphen-case (kebab-case) Free online toggle camel and hyphen tool. 100% client-side, your data never leaves your browser.
+- [Upcase](https://flxify.dev/tools/upcase/): Converts all text to uppercase Free online upcase tool. 100% client-side, your data never leaves your browser.
+
+## Text Manipulation
+
+- [Add Line Numbers](https://flxify.dev/tools/add-line-numbers/): Prepends line numbers to each line with aligned spacing Free online add line numbers tool. 100% client-side, your data never leaves your browser.
+- [Add Slashes](https://flxify.dev/tools/add-slashes/): Escapes quotes, backslashes, and null characters with backslashes Free online add slashes tool. 100% client-side, your data never leaves your browser.
+- [Collapse lines](https://flxify.dev/tools/collapse-lines/): Removes all line breaks, joining text into a single line Free online collapse lines tool. 100% client-side, your data never leaves your browser.
+- [Defang](https://flxify.dev/tools/defang/): Makes URLs non-clickable by replacing dots and protocols for safe sharing Free online defang tool. 100% client-side, your data never leaves your browser.
+- [Escape Line Feeds](https://flxify.dev/tools/escape-line-feeds/): Convert actual newlines to literal \n escape sequences online for free. Turn multi-line text into single-line strings. 100% client-side.
+- [Join Lines](https://flxify.dev/tools/join-lines/): Joins all lines together with no separator or delimiter Free online join lines tool. 100% client-side, your data never leaves your browser.
+- [Join Lines With Comma](https://flxify.dev/tools/join-lines-with-comma/): Joins all lines together separated by commas Free online join lines with comma tool. 100% client-side, your data never leaves your browser.
+- [Join Lines With Space](https://flxify.dev/tools/join-lines-with-space/): Joins all lines together separated by spaces Free online join lines with space tool. 100% client-side, your data never leaves your browser.
+- [Line compare](https://flxify.dev/tools/line-compare/): Checks if all lines match the first line and reports differences Free online line compare tool. 100% client-side, your data never leaves your browser.
+- [List to HTML list](https://flxify.dev/tools/list-to-html-list/): Converts comma-separated list to HTML unordered list and vice versa Free online list to html list tool. 100% client-side, your data never leaves your browser.
+- [Markdown Quote](https://flxify.dev/tools/markdown-quote/): Prefixes each line with > to create markdown blockquotes Free online markdown quote tool. 100% client-side, your data never leaves your browser.
+- [Natural Sort Lines](https://flxify.dev/tools/natural-sort-lines/): Sorts lines alphabetically with natural number ordering (1, 2, 10 not 1, 10, 2) Free online natural sort lines tool. 100% client-side, your data never leav...
+- [PHP Unserialize](https://flxify.dev/tools/php-unserialize/): Converts PHP serialized data to JSON format Free online php unserialize tool. 100% client-side, your data never leaves your browser.
+- [Refang](https://flxify.dev/tools/refang/): Restores defanged URLs to clickable format (reverses defang operation) Free online refang tool. 100% client-side, your data never leaves your browser.
+- [Remove Duplicate Lines](https://flxify.dev/tools/remove-duplicate-lines/): Remove duplicate lines from text online for free. Deduplicate and clean up text data instantly. 100% client-side.
+- [Remove Line Numbers](https://flxify.dev/tools/remove-line-numbers/): Removes line number prefixes from each line Free online remove line numbers tool. 100% client-side, your data never leaves your browser.
+- [Remove Slashes](https://flxify.dev/tools/remove-slashes/): Removes backslash escapes from quotes and special characters Free online remove slashes tool. 100% client-side, your data never leaves your browser.
+- [Replace Smart Quotes](https://flxify.dev/tools/replace-smart-quotes/): Replaces curly/smart quotes with straight quotes Free online replace smart quotes tool. 100% client-side, your data never leaves your browser.
+- [Reverse Lines](https://flxify.dev/tools/reverse-lines/): Reverses the order of lines (last line becomes first) Free online reverse lines tool. 100% client-side, your data never leaves your browser.
+- [Reverse String](https://flxify.dev/tools/reverse-string/): Reverses character order in text (supports Unicode and emoji) Free online reverse string tool. 100% client-side, your data never leaves your browser.
+- [Rot13](https://flxify.dev/tools/rot13/): Applies ROT13 cipher, shifting letters by 13 positions (reversible) Free online rot13 tool. 100% client-side, your data never leaves your browser.
+- [Shuffle characters](https://flxify.dev/tools/shuffle-characters/): Randomly shuffles all characters in text Free online shuffle characters tool. 100% client-side, your data never leaves your browser.
+- [Shuffle Lines](https://flxify.dev/tools/shuffle-lines/): Randomly shuffles the order of lines Free online shuffle lines tool. 100% client-side, your data never leaves your browser.
+- [Sort JSON](https://flxify.dev/tools/sort-json/): Sorts JSON object keys alphabetically and array elements Free online sort json tool. 100% client-side, your data never leaves your browser.
+- [Sort lines](https://flxify.dev/tools/sort-lines/): Sort text lines alphabetically online for free. Order lines ascending or descending instantly. 100% client-side processing.
+- [Spaces to Tabs](https://flxify.dev/tools/spaces-to-tabs/): Converts leading spaces to tabs, auto-detecting 2 or 4-space indentation Free online spaces to tabs tool. 100% client-side, your data never leaves your browser.
+- [Tabs to Spaces](https://flxify.dev/tools/tabs-to-spaces/): Converts leading tabs to 2-space indentation Free online tabs to spaces tool. 100% client-side, your data never leaves your browser.
+- [Trim](https://flxify.dev/tools/trim/): Removes whitespace from the beginning and end of text Free online trim tool. 100% client-side, your data never leaves your browser.
+- [Trim End](https://flxify.dev/tools/trim-end/): Removes whitespace from the end of text Free online trim end tool. 100% client-side, your data never leaves your browser.
+- [Trim Start](https://flxify.dev/tools/trim-start/): Removes whitespace from the beginning of text Free online trim start tool. 100% client-side, your data never leaves your browser.
+- [Unescape Line Feeds](https://flxify.dev/tools/unescape-line-feeds/): Convert literal \n and \r\n escape sequences to actual newlines online for free. Turn single-line strings into multi-line text. 100% client-side.
+- [Wadsworth Constant](https://flxify.dev/tools/wadsworth-constant/): Removes first 30% of text (Wadsworth Constant: skip boring intro) Free online wadsworth constant tool. 100% client-side, your data never leaves your browser.

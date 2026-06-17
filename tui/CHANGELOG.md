@@ -1,5 +1,14 @@
 # Changelog — @flxify/cli
 
+## [1.5.0] — 2026-06-17
+
+### New Scripts
+- **Extract Code Blocks** — Extracts all fenced code blocks from markdown text, stripping ``` fences and joining the code content.
+- **Strip AI Fluff** — Removes conversational filler phrases from AI assistant responses, leaving only technical content.
+- **Generate Table of Contents** — Parses markdown headings and auto-generates a linked, indented table of contents.
+- **Inject Heading Anchors** — Adds HTML anchor IDs to markdown headings for deep linking and AI navigation.
+- Total scripts now at 119
+
 ## [1.4.0] — 2026-03-22
 
 ### New Scripts

@@ -1,3 +1,38 @@
+# flxify.dev — Developer Text Utilities
+# 115 free tools, 100% client-side
+
 User-agent: *
 Allow: /
+Disallow: /version.json
+Disallow: /manifest.json
+
+# Allow major AI/LLM crawlers to index content for better discoverability
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
 Sitemap: https://flxify.dev/sitemap.xml
+Sitemap: https://flxify.dev/llms.txt

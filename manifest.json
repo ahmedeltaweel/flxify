@@ -3,9 +3,9 @@
   "short_name": "Flxify",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#181818",
-  "theme_color": "#252526",
-  "description": "107+ free text transformation tools for developers. JSON formatter, Base64 encoder, UUID generator, and more.",
+  "background_color": "#0a0a0b",
+  "theme_color": "#bd00ff",
+  "description": "115 free text transformation tools for developers. JSON formatter, Base64 encoder, UUID generator, and more.",
   "icons": [
     {
       "src": "/icons/icon-192.png",

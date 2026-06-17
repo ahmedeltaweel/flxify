@@ -442,6 +442,7 @@ var TabManager = {
 
 function executeScript(script) {
   var cm = window.cmEditor;
+
   var fullText = cm.state.doc.toString();
   var selFrom = cm.state.selection.main.from;
   var selTo = cm.state.selection.main.to;
@@ -1247,7 +1248,8 @@ var cmThemeMap = {
   'nordic-frost': function() { return window.flxifyNordicFrostTheme; },
   'monokai-pro': function() { return window.flxifyMonokaiProTheme; },
   'oled-stealth': function() { return window.flxifyOledStealthTheme; },
-  'solar-flare': function() { return window.flxifySolarFlareTheme; }
+  'solar-flare': function() { return window.flxifySolarFlareTheme; },
+  'neon-glass': function() { return window.flxifyNeonGlassTheme; }
 };
 
 function applyTheme(themeKey) {
@@ -1264,7 +1266,6 @@ function applyTheme(themeKey) {
       });
     }
   }
-
   // Update dropdown button label and dot
   var label = document.querySelector('.theme-label');
   var dot = document.querySelector('#theme-toggle .theme-dot');
@@ -1306,8 +1307,8 @@ if (themeToggle && themeDropdown) {
 }
 
 // Load saved theme on init
-var savedTheme = 'standard-dark';
-try { savedTheme = localStorage.getItem('flxify-theme') || 'standard-dark'; } catch(e) {}
+var savedTheme = 'neon-glass';
+try { savedTheme = localStorage.getItem('flxify-theme') || 'neon-glass'; } catch(e) {}
 document.documentElement.setAttribute('data-theme', savedTheme);
 
 // Apply CM6 theme when editor is ready
@@ -1662,7 +1663,7 @@ for (const entry of seoEntries) {
   <meta name="description" content="${escHtml(entry.metaDescription)}">
   <meta name="keywords" content="${escHtml(entry.keywords.join(', '))}">
   <link rel="canonical" href="${SITE_URL}/tools/${entry.slug}/">
-  <link rel="icon" type="image/png" href="../../logo.png">
+  <link rel="icon" type="image/svg+xml" href="../../logo.svg">
   <link rel="manifest" href="../../manifest.json">
   <meta name="theme-color" content="#252526">
   <link rel="apple-touch-icon" href="../../icons/icon-192.png">
@@ -1673,25 +1674,27 @@ for (const entry of seoEntries) {
   <meta property="og:description" content="${escHtml(entry.metaDescription)}">
   <meta property="og:url" content="${SITE_URL}/tools/${entry.slug}/">
   <meta property="og:site_name" content="Flxify">
-  <meta property="og:image" content="${SITE_URL}/logo.png">
+  <meta property="og:image" content="${SITE_URL}/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
 
-  <meta name="twitter:card" content="summary">
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="${escHtml(entry.title)}">
   <meta name="twitter:description" content="${escHtml(entry.metaDescription)}">
-  <meta name="twitter:image" content="${SITE_URL}/logo.png">
+  <meta name="twitter:image" content="${SITE_URL}/og-image.png">
 
   <script type="application/ld+json">${JSON.stringify(webAppJsonLd)}</script>
   <script type="application/ld+json">${JSON.stringify(faqJsonLd)}</script>
   <script type="application/ld+json">${JSON.stringify(howToJsonLd)}</script>
 
   <link rel="stylesheet" href="../../style.css">
-  <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script>(function(){var t=localStorage.getItem('flxify-theme')||'neon-glass';document.documentElement.setAttribute('data-theme',t);})();</script>
   <script data-build="${buildHash}">(function(){if(location.protocol==='file:')return;var b=document.querySelector('script[data-build]').getAttribute('data-build');if(!b)return;fetch('../../version.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){if(d.v!==b){if(sessionStorage.getItem('flxify-reload')===d.v)return;sessionStorage.setItem('flxify-reload',d.v);location.reload();}}).catch(function(){})})();</script>
 </head>
 <body class="tool-page">
   <div id="top-bar">
     <a href="../../" class="top-bar-home">
-      <img src="../../logo.png" alt="Flxify" class="app-logo">
+      <img src="../../logo.svg" alt="Flxify" class="app-logo">
       <span class="app-title">Flxify</span>
     </a>
     <button id="mobile-menu-btn" class="mobile-menu-btn" title="Open command palette">
@@ -1727,6 +1730,12 @@ for (const entry of seoEntries) {
           </button>
           <button class="theme-option" data-theme="oled-stealth" data-label="OLED Stealth" data-dot="#0066ff">
             <span class="theme-dot" style="background:#0066ff"></span> OLED Stealth
+          </button>
+          <button class="theme-option" data-theme="solar-flare" data-label="Solar Flare" data-dot="#ff7a3d">
+            <span class="theme-dot" style="background:#ff7a3d"></span> Solar Flare
+          </button>
+          <button class="theme-option" data-theme="neon-glass" data-label="Neon Glass" data-dot="#bd00ff">
+            <span class="theme-dot" style="background:#bd00ff"></span> Neon Glass
           </button>
         </div>
       </div>
@@ -1873,20 +1882,25 @@ const directoryPage = `<!DOCTYPE html>
   <meta property="og:url" content="${SITE_URL}/tools/">
   <meta property="og:site_name" content="Flxify">
 
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="${SITE_URL}/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="All Developer Tools | Flxify">
   <meta name="twitter:description" content="${seoEntries.length}+ free text transformation tools for developers.">
+  <meta name="twitter:image" content="${SITE_URL}/og-image.png">
 
   <script type="application/ld+json">${JSON.stringify(directoryJsonLd)}</script>
 
   <link rel="stylesheet" href="../style.css">
-  <script>(function(){var t=localStorage.getItem('flxify-theme')||'standard-dark';document.documentElement.setAttribute('data-theme',t);})();</script>
+  <script>(function(){var t=localStorage.getItem('flxify-theme')||'neon-glass';document.documentElement.setAttribute('data-theme',t);})();</script>
   <script data-build="${buildHash}">(function(){if(location.protocol==='file:')return;var b=document.querySelector('script[data-build]').getAttribute('data-build');if(!b)return;fetch('../version.json',{cache:'no-store'}).then(function(r){return r.json()}).then(function(d){if(d.v!==b){if(sessionStorage.getItem('flxify-reload')===d.v)return;sessionStorage.setItem('flxify-reload',d.v);location.reload();}}).catch(function(){})})();</script>
 </head>
 <body class="directory-page">
   <div id="top-bar">
     <a href="../" class="top-bar-home">
-      <img src="../logo.png" alt="Flxify" class="app-logo">
+      <img src="../logo.svg" alt="Flxify" class="app-logo">
       <span class="app-title">Flxify</span>
     </a>
     <nav class="top-bar-nav">
@@ -1918,6 +1932,12 @@ const directoryPage = `<!DOCTYPE html>
           </button>
           <button class="theme-option" data-theme="oled-stealth" data-label="OLED Stealth" data-dot="#0066ff">
             <span class="theme-dot" style="background:#0066ff"></span> OLED Stealth
+          </button>
+          <button class="theme-option" data-theme="solar-flare" data-label="Solar Flare" data-dot="#ff7a3d">
+            <span class="theme-dot" style="background:#ff7a3d"></span> Solar Flare
+          </button>
+          <button class="theme-option" data-theme="neon-glass" data-label="Neon Glass" data-dot="#bd00ff">
+            <span class="theme-dot" style="background:#bd00ff"></span> Neon Glass
           </button>
         </div>
       </div>
@@ -1994,12 +2014,108 @@ fs.writeFileSync(path.join(__dirname, 'sitemap.xml'), sitemap, 'utf-8');
 console.log('  Generated sitemap.xml');
 
 // ---- Generate robots.txt ----
-const robotsTxt = `User-agent: *
+const robotsTxt = `# flxify.dev — Developer Text Utilities
+# 115 free tools, 100% client-side
+
+User-agent: *
 Allow: /
+Disallow: /version.json
+Disallow: /manifest.json
+
+# Allow major AI/LLM crawlers to index content for better discoverability
+User-agent: GPTBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: FacebookBot
+Allow: /
+
 Sitemap: ${SITE_URL}/sitemap.xml
+Sitemap: ${SITE_URL}/llms.txt
 `;
 fs.writeFileSync(path.join(__dirname, 'robots.txt'), robotsTxt, 'utf-8');
 console.log('  Generated robots.txt');
+
+// ---- Generate llms.txt ----
+const categories = {};
+for (const entry of seoEntries) {
+  const cat = entry.category || 'Developer Utilities';
+  if (!categories[cat]) categories[cat] = [];
+  categories[cat].push(entry);
+}
+
+const llmsCategoryBlocks = Object.entries(categories).sort(([a], [b]) => a.localeCompare(b)).map(([cat, tools]) => {
+  const lines = tools.sort((a, b) => a.name.localeCompare(b.name)).map(t =>
+    `- [${t.name}](${SITE_URL}/tools/${t.slug}/): ${t.metaDescription}`
+  ).join('\n');
+  return `## ${cat}\n\n${lines}`;
+}).join('\n\n');
+
+const llmsTxt = `# Flxify
+
+> Free online developer text utilities. ${seoEntries.length} tools, 100% client-side. Your data never leaves your browser.
+
+Flxify is a web-based toolkit for developers. Paste text into the editor, select a tool from the command palette (Cmd+B), and get instant results. No backend, no accounts, no data collection.
+
+## Usage
+
+- Homepage: ${SITE_URL}
+- All tools directory: ${SITE_URL}/tools/
+- VS Code Extension: https://marketplace.visualstudio.com/items?itemName=flxify.flxify
+- CLI (npm): https://www.npmjs.com/package/@flxify/cli
+
+## Key facts
+
+- ${seoEntries.length} tools across 8 categories
+- Works offline after first load (CodeMirror cached by browser)
+- Open source: https://github.com/ahmedeltaweel/flxify
+- Author: Ahmed El Taweel
+
+## Optional: llms-full.txt
+
+${SITE_URL}/llms-full.txt — Full tool directory with descriptions and example inputs.
+
+${llmsCategoryBlocks}
+`;
+fs.writeFileSync(path.join(__dirname, 'llms.txt'), llmsTxt, 'utf-8');
+console.log('  Generated llms.txt');
+
+// ---- Generate llms-full.txt ----
+const llmsFullBlocks = seoEntries.sort((a, b) => a.name.localeCompare(b.name)).map(t => {
+  const faqSection = t.faqs && t.faqs.length
+    ? '\n' + t.faqs.map(f => `  Q: ${f.question}\n  A: ${f.answer}`).join('\n')
+    : '';
+  return `### ${t.name}\n\nURL: ${SITE_URL}/tools/${t.slug}/\nCategory: ${t.category}\nDescription: ${t.metaDescription}\nKeywords: ${t.keywords.join(', ')}${faqSection}`;
+}).join('\n\n');
+
+const llmsFullTxt = `# Flxify — Full Tool Reference
+
+> ${seoEntries.length} free developer text utilities at ${SITE_URL}
+
+${llmsFullBlocks}
+`;
+fs.writeFileSync(path.join(__dirname, 'llms-full.txt'), llmsFullTxt, 'utf-8');
+console.log('  Generated llms-full.txt');
 
 console.log('SEO generation complete.');
 

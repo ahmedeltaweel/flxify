@@ -1,0 +1,1550 @@
+# Flxify — Full Tool Reference
+
+> 119 free developer text utilities at https://flxify.dev
+
+### Add Line Numbers
+
+URL: https://flxify.dev/tools/add-line-numbers/
+Category: Text Manipulation
+Description: Prepends line numbers to each line with aligned spacing Free online add line numbers tool. 100% client-side, your data never leaves your browser.
+Keywords: line, number, prefix, count, add
+  Q: Is the Add Line Numbers tool free?
+  A: Yes, Add Line Numbers on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Add Line Numbers?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Add Line Numbers offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Add Slashes
+
+URL: https://flxify.dev/tools/add-slashes/
+Category: Text Manipulation
+Description: Escapes quotes, backslashes, and null characters with backslashes Free online add slashes tool. 100% client-side, your data never leaves your browser.
+Keywords: add, slashes, escape
+  Q: Is the Add Slashes tool free?
+  A: Yes, Add Slashes on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Add Slashes?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Add Slashes offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Android Strings to iOS Localizables
+
+URL: https://flxify.dev/tools/android-strings-to-ios-localizables/
+Category: Conversion
+Description: Converts Android strings.xml format to iOS Localizable.strings format Free online android strings to ios localizables tool. 100% client-side, your data nev...
+Keywords: string, android, ios
+  Q: Is the Android Strings to iOS Localizables tool free?
+  A: Yes, Android Strings to iOS Localizables on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Android Strings to iOS Localizables?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Android Strings to iOS Localizables offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### ASCII To Hex
+
+URL: https://flxify.dev/tools/ascii-to-hex/
+Category: Conversion
+Description: Converts ASCII text to hexadecimal representation Free online ascii to hex tool. 100% client-side, your data never leaves your browser.
+Keywords: ascii, hex, convert
+  Q: Is the ASCII To Hex tool free?
+  A: Yes, ASCII To Hex on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using ASCII To Hex?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use ASCII To Hex offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Base64 Decode
+
+URL: https://flxify.dev/tools/base64-decode/
+Category: Encoding
+Description: Decode Base64 encoded text online for free. Fast Base64 decoding tool. 100% client-side, your data never leaves your browser.
+Keywords: base64 decode, base64 decoder, base64 to text, decode base64 online
+  Q: Is the Base64 Decode tool free?
+  A: Yes, Base64 Decode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Base64 Decode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Base64 Decode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Base64 Encode
+
+URL: https://flxify.dev/tools/base64-encode/
+Category: Encoding
+Description: Encode text to Base64 online for free. Fast, secure Base64 encoding tool. 100% client-side, your data never leaves your browser.
+Keywords: base64 encode, base64 encoder, text to base64, encode base64 online
+  Q: Is the Base64 Encode tool free?
+  A: Yes, Base64 Encode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Base64 Encode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Base64 Encode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Binary to Decimal
+
+URL: https://flxify.dev/tools/binary-to-decimal/
+Category: Conversion
+Description: Converts binary numbers to decimal, processing each line separately Free online binary to decimal tool. 100% client-side, your data never leaves your browser.
+Keywords: decimal, binary, dec, bin
+  Q: Is the Binary to Decimal tool free?
+  A: Yes, Binary to Decimal on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Binary to Decimal?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Binary to Decimal offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Calculate Size (Bytes)
+
+URL: https://flxify.dev/tools/calculate-size-bytes/
+Category: Extraction
+Description: Calculates UTF-8 byte size of text and displays in bytes, KB, or MB Free online calculate size (bytes) tool. 100% client-side, your data never leaves your ...
+Keywords: calc, size, bytes, storage
+  Q: Is the Calculate Size (Bytes) tool free?
+  A: Yes, Calculate Size (Bytes) on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Calculate Size (Bytes)?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Calculate Size (Bytes) offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Camel Case
+
+URL: https://flxify.dev/tools/camel-case/
+Category: Text Case
+Description: Convert text to camelCase format online for free. Transform variable names and identifiers. 100% client-side processing.
+Keywords: camelcase converter, convert to camelcase, camelcase online, text to camelcase
+  Q: Is the Camel Case tool free?
+  A: Yes, Camel Case on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Camel Case?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Camel Case offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Character Frequency
+
+URL: https://flxify.dev/tools/character-frequency/
+Category: Extraction
+Description: Count occurrences of each character in text Free online character frequency tool. 100% client-side, your data never leaves your browser.
+Keywords: count, character, frequency, occurrences, statistics
+  Q: Is the Character Frequency tool free?
+  A: Yes, Character Frequency on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Character Frequency?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Character Frequency offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Collapse lines
+
+URL: https://flxify.dev/tools/collapse-lines/
+Category: Text Manipulation
+Description: Removes all line breaks, joining text into a single line Free online collapse lines tool. 100% client-side, your data never leaves your browser.
+Keywords: strip, remove, collapse, join
+  Q: Is the Collapse lines tool free?
+  A: Yes, Collapse lines on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Collapse lines?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Collapse lines offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Contrasting Color
+
+URL: https://flxify.dev/tools/contrasting-color/
+Category: Generation
+Description: Determines best contrasting text color (black/white) for hex colors with WCAG ratios Free online contrasting color tool. 100% client-side, your data never ...
+Keywords: contrast, color, wcag
+  Q: Is the Contrasting Color tool free?
+  A: Yes, Contrasting Color on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Contrasting Color?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Contrasting Color offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Convert to pretty markdown table
+
+URL: https://flxify.dev/tools/convert-to-pretty-markdown-table/
+Category: Conversion
+Description: Converts CSV, TSV, or markdown tables to formatted markdown table with aligned columns Free online convert to pretty markdown table tool. 100% client-side,...
+Keywords: csv, tsv, md, markdown
+  Q: Is the Convert to pretty markdown table tool free?
+  A: Yes, Convert to pretty markdown table on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Convert to pretty markdown table?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Convert to pretty markdown table offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Count Characters
+
+URL: https://flxify.dev/tools/count-characters/
+Category: Extraction
+Description: Counts the total number of characters in text Free online count characters tool. 100% client-side, your data never leaves your browser.
+Keywords: count, length, size, character
+  Q: Is the Count Characters tool free?
+  A: Yes, Count Characters on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Count Characters?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Count Characters offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Count Lines
+
+URL: https://flxify.dev/tools/count-lines/
+Category: Extraction
+Description: Counts the total number of lines in text Free online count lines tool. 100% client-side, your data never leaves your browser.
+Keywords: count, length, size, line
+  Q: Is the Count Lines tool free?
+  A: Yes, Count Lines on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Count Lines?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Count Lines offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Count Words
+
+URL: https://flxify.dev/tools/count-words/
+Category: Extraction
+Description: Counts the total number of words in text Free online count words tool. 100% client-side, your data never leaves your browser.
+Keywords: count, length, size, words
+  Q: Is the Count Words tool free?
+  A: Yes, Count Words on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Count Words?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Count Words offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Create Project Glossary Markdown File
+
+URL: https://flxify.dev/tools/create-project-glossary-markdown-file/
+Category: Generation
+Description: Generates a markdown glossary template with A-Z sections for project documentation Free online create project glossary markdown file tool. 100% client-side...
+Keywords: markdown, glossary
+  Q: Is the Create Project Glossary Markdown File tool free?
+  A: Yes, Create Project Glossary Markdown File on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Create Project Glossary Markdown File?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Create Project Glossary Markdown File offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Cron to Human
+
+URL: https://flxify.dev/tools/cron-to-human/
+Category: Developer Utilities
+Description: Convert cron expressions to human-readable descriptions and see the next 5 scheduled run times. Free online crontab decoder. 100% client-side.
+Keywords: cron expression explainer, crontab decoder, cron to human readable, cron schedule viewer, explain cron expression, next cron run time
+  Q: Is the Cron to Human tool free?
+  A: Yes, Cron to Human on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Cron to Human?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Cron to Human offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### CSV to JSON
+
+URL: https://flxify.dev/tools/csv-to-json/
+Category: Conversion
+Description: Convert CSV data to JSON format online for free. Transform spreadsheet data to JSON arrays. 100% client-side processing.
+Keywords: csv to json, convert csv json, csv json converter, csv parser online
+  Q: Is the CSV to JSON tool free?
+  A: Yes, CSV to JSON on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using CSV to JSON?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use CSV to JSON offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### CSV to JSON (headerless)
+
+URL: https://flxify.dev/tools/csv-to-json-headerless/
+Category: Conversion
+Description: Converts CSV to JSON array of arrays without using headers Free online csv to json (headerless) tool. 100% client-side, your data never leaves your browser.
+Keywords: table, convert
+  Q: Is the CSV to JSON (headerless) tool free?
+  A: Yes, CSV to JSON (headerless) on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using CSV to JSON (headerless)?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use CSV to JSON (headerless) offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Date to Timestamp
+
+URL: https://flxify.dev/tools/date-to-timestamp/
+Category: Developer Utilities
+Description: Converts readable date strings to Unix timestamp (seconds since epoch) Free online date to timestamp tool. 100% client-side, your data never leaves your br...
+Keywords: date, time, calendar, unix, timestamp
+  Q: Is the Date to Timestamp tool free?
+  A: Yes, Date to Timestamp on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Date to Timestamp?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Date to Timestamp offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Date to UTC
+
+URL: https://flxify.dev/tools/date-to-utc/
+Category: Developer Utilities
+Description: Converts date strings or Unix timestamps to UTC format Free online date to utc tool. 100% client-side, your data never leaves your browser.
+Keywords: date, time, calendar, unix, timestamp
+  Q: Is the Date to UTC tool free?
+  A: Yes, Date to UTC on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Date to UTC?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Date to UTC offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Deburr
+
+URL: https://flxify.dev/tools/deburr/
+Category: Text Case
+Description: Removes accents and diacritics, converting to basic Latin characters Free online deburr tool. 100% client-side, your data never leaves your browser.
+Keywords: burr, special, characters, function, lodash
+  Q: Is the Deburr tool free?
+  A: Yes, Deburr on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Deburr?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Deburr offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Decimal to Binary
+
+URL: https://flxify.dev/tools/decimal-to-binary/
+Category: Conversion
+Description: Converts decimal numbers to binary, processing each line separately Free online decimal to binary tool. 100% client-side, your data never leaves your browser.
+Keywords: decimal, binary, dec, bin
+  Q: Is the Decimal to Binary tool free?
+  A: Yes, Decimal to Binary on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Decimal to Binary?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Decimal to Binary offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Decimal to Hex
+
+URL: https://flxify.dev/tools/decimal-to-hex/
+Category: Conversion
+Description: Converts decimal numbers to hexadecimal, processing each line separately Free online decimal to hex tool. 100% client-side, your data never leaves your browser.
+Keywords: decimal, hexadecimal, dec, hex
+  Q: Is the Decimal to Hex tool free?
+  A: Yes, Decimal to Hex on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Decimal to Hex?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Decimal to Hex offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Defang
+
+URL: https://flxify.dev/tools/defang/
+Category: Text Manipulation
+Description: Makes URLs non-clickable by replacing dots and protocols for safe sharing Free online defang tool. 100% client-side, your data never leaves your browser.
+Keywords: defang, url, ioc
+  Q: Is the Defang tool free?
+  A: Yes, Defang on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Defang?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Defang offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Digi to ASCII
+
+URL: https://flxify.dev/tools/digi-to-ascii/
+Category: Conversion
+Description: Converts space or comma-separated ASCII codes to text characters Free online digi to ascii tool. 100% client-side, your data never leaves your browser.
+Keywords: ascii, digi
+  Q: Is the Digi to ASCII tool free?
+  A: Yes, Digi to ASCII on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Digi to ASCII?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Digi to ASCII offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Downcase
+
+URL: https://flxify.dev/tools/downcase/
+Category: Text Case
+Description: Converts all text to lowercase Free online downcase tool. 100% client-side, your data never leaves your browser.
+Keywords: downcase, lowercase
+  Q: Is the Downcase tool free?
+  A: Yes, Downcase on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Downcase?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Downcase offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Escape Line Feeds
+
+URL: https://flxify.dev/tools/escape-line-feeds/
+Category: Text Manipulation
+Description: Convert actual newlines to literal \n escape sequences online for free. Turn multi-line text into single-line strings. 100% client-side.
+Keywords: escape newlines, newline to \n, convert newlines, line feed escape, escape line breaks
+  Q: Is the Escape Line Feeds tool free?
+  A: Yes, Escape Line Feeds on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Escape Line Feeds?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Escape Line Feeds offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Eval Javascript
+
+URL: https://flxify.dev/tools/eval-javascript/
+Category: Developer Utilities
+Description: Evaluate JavaScript code online for free. Run JS expressions and see results instantly. 100% client-side execution.
+Keywords: javascript evaluator, run javascript online, js eval, javascript runner
+  Q: Is the Eval Javascript tool free?
+  A: Yes, Eval Javascript on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Eval Javascript?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Eval Javascript offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Explain Regex
+
+URL: https://flxify.dev/tools/explain-regex/
+Category: Developer Utilities
+Description: Break down any regular expression into an explained list of tokens with types and meanings. Free online regex parser. 100% client-side.
+Keywords: regex explainer, explain regular expression, regex breakdown, regex token parser, regex analyzer, understand regex
+  Q: Is the Explain Regex tool free?
+  A: Yes, Explain Regex on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Explain Regex?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Explain Regex offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Extract Code Blocks
+
+URL: https://flxify.dev/tools/extract-code-blocks/
+Category: Developer Utilities
+Description: Extract all fenced code blocks from markdown text, stripping the ``` fences and joining the code. Perfect for cleaning up AI responses.
+Keywords: extract code blocks, markdown code, remove fences, ai response cleanup, code extraction
+  Q: Is the Extract Code Blocks tool free?
+  A: Yes, Extract Code Blocks on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Extract Code Blocks?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Extract Code Blocks offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Extract Emails
+
+URL: https://flxify.dev/tools/extract-emails/
+Category: Extraction
+Description: Extracts all unique email addresses from text, one per line Free online extract emails tool. 100% client-side, your data never leaves your browser.
+Keywords: email, extract, address, scrape
+  Q: Is the Extract Emails tool free?
+  A: Yes, Extract Emails on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Extract Emails?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Extract Emails offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Extract Phone Numbers
+
+URL: https://flxify.dev/tools/extract-phone-numbers/
+Category: Extraction
+Description: Extract and list all phone numbers from any text. Supports US, UK, EU, and international formats. Free, private, runs in your browser.
+Keywords: extract phone numbers, find phone numbers in text, phone number extractor, scrape phone numbers, US phone number regex, international phone format
+  Q: Is the Extract Phone Numbers tool free?
+  A: Yes, Extract Phone Numbers on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Extract Phone Numbers?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Extract Phone Numbers offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Extract URLs
+
+URL: https://flxify.dev/tools/extract-urls/
+Category: Extraction
+Description: Extracts all unique HTTP/HTTPS URLs from text, one per line Free online extract urls tool. 100% client-side, your data never leaves your browser.
+Keywords: url, link, extract, http, https, scrape
+  Q: Is the Extract URLs tool free?
+  A: Yes, Extract URLs on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Extract URLs?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Extract URLs offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Fish PATH Hex Converter
+
+URL: https://flxify.dev/tools/fish-path-hex-converter/
+Category: Conversion
+Description: Escapes special characters to hex for Fish shell PATH variables Free online fish path hex converter tool. 100% client-side, your data never leaves your browser.
+Keywords: fish_user_paths, fish, hex, ascii, path, var
+  Q: Is the Fish PATH Hex Converter tool free?
+  A: Yes, Fish PATH Hex Converter on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Fish PATH Hex Converter?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Fish PATH Hex Converter offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Format CSS
+
+URL: https://flxify.dev/tools/format-css/
+Category: Formatting
+Description: Format and beautify CSS code online for free. Pretty-print CSS with proper indentation. 100% client-side processing.
+Keywords: css formatter, css beautifier, format css online, css pretty print
+  Q: Is the Format CSS tool free?
+  A: Yes, Format CSS on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Format CSS?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Format CSS offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Format JSON
+
+URL: https://flxify.dev/tools/format-json/
+Category: Formatting
+Description: Format and beautify JSON data online for free. Pretty-print JSON with proper indentation. 100% client-side, your data never leaves your browser.
+Keywords: json formatter, json beautifier, json pretty print, format json online, json viewer
+  Q: Is the Format JSON tool free?
+  A: Yes, Format JSON on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Format JSON?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Format JSON offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Format SQL
+
+URL: https://flxify.dev/tools/format-sql/
+Category: Formatting
+Description: Format and beautify SQL queries online for free. Pretty-print SQL with proper indentation. 100% client-side processing.
+Keywords: sql formatter, sql beautifier, format sql online, sql pretty print
+  Q: Is the Format SQL tool free?
+  A: Yes, Format SQL on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Format SQL?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Format SQL offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Format XML
+
+URL: https://flxify.dev/tools/format-xml/
+Category: Formatting
+Description: Format and beautify XML data online for free. Pretty-print XML with proper indentation. 100% client-side processing.
+Keywords: xml formatter, xml beautifier, format xml online, xml pretty print
+  Q: Is the Format XML tool free?
+  A: Yes, Format XML on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Format XML?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Format XML offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### From string from unicode scaped
+
+URL: https://flxify.dev/tools/from-string-from-unicode-scaped/
+Category: Encoding
+Description: Decodes Unicode escape sequences (\uXXXX) to readable text Free online from string from unicode scaped tool. 100% client-side, your data never leaves your ...
+Keywords: string, normalize, convert, readable, unicode
+  Q: Is the From string from unicode scaped tool free?
+  A: Yes, From string from unicode scaped on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using From string from unicode scaped?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use From string from unicode scaped offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Generate hashtag
+
+URL: https://flxify.dev/tools/generate-hashtag/
+Category: Generation
+Description: Converts text to a PascalCase hashtag (e.g., Hello World → #HelloWorld) Free online generate hashtag tool. 100% client-side, your data never leaves your br...
+Keywords: hashtag, word
+  Q: Is the Generate hashtag tool free?
+  A: Yes, Generate hashtag on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Generate hashtag?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Generate hashtag offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Generate Table of Contents
+
+URL: https://flxify.dev/tools/generate-table-of-contents/
+Category: Developer Utilities
+Description: Parse markdown headings and auto-generate a linked, indented table of contents. Supports #, ##, and ### headings with GitHub-style anchors.
+Keywords: table of contents, markdown toc, generate toc, heading links, markdown navigation, anchor links
+  Q: Is the Generate Table of Contents tool free?
+  A: Yes, Generate Table of Contents on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Generate Table of Contents?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Generate Table of Contents offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Hex To ASCII
+
+URL: https://flxify.dev/tools/hex-to-ascii/
+Category: Conversion
+Description: Converts hexadecimal representation to ASCII text Free online hex to ascii tool. 100% client-side, your data never leaves your browser.
+Keywords: hex, ascii, convert
+  Q: Is the Hex To ASCII tool free?
+  A: Yes, Hex To ASCII on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Hex To ASCII?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Hex To ASCII offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Hex to Dec
+
+URL: https://flxify.dev/tools/hex-to-dec/
+Category: Conversion
+Description: Converts hexadecimal numbers to decimal, processing each line separately Free online hex to dec tool. 100% client-side, your data never leaves your browser.
+Keywords: decimal, hexadecimal, dec, hex
+  Q: Is the Hex to Dec tool free?
+  A: Yes, Hex to Dec on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Hex to Dec?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Hex to Dec offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Hex to RGB
+
+URL: https://flxify.dev/tools/hex-to-rgb/
+Category: Conversion
+Description: Converts hex color codes to RGB format (e.g., #FF5733 to 255,87,51) Free online hex to rgb tool. 100% client-side, your data never leaves your browser.
+Keywords: hex, color, rgb, convert
+  Q: Is the Hex to RGB tool free?
+  A: Yes, Hex to RGB on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Hex to RGB?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Hex to RGB offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### HTML Decode
+
+URL: https://flxify.dev/tools/html-decode/
+Category: Encoding
+Description: Decode HTML entities to characters online for free. Unescape HTML encoded text instantly. 100% client-side.
+Keywords: html decoder, decode html entities, unescape html, html entity decoder
+  Q: Is the HTML Decode tool free?
+  A: Yes, HTML Decode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using HTML Decode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use HTML Decode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### HTML Encode
+
+URL: https://flxify.dev/tools/html-encode/
+Category: Encoding
+Description: Encode HTML special characters to entities online for free. Escape HTML for safe display. 100% client-side.
+Keywords: html encoder, html entities, encode html, escape html online
+  Q: Is the HTML Encode tool free?
+  A: Yes, HTML Encode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using HTML Encode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use HTML Encode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### HTML Encode all characters
+
+URL: https://flxify.dev/tools/html-encode-all-characters/
+Category: Encoding
+Description: Encodes every character to HTML numeric entities for obfuscation Free online html encode all characters tool. 100% client-side, your data never leaves your...
+Keywords: html, encode, web, email
+  Q: Is the HTML Encode all characters tool free?
+  A: Yes, HTML Encode all characters on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using HTML Encode all characters?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use HTML Encode all characters offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Inject Heading Anchors
+
+URL: https://flxify.dev/tools/inject-heading-anchors/
+Category: Developer Utilities
+Description: Add HTML anchor IDs to markdown headings for deep linking. Lets you reference specific sections when sharing docs with AI assistants.
+Keywords: heading anchors, markdown anchors, html ids, deep links, section links, markdown navigation
+  Q: Is the Inject Heading Anchors tool free?
+  A: Yes, Inject Heading Anchors on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Inject Heading Anchors?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Inject Heading Anchors offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### iOS Localizables to Android Strings
+
+URL: https://flxify.dev/tools/ios-localizables-to-android-strings/
+Category: Conversion
+Description: Converts iOS Localizable.strings format to Android strings.xml format Free online ios localizables to android strings tool. 100% client-side, your data nev...
+Keywords: string, android, ios
+  Q: Is the iOS Localizables to Android Strings tool free?
+  A: Yes, iOS Localizables to Android Strings on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using iOS Localizables to Android Strings?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use iOS Localizables to Android Strings offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Join Lines
+
+URL: https://flxify.dev/tools/join-lines/
+Category: Text Manipulation
+Description: Joins all lines together with no separator or delimiter Free online join lines tool. 100% client-side, your data never leaves your browser.
+Keywords: join
+  Q: Is the Join Lines tool free?
+  A: Yes, Join Lines on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Join Lines?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Join Lines offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Join Lines With Comma
+
+URL: https://flxify.dev/tools/join-lines-with-comma/
+Category: Text Manipulation
+Description: Joins all lines together separated by commas Free online join lines with comma tool. 100% client-side, your data never leaves your browser.
+Keywords: join, comma
+  Q: Is the Join Lines With Comma tool free?
+  A: Yes, Join Lines With Comma on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Join Lines With Comma?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Join Lines With Comma offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Join Lines With Space
+
+URL: https://flxify.dev/tools/join-lines-with-space/
+Category: Text Manipulation
+Description: Joins all lines together separated by spaces Free online join lines with space tool. 100% client-side, your data never leaves your browser.
+Keywords: join, space
+  Q: Is the Join Lines With Space tool free?
+  A: Yes, Join Lines With Space on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Join Lines With Space?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Join Lines With Space offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### JS Object to JSON
+
+URL: https://flxify.dev/tools/js-object-to-json/
+Category: Conversion
+Description: Converts JavaScript object literals to valid JSON format Free online js object to json tool. 100% client-side, your data never leaves your browser.
+Keywords: json, js, object, convert
+  Q: Is the JS Object to JSON tool free?
+  A: Yes, JS Object to JSON on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using JS Object to JSON?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use JS Object to JSON offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### JS To PHP
+
+URL: https://flxify.dev/tools/js-to-php/
+Category: Conversion
+Description: Converts JavaScript objects or arrays to PHP array syntax Free online js to php tool. 100% client-side, your data never leaves your browser.
+Keywords: js, php, convert
+  Q: Is the JS To PHP tool free?
+  A: Yes, JS To PHP on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using JS To PHP?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use JS To PHP offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### JSON to CSV
+
+URL: https://flxify.dev/tools/json-to-csv/
+Category: Conversion
+Description: Converts JSON array of objects to CSV format with headers Free online json to csv tool. 100% client-side, your data never leaves your browser.
+Keywords: table, convert
+  Q: Is the JSON to CSV tool free?
+  A: Yes, JSON to CSV on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using JSON to CSV?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use JSON to CSV offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### JSON to Query String
+
+URL: https://flxify.dev/tools/json-to-query-string/
+Category: Conversion
+Description: Converts JSON object to URL query string parameters Free online json to query string tool. 100% client-side, your data never leaves your browser.
+Keywords: url, query, params, json, convert, encode
+  Q: Is the JSON to Query String tool free?
+  A: Yes, JSON to Query String on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using JSON to Query String?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use JSON to Query String offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### JSON to YAML
+
+URL: https://flxify.dev/tools/json-to-yaml/
+Category: Conversion
+Description: Convert JSON to YAML format online for free. Transform JSON data to YAML for Kubernetes, Docker, and config files. Client-side processing.
+Keywords: json to yaml, convert json yaml, json yaml converter, json to yml
+  Q: Is the JSON to YAML tool free?
+  A: Yes, JSON to YAML on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using JSON to YAML?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use JSON to YAML offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### JWT Decode
+
+URL: https://flxify.dev/tools/jwt-decode/
+Category: Developer Utilities
+Description: Decode and inspect JWT tokens online for free. View header, payload, and signature. 100% client-side, tokens stay private.
+Keywords: jwt decoder, jwt token decoder, decode jwt, json web token decoder
+  Q: Is the JWT Decode tool free?
+  A: Yes, JWT Decode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using JWT Decode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use JWT Decode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Kebab Case
+
+URL: https://flxify.dev/tools/kebab-case/
+Category: Text Case
+Description: Convert text to kebab-case format online for free. Transform text for CSS classes and URL slugs. Client-side processing.
+Keywords: kebab case converter, convert to kebab-case, kebab case online, text to kebab-case
+  Q: Is the Kebab Case tool free?
+  A: Yes, Kebab Case on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Kebab Case?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Kebab Case offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Line compare
+
+URL: https://flxify.dev/tools/line-compare/
+Category: Text Manipulation
+Description: Checks if all lines match the first line and reports differences Free online line compare tool. 100% client-side, your data never leaves your browser.
+Keywords: string, match, text, compare, line
+  Q: Is the Line compare tool free?
+  A: Yes, Line compare on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Line compare?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Line compare offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### List to HTML list
+
+URL: https://flxify.dev/tools/list-to-html-list/
+Category: Text Manipulation
+Description: Converts comma-separated list to HTML unordered list and vice versa Free online list to html list tool. 100% client-side, your data never leaves your browser.
+Keywords: HTML, Lists
+  Q: Is the List to HTML list tool free?
+  A: Yes, List to HTML list on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using List to HTML list?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use List to HTML list offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Lorem Ipsum
+
+URL: https://flxify.dev/tools/lorem-ipsum/
+Category: Generation
+Description: Generate Lorem Ipsum placeholder text online for free. Create dummy text for designs and layouts. 100% client-side.
+Keywords: lorem ipsum generator, placeholder text, dummy text generator, lorem ipsum online
+  Q: Is the Lorem Ipsum tool free?
+  A: Yes, Lorem Ipsum on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Lorem Ipsum?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Lorem Ipsum offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Markdown Quote
+
+URL: https://flxify.dev/tools/markdown-quote/
+Category: Text Manipulation
+Description: Prefixes each line with > to create markdown blockquotes Free online markdown quote tool. 100% client-side, your data never leaves your browser.
+Keywords: quote, markdown
+  Q: Is the Markdown Quote tool free?
+  A: Yes, Markdown Quote on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Markdown Quote?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Markdown Quote offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### MD5 Checksum
+
+URL: https://flxify.dev/tools/md5-checksum/
+Category: Hashing
+Description: Generate MD5 hash checksums online for free. Calculate MD5 digest of any text instantly. 100% client-side processing.
+Keywords: md5 hash, md5 generator, md5 checksum, calculate md5 online
+  Q: Is the MD5 Checksum tool free?
+  A: Yes, MD5 Checksum on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using MD5 Checksum?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use MD5 Checksum offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Minify CSS
+
+URL: https://flxify.dev/tools/minify-css/
+Category: Minification
+Description: Removes whitespace and comments to compress CSS Free online minify css tool. 100% client-side, your data never leaves your browser.
+Keywords: css, minify, clean, indent
+  Q: Is the Minify CSS tool free?
+  A: Yes, Minify CSS on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Minify CSS?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Minify CSS offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Minify JSON
+
+URL: https://flxify.dev/tools/minify-json/
+Category: Minification
+Description: Minify and compress JSON data online for free. Remove whitespace and reduce file size. 100% client-side processing.
+Keywords: json minifier, compress json, minify json online, json compressor
+  Q: Is the Minify JSON tool free?
+  A: Yes, Minify JSON on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Minify JSON?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Minify JSON offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Minify SQL
+
+URL: https://flxify.dev/tools/minify-sql/
+Category: Minification
+Description: Removes whitespace and comments to compress SQL queries Free online minify sql tool. 100% client-side, your data never leaves your browser.
+Keywords: mysql, sql, minify, clean, indent
+  Q: Is the Minify SQL tool free?
+  A: Yes, Minify SQL on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Minify SQL?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Minify SQL offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Minify XML
+
+URL: https://flxify.dev/tools/minify-xml/
+Category: Minification
+Description: Removes whitespace and comments to compress XML and HTML Free online minify xml tool. 100% client-side, your data never leaves your browser.
+Keywords: html, minify, clean, indent
+  Q: Is the Minify XML tool free?
+  A: Yes, Minify XML on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Minify XML?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Minify XML offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Natural Sort Lines
+
+URL: https://flxify.dev/tools/natural-sort-lines/
+Category: Text Manipulation
+Description: Sorts lines alphabetically with natural number ordering (1, 2, 10 not 1, 10, 2) Free online natural sort lines tool. 100% client-side, your data never leav...
+Keywords: sort, natural, natsort
+  Q: Is the Natural Sort Lines tool free?
+  A: Yes, Natural Sort Lines on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Natural Sort Lines?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Natural Sort Lines offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### New Boop Script
+
+URL: https://flxify.dev/tools/new-boop-script/
+Category: Generation
+Description: Inserts a template for creating new Flxify scripts Free online new boop script tool. 100% client-side, your data never leaves your browser.
+Keywords: boop, state, script, debug, new, create
+  Q: Is the New Boop Script tool free?
+  A: Yes, New Boop Script on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using New Boop Script?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use New Boop Script offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### PHP Unserialize
+
+URL: https://flxify.dev/tools/php-unserialize/
+Category: Text Manipulation
+Description: Converts PHP serialized data to JSON format Free online php unserialize tool. 100% client-side, your data never leaves your browser.
+Keywords: php, serialize, unserialize, json
+  Q: Is the PHP Unserialize tool free?
+  A: Yes, PHP Unserialize on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using PHP Unserialize?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use PHP Unserialize offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Query String to JSON
+
+URL: https://flxify.dev/tools/query-string-to-json/
+Category: Conversion
+Description: Converts URL query string parameters to JSON object Free online query string to json tool. 100% client-side, your data never leaves your browser.
+Keywords: url, query, params, json, convert, decode
+  Q: Is the Query String to JSON tool free?
+  A: Yes, Query String to JSON on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Query String to JSON?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Query String to JSON offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Refang
+
+URL: https://flxify.dev/tools/refang/
+Category: Text Manipulation
+Description: Restores defanged URLs to clickable format (reverses defang operation) Free online refang tool. 100% client-side, your data never leaves your browser.
+Keywords: refang, url, ioc
+  Q: Is the Refang tool free?
+  A: Yes, Refang on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Refang?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Refang offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Regex Escape
+
+URL: https://flxify.dev/tools/regex-escape/
+Category: Developer Utilities
+Description: Escape regex special characters online for free. Prepare strings for safe use in regular expressions. 100% client-side.
+Keywords: regex escape, escape regex characters, regex special characters, regexp escape online
+  Q: Is the Regex Escape tool free?
+  A: Yes, Regex Escape on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Regex Escape?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Regex Escape offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Remove Duplicate Lines
+
+URL: https://flxify.dev/tools/remove-duplicate-lines/
+Category: Text Manipulation
+Description: Remove duplicate lines from text online for free. Deduplicate and clean up text data instantly. 100% client-side.
+Keywords: remove duplicates, deduplicate lines, remove duplicate lines, unique lines
+  Q: Is the Remove Duplicate Lines tool free?
+  A: Yes, Remove Duplicate Lines on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Remove Duplicate Lines?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Remove Duplicate Lines offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Remove Line Numbers
+
+URL: https://flxify.dev/tools/remove-line-numbers/
+Category: Text Manipulation
+Description: Removes line number prefixes from each line Free online remove line numbers tool. 100% client-side, your data never leaves your browser.
+Keywords: line, number, remove, strip, clean
+  Q: Is the Remove Line Numbers tool free?
+  A: Yes, Remove Line Numbers on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Remove Line Numbers?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Remove Line Numbers offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Remove Slashes
+
+URL: https://flxify.dev/tools/remove-slashes/
+Category: Text Manipulation
+Description: Removes backslash escapes from quotes and special characters Free online remove slashes tool. 100% client-side, your data never leaves your browser.
+Keywords: strip, slashes, remove, unescape
+  Q: Is the Remove Slashes tool free?
+  A: Yes, Remove Slashes on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Remove Slashes?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Remove Slashes offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Replace Smart Quotes
+
+URL: https://flxify.dev/tools/replace-smart-quotes/
+Category: Text Manipulation
+Description: Replaces curly/smart quotes with straight quotes Free online replace smart quotes tool. 100% client-side, your data never leaves your browser.
+Keywords: smart, quotes, quotations, quotation, smart-quotes, smart-quotations
+  Q: Is the Replace Smart Quotes tool free?
+  A: Yes, Replace Smart Quotes on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Replace Smart Quotes?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Replace Smart Quotes offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Reverse Lines
+
+URL: https://flxify.dev/tools/reverse-lines/
+Category: Text Manipulation
+Description: Reverses the order of lines (last line becomes first) Free online reverse lines tool. 100% client-side, your data never leaves your browser.
+Keywords: reverse, order, invert, mirror, flip, upside, down
+  Q: Is the Reverse Lines tool free?
+  A: Yes, Reverse Lines on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Reverse Lines?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Reverse Lines offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Reverse String
+
+URL: https://flxify.dev/tools/reverse-string/
+Category: Text Manipulation
+Description: Reverses character order in text (supports Unicode and emoji) Free online reverse string tool. 100% client-side, your data never leaves your browser.
+Keywords: flip, mirror, invert
+  Q: Is the Reverse String tool free?
+  A: Yes, Reverse String on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Reverse String?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Reverse String offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### RGB to Hex
+
+URL: https://flxify.dev/tools/rgb-to-hex/
+Category: Conversion
+Description: Converts RGB color values to hex format (e.g., 255,87,51 to #FF5733) Free online rgb to hex tool. 100% client-side, your data never leaves your browser.
+Keywords: rgb, hex, convert, color
+  Q: Is the RGB to Hex tool free?
+  A: Yes, RGB to Hex on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using RGB to Hex?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use RGB to Hex offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Rot13
+
+URL: https://flxify.dev/tools/rot13/
+Category: Text Manipulation
+Description: Applies ROT13 cipher, shifting letters by 13 positions (reversible) Free online rot13 tool. 100% client-side, your data never leaves your browser.
+Keywords: spoilers, encryption, plaintext
+  Q: Is the Rot13 tool free?
+  A: Yes, Rot13 on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Rot13?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Rot13 offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### SHA1 Hash
+
+URL: https://flxify.dev/tools/sha1-hash/
+Category: Hashing
+Description: Generates SHA1 hash of text in hexadecimal format Free online sha1 hash tool. 100% client-side, your data never leaves your browser.
+Keywords: strip, slashes, remove
+  Q: Is the SHA1 Hash tool free?
+  A: Yes, SHA1 Hash on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using SHA1 Hash?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use SHA1 Hash offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### SHA256 Hash
+
+URL: https://flxify.dev/tools/sha256-hash/
+Category: Hashing
+Description: Generate SHA-256 hash online for free. Calculate secure hash digest of any text. 100% client-side processing.
+Keywords: sha256 hash, sha256 generator, sha-256 online, calculate sha256
+  Q: Is the SHA256 Hash tool free?
+  A: Yes, SHA256 Hash on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using SHA256 Hash?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use SHA256 Hash offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### SHA512 Hash
+
+URL: https://flxify.dev/tools/sha512-hash/
+Category: Hashing
+Description: Generates SHA512 hash of text in hexadecimal format Free online sha512 hash tool. 100% client-side, your data never leaves your browser.
+Keywords: strip, slashes, remove
+  Q: Is the SHA512 Hash tool free?
+  A: Yes, SHA512 Hash on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using SHA512 Hash?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use SHA512 Hash offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Shuffle characters
+
+URL: https://flxify.dev/tools/shuffle-characters/
+Category: Text Manipulation
+Description: Randomly shuffles all characters in text Free online shuffle characters tool. 100% client-side, your data never leaves your browser.
+Keywords: shuffle, random, character, char
+  Q: Is the Shuffle characters tool free?
+  A: Yes, Shuffle characters on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Shuffle characters?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Shuffle characters offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Shuffle Lines
+
+URL: https://flxify.dev/tools/shuffle-lines/
+Category: Text Manipulation
+Description: Randomly shuffles the order of lines Free online shuffle lines tool. 100% client-side, your data never leaves your browser.
+Keywords: shuffle, random
+  Q: Is the Shuffle Lines tool free?
+  A: Yes, Shuffle Lines on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Shuffle Lines?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Shuffle Lines offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Snake Case
+
+URL: https://flxify.dev/tools/snake-case/
+Category: Text Case
+Description: Convert text to snake_case format online for free. Transform variable names for Python, Ruby, and more. Client-side.
+Keywords: snake case converter, convert to snake_case, snake case online, text to snake_case
+  Q: Is the Snake Case tool free?
+  A: Yes, Snake Case on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Snake Case?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Snake Case offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Sort JSON
+
+URL: https://flxify.dev/tools/sort-json/
+Category: Text Manipulation
+Description: Sorts JSON object keys alphabetically and array elements Free online sort json tool. 100% client-side, your data never leaves your browser.
+Keywords: json, sort
+  Q: Is the Sort JSON tool free?
+  A: Yes, Sort JSON on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Sort JSON?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Sort JSON offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Sort lines
+
+URL: https://flxify.dev/tools/sort-lines/
+Category: Text Manipulation
+Description: Sort text lines alphabetically online for free. Order lines ascending or descending instantly. 100% client-side processing.
+Keywords: sort lines, sort text online, alphabetical sort, line sorter
+  Q: Is the Sort lines tool free?
+  A: Yes, Sort lines on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Sort lines?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Sort lines offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Spaces to Tabs
+
+URL: https://flxify.dev/tools/spaces-to-tabs/
+Category: Text Manipulation
+Description: Converts leading spaces to tabs, auto-detecting 2 or 4-space indentation Free online spaces to tabs tool. 100% client-side, your data never leaves your browser.
+Keywords: spaces, tabs, indent, convert, whitespace
+  Q: Is the Spaces to Tabs tool free?
+  A: Yes, Spaces to Tabs on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Spaces to Tabs?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Spaces to Tabs offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Sponge Case
+
+URL: https://flxify.dev/tools/sponge-case/
+Category: Text Case
+Description: Randomly alternates uppercase and lowercase letters for sarcastic mocking Free online sponge case tool. 100% client-side, your data never leaves your browser.
+Keywords: bob, sarcasm, no, this, is, patrick
+  Q: Is the Sponge Case tool free?
+  A: Yes, Sponge Case on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Sponge Case?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Sponge Case offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Start Case
+
+URL: https://flxify.dev/tools/start-case/
+Category: Text Case
+Description: Converts text to Start Case, capitalizing the first letter of each word Free online start case tool. 100% client-side, your data never leaves your browser.
+Keywords: start, case, function, lodash
+  Q: Is the Start Case tool free?
+  A: Yes, Start Case on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Start Case?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Start Case offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Strip AI Fluff
+
+URL: https://flxify.dev/tools/strip-ai-fluff/
+Category: Developer Utilities
+Description: Remove intro/outro filler phrases from AI responses like 'Sure, here is...' or 'Let me know if you need anything else', leaving only the technical content.
+Keywords: strip ai fluff, remove filler, ai cleanup, chatgpt response, claude response, conversational filler
+  Q: Is the Strip AI Fluff tool free?
+  A: Yes, Strip AI Fluff on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Strip AI Fluff?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Strip AI Fluff offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Sum All
+
+URL: https://flxify.dev/tools/sum-all/
+Category: Extraction
+Description: Sums all numbers in text and displays calculation with total Free online sum all tool. 100% client-side, your data never leaves your browser.
+Keywords: sum, calculator, addition, add
+  Q: Is the Sum All tool free?
+  A: Yes, Sum All on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Sum All?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Sum All offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Tabs to Spaces
+
+URL: https://flxify.dev/tools/tabs-to-spaces/
+Category: Text Manipulation
+Description: Converts leading tabs to 2-space indentation Free online tabs to spaces tool. 100% client-side, your data never leaves your browser.
+Keywords: tabs, spaces, indent, convert, whitespace
+  Q: Is the Tabs to Spaces tool free?
+  A: Yes, Tabs to Spaces on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Tabs to Spaces?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Tabs to Spaces offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Test Script
+
+URL: https://flxify.dev/tools/test-script/
+Category: Developer Utilities
+Description: Developer test script demonstrating syntax highlighting and features Free online test script tool. 100% client-side, your data never leaves your browser.
+Keywords: test, test, one, two
+  Q: Is the Test Script tool free?
+  A: Yes, Test Script on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Test Script?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Test Script offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Time to seconds
+
+URL: https://flxify.dev/tools/time-to-seconds/
+Category: Developer Utilities
+Description: Converts time duration (hh:mm:ss) to total seconds Free online time to seconds tool. 100% client-side, your data never leaves your browser.
+Keywords: transform, convert
+  Q: Is the Time to seconds tool free?
+  A: Yes, Time to seconds on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Time to seconds?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Time to seconds offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### To Unicode Escaped String
+
+URL: https://flxify.dev/tools/to-unicode-escaped-string/
+Category: Encoding
+Description: Converts text to Unicode escape sequences (\uXXXX format) Free online to unicode escaped string tool. 100% client-side, your data never leaves your browser.
+Keywords: string, unicode, convert, escape
+  Q: Is the To Unicode Escaped String tool free?
+  A: Yes, To Unicode Escaped String on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using To Unicode Escaped String?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use To Unicode Escaped String offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Toggle Camel and Hyphen
+
+URL: https://flxify.dev/tools/toggle-camel-and-hyphen/
+Category: Text Case
+Description: Toggles between camelCase and hyphen-case (kebab-case) Free online toggle camel and hyphen tool. 100% client-side, your data never leaves your browser.
+Keywords: camelcase, hyphencase, syntax, codestandards
+  Q: Is the Toggle Camel and Hyphen tool free?
+  A: Yes, Toggle Camel and Hyphen on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Toggle Camel and Hyphen?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Toggle Camel and Hyphen offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Trim
+
+URL: https://flxify.dev/tools/trim/
+Category: Text Manipulation
+Description: Removes whitespace from the beginning and end of text Free online trim tool. 100% client-side, your data never leaves your browser.
+Keywords: trim, whitespace, empty, space
+  Q: Is the Trim tool free?
+  A: Yes, Trim on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Trim?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Trim offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Trim End
+
+URL: https://flxify.dev/tools/trim-end/
+Category: Text Manipulation
+Description: Removes whitespace from the end of text Free online trim end tool. 100% client-side, your data never leaves your browser.
+Keywords: trim, end, right, trailing, whitespace, empty, space
+  Q: Is the Trim End tool free?
+  A: Yes, Trim End on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Trim End?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Trim End offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Trim Start
+
+URL: https://flxify.dev/tools/trim-start/
+Category: Text Manipulation
+Description: Removes whitespace from the beginning of text Free online trim start tool. 100% client-side, your data never leaves your browser.
+Keywords: trim, start, left, leading, beginning, whitespace, empty, space
+  Q: Is the Trim Start tool free?
+  A: Yes, Trim Start on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Trim Start?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Trim Start offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### TSV to JSON
+
+URL: https://flxify.dev/tools/tsv-to-json/
+Category: Conversion
+Description: Converts tab-separated values to JSON array of objects Free online tsv to json tool. 100% client-side, your data never leaves your browser.
+Keywords: tab, tsv, json, table
+  Q: Is the TSV to JSON tool free?
+  A: Yes, TSV to JSON on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using TSV to JSON?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use TSV to JSON offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### ULID Generator
+
+URL: https://flxify.dev/tools/ulid-generator/
+Category: Generation
+Description: Generate ULIDs (Universally Unique Lexicographically Sortable Identifiers) online for free. Time-sortable, Crockford Base32 encoded. 100% client-side.
+Keywords: ulid generator, sortable id, ulid online, generate ulid, crockford base32 id
+  Q: Is the ULID Generator tool free?
+  A: Yes, ULID Generator on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using ULID Generator?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use ULID Generator offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Unescape Line Feeds
+
+URL: https://flxify.dev/tools/unescape-line-feeds/
+Category: Text Manipulation
+Description: Convert literal \n and \r\n escape sequences to actual newlines online for free. Turn single-line strings into multi-line text. 100% client-side.
+Keywords: unescape newlines, \n to newline, convert \n, line feed unescape, unescape line breaks
+  Q: Is the Unescape Line Feeds tool free?
+  A: Yes, Unescape Line Feeds on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Unescape Line Feeds?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Unescape Line Feeds offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Upcase
+
+URL: https://flxify.dev/tools/upcase/
+Category: Text Case
+Description: Converts all text to uppercase Free online upcase tool. 100% client-side, your data never leaves your browser.
+Keywords: upcase, uppercase, capital, capitalize, capitalization
+  Q: Is the Upcase tool free?
+  A: Yes, Upcase on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Upcase?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Upcase offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### URL Decode
+
+URL: https://flxify.dev/tools/url-decode/
+Category: Encoding
+Description: URL decode percent-encoded text online for free. Decode URL-encoded strings instantly. 100% client-side processing.
+Keywords: url decoder, url decode online, percent decode, decode url
+  Q: Is the URL Decode tool free?
+  A: Yes, URL Decode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using URL Decode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use URL Decode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### URL Encode
+
+URL: https://flxify.dev/tools/url-encode/
+Category: Encoding
+Description: URL encode text online for free. Percent-encode special characters for safe URLs. 100% client-side processing.
+Keywords: url encoder, url encode online, percent encoding, encode url
+  Q: Is the URL Encode tool free?
+  A: Yes, URL Encode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using URL Encode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use URL Encode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### URL Entities Decode
+
+URL: https://flxify.dev/tools/url-entities-decode/
+Category: Encoding
+Description: Decodes percent-encoded characters (e.g., %48%65%6C%6C%6F to Hello) Free online url entities decode tool. 100% client-side, your data never leaves your browser.
+Keywords: url, decode, full
+  Q: Is the URL Entities Decode tool free?
+  A: Yes, URL Entities Decode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using URL Entities Decode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use URL Entities Decode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### URL Entity Encode
+
+URL: https://flxify.dev/tools/url-entity-encode/
+Category: Encoding
+Description: Encodes every character to percent-encoded format Free online url entity encode tool. 100% client-side, your data never leaves your browser.
+Keywords: url, encode, full
+  Q: Is the URL Entity Encode tool free?
+  A: Yes, URL Entity Encode on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using URL Entity Encode?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use URL Entity Encode offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### UUID Generator
+
+URL: https://flxify.dev/tools/uuid-generator/
+Category: Generation
+Description: Generate random v4 UUIDs online for free. Create single or bulk UUIDs instantly. 100% client-side generation.
+Keywords: uuid generator, guid generator, random uuid, uuid v4, generate uuid online
+  Q: Is the UUID Generator tool free?
+  A: Yes, UUID Generator on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using UUID Generator?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use UUID Generator offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Wadsworth Constant
+
+URL: https://flxify.dev/tools/wadsworth-constant/
+Category: Text Manipulation
+Description: Removes first 30% of text (Wadsworth Constant: skip boring intro) Free online wadsworth constant tool. 100% client-side, your data never leaves your browser.
+Keywords: snap
+  Q: Is the Wadsworth Constant tool free?
+  A: Yes, Wadsworth Constant on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Wadsworth Constant?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Wadsworth Constant offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Well-Known Binary to Text
+
+URL: https://flxify.dev/tools/well-known-binary-to-text/
+Category: Conversion
+Description: Converts hex-encoded Well-Known Binary (WKB) to Well-Known Text (WKT) format Free online well-known binary to text tool. 100% client-side, your data never ...
+Keywords: wkb, convert, wkt, binary, hex, wkb2wkt
+  Q: Is the Well-Known Binary to Text tool free?
+  A: Yes, Well-Known Binary to Text on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Well-Known Binary to Text?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Well-Known Binary to Text offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Well-Known Text to Binary
+
+URL: https://flxify.dev/tools/well-known-text-to-binary/
+Category: Conversion
+Description: Converts Well-Known Text (WKT) to hex-encoded Well-Known Binary (WKB) format Free online well-known text to binary tool. 100% client-side, your data never ...
+Keywords: wkb, convert, wkt, binary, little endian, hex, wkt2wkb
+  Q: Is the Well-Known Text to Binary tool free?
+  A: Yes, Well-Known Text to Binary on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Well-Known Text to Binary?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Well-Known Text to Binary offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### Word Frequency
+
+URL: https://flxify.dev/tools/word-frequency/
+Category: Extraction
+Description: Count occurrences of each word in text Free online word frequency tool. 100% client-side, your data never leaves your browser.
+Keywords: count, word, frequency, occurrences, statistics
+  Q: Is the Word Frequency tool free?
+  A: Yes, Word Frequency on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using Word Frequency?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use Word Frequency offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
+
+### YAML to JSON
+
+URL: https://flxify.dev/tools/yaml-to-json/
+Category: Conversion
+Description: Convert YAML to JSON format online for free. Transform YAML config files to JSON data. 100% client-side processing.
+Keywords: yaml to json, convert yaml json, yaml json converter, yml to json
+  Q: Is the YAML to JSON tool free?
+  A: Yes, YAML to JSON on Flxify is completely free to use with no limits or sign-up required.
+  Q: Is my data safe when using YAML to JSON?
+  A: All processing happens in your browser. Your data never leaves your device and is never sent to any server.
+  Q: Can I use YAML to JSON offline?
+  A: After the initial page load, the tool works offline. All processing is done client-side with no server dependency.
